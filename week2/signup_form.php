@@ -12,14 +12,7 @@
     $monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     $date = getDate();
     $year = $date["year"];
-    $links = [
-        ["name" => "Home",
-        "link" => "index.php"],
-        ["name" => "Sign Up",
-        "link" => "signup_form.php"],
-        ["name" => "About",
-        "link" => "about.php"]
-    ];
+    include("functions.php");
     ?>
     <form action="signup.php" method="post">
         Username<br>
@@ -35,7 +28,7 @@
                     echo "<option value='$a'>$a</option>";
                 }
                 ?>
-            <select>
+            </select>
         <br><br>
         Month of Birth<br>
             <select name="mob">
@@ -44,7 +37,7 @@
                     echo "<option value='$month'>$month</option>";
                 }
                 ?>
-            <select>
+            </select>
         <br><br>
         Year of Birth<br>
             <select name="yob">
@@ -53,13 +46,11 @@
                     echo "<option value='$a'>$a</option>";
                 }
                 ?>
-            <select>
+            </select>
         <br><br>
         <input id="submit" type="submit" name="submit"><br><br>
         <?php
-            foreach($links as $link){
-            echo "<a href='" . $link["link"] . "'>" . $link["name"] . "</a><br>";
-            }
+            links();
         ?>
     </form>
 </body>
