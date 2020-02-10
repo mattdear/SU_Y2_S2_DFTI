@@ -27,7 +27,6 @@
 
           while($row=$results->fetch(PDO::FETCH_ASSOC)){
           echo "<form method='post' action='changedetails2.php'>";
-          echo "<label>ID</label>";
           echo "<input type='hidden' name='id' value=" . $row["ID"] . ">";
           echo "<label>Title</label><br>";
           echo "<input name='title' value=" . $row["title"] . "><br><br>";
