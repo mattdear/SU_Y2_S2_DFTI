@@ -16,17 +16,24 @@ try{
     echo "You must enter an username.";
 
   } else {
-    
+
     if($b == ""){
 
       echo "You must enter a new password.";
 
     } else {
 
-      $conn->query("UPDATE ht_users SET password = '$b' WHERE username = '$a'");
+      $result = $conn->query("SELECT * FROM ht_users WHERE username = $a");
 
-      echo "$a password updated.";
+      if($result->rowCount() == 0) {
 
+        echo "Invalid username please check and try again";
+      } else {
+
+        $conn->query("UPDATE ht_users SET password = '$b' WHERE username = '$a'");
+
+        echo "$a password updated.";
+      }
     }
   }
 } catch(PDOException $e) {
