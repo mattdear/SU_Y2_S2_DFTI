@@ -30,6 +30,7 @@ try{
         echo " Artist " . $row["artist"] . "<br/> ";
         echo " Year " . $row["year"] . "<br/>";
         echo " Genre " . $row["genre"] . "<br/>";
+        echo "<a href='download.php?id=" . $row["ID"] . "'>Download this hit</a>";
         echo "</p>";
       }
     }
