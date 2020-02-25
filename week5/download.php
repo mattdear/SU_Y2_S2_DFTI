@@ -21,7 +21,8 @@ else
       $conn = new PDO ("mysql:host=localhost;dbname=ephp039;", "ephp039", "jahmonoh");
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      $a = $_GET["id"];
+      $a = $_POST["id"];
+      $qty = $_POST["qty"];
 
       if($a == ""){
 
@@ -55,7 +56,7 @@ else
             $price = $row["price"];
           }
 
-          $conn->query("UPDATE ht_users SET balance=balance-$price WHERE username = '$_SESSION[gatekeeper]'");
+          $conn->query("UPDATE ht_users SET balance=balance-$price*$qty WHERE username = '$_SESSION[gatekeeper]'");
 
           echo "<h3>You balance is now £" . userBalance($_SESSION["gatekeeper"]) . "</h3>";
         }
