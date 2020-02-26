@@ -24,9 +24,9 @@ else
       $a = $_POST["id"];
       $qty = $_POST["qty"];
 
-      if($a == ""){
+      if( $qty == ""){
 
-        header ("location: searchresults.php");
+        echo "No ID or Qty";
 
       } else {
 
@@ -34,14 +34,15 @@ else
         $userrow = $userresults->fetch(PDO::FETCH_ASSOC);
         $balance = $userrow["balance"];
         $results = $conn->query("SELECT * FROM wadsongs WHERE id='$a'");
+        $row=$results->fetch(PDO::FETCH_ASSOC);
 
-        if($results->rowCount() == 0 || $balance < 1){
+        if($results->rowCount() == 0 || $balance < $qty*1 || $row["qty"] < $qty){
 
-          echo "balance is to low";
+          echo "balance is to low or not enough quantity remain.";
 
         } else {
 
-          $conn->query("UPDATE wadsongs SET downloads=downloads+1 WHERE ID = '$a'");
+          $conn->query("UPDATE wadsongs SET downloads=downloads+$qty, qty=qty-$qty WHERE ID = '$a'");
 
           $results = $conn->query("SELECT * FROM wadsongs WHERE id='$a'");
           $price = 0;
@@ -56,7 +57,9 @@ else
             $price = $row["price"];
           }
 
-          $conn->query("UPDATE ht_users SET balance=balance-$price*$qty WHERE username = '$_SESSION[gatekeeper]'");
+          $totalPrice = $qty*$price;
+
+          $conn->query("UPDATE ht_users SET balance=balance-$totalPrice WHERE username = '$_SESSION[gatekeeper]'");
 
           echo "<h3>You balance is now £" . userBalance($_SESSION["gatekeeper"]) . "</h3>";
         }

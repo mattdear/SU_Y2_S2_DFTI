@@ -41,10 +41,10 @@ else
           echo "<p>Artist: " . $row["artist"] . "</p>";
           echo "<p>Quantity: " . $qty . "</p>";
           echo "<br>";
-          echo "<form action='download.php' method='POST'";
+          echo "<form action='download.php' method='post'";
           echo "<input type='hidden' name='qty' value='$qty'>";
           echo "<input type='hidden' name='id' value='$id'>";
-          echo "<input type='submit' name='submit' value='Confirm'>";
+          echo "<input type='submit' value='Confirm'>";
           echo "</form>";
         }
       }
