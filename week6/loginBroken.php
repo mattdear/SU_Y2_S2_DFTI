@@ -13,17 +13,16 @@ try{
     echo "no username or password";
 
   } else {
-      
-    $statement = $conn->prepare("SELECT * FROM ht_users WHERE username=:un AND password=:pw");
-    $statement->execute([":un"=>$un, ":pw"=>$pw]);
-    
-    if($statement->rowCount() != 1){
 
-      echo "more or less than one row";
+    $results = $conn->query("SELECT * FROM ht_users WHERE username='$un' AND password='$pw'");
+    $row = $results->fetch(PDO::FETCH_ASSOC);
+      
+    if($results->rowCount() == 0 || $results->rowCount() == 1){
+
+      echo "move or less than one row";
 
     } else {
-      $_SESSION["token"] = $token = bin2hex(random_bytes(32));    
-      $_SESSION["gatekeeper"] = $un;
+      $_SESSION["gatekeeper"] = $row["username"];
       header ("location: index.php");
 
     }

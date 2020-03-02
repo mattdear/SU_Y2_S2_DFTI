@@ -19,6 +19,7 @@ else
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
       $id = $_GET["id"];
+      $token = $_GET["token"];    
 
       if($id == ""){
 
@@ -41,6 +42,7 @@ else
         echo "<label>Quantity</label><br>";
         echo "<input type='text' name='qty'><br><br>";
         echo "<input type='hidden' name='id' value='$id'>";
+        echo "<input type='hidden' name='token' value='$token'>";
         echo "<input type='submit' value='Place Order'>";
         echo "</form>";
         }

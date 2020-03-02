@@ -23,8 +23,15 @@ else
 
       $a = $_POST["id"];
       $qty = $_POST["qty"];
+      $token = $_POST["token"];
+        
+      if($token != $_SESSION["token"]) {
+          
+          echo "Token is incorrect";
+          
+      } else {
 
-      if( $qty == ""){
+      if($qty == ""){
 
         echo "No ID or Qty";
 
@@ -63,6 +70,7 @@ else
 
           echo "<h3>You balance is now £" . userBalance($_SESSION["gatekeeper"]) . "</h3>";
         }
+      }
       }
     } catch(PDOException $e) {
         echo "Error: $e";

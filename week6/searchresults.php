@@ -40,7 +40,7 @@ else
             echo " Artist " . $row["artist"] . "<br/> ";
             echo " Year " . $row["year"] . "<br/>";
             echo " Genre " . $row["genre"] . "<br/>";
-            echo "<a href='order1.php?id=" . $row["ID"] . "'>Download this hit</a>";
+            echo "<a href='order1.php?id=" . $row["ID"] . "&token=" . $_SESSION["token"] . "'>Download this hit</a>";
             echo "</p>";
           }
         }

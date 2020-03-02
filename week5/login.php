@@ -16,7 +16,7 @@ try{
 
     $results = $conn->query("SELECT * FROM ht_users WHERE username='$un' AND password='$pw'");
 
-    if($results->rowCount() == 0 || $results->rowCount() == 2){
+    if($results->rowCount() == 0 || $results->rowCount() > 1){
 
       echo "move or less than one row";
 
