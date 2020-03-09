@@ -44,17 +44,20 @@ else
         $balance = $userrow["balance"];
         $DAO = new songDao($conn, "wadsongs");
         $currentSong = $DAO->findById($a);
-        $currentQty = $currentSong->getQuantity();
-
-        if($currentSong == null || $balance < $qty*1 || $currentQty > $qty){
+        $currentQty = $DAO->findById($a);
+        //
+        if($currentSong == null || $balance < $qty*1 || $currentQty < $qty){
 
           echo "balance is to low or not enough quantity remain.";
 
         } else {
 
+          echo "before" . $currentSong->display();
           $currentSong->download($qty);
           $currentSong->order($qty);
+          echo "after" . $currentSong->display();
           $DAO->updateSong($currentSong);
+          $currentSong = $DAO->findById($a);
 
           $price = 0;
 
