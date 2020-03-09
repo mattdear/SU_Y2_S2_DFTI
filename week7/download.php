@@ -16,19 +16,21 @@ else
     <?php
 
     include("functions.php");
+    include("songDao.php");
+
 
     try{
       $conn = new PDO ("mysql:host=localhost;dbname=ephp039;", "ephp039", "jahmonoh");
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      $a = $_POST["id"];
+      $a = (int)$_POST["id"];
       $qty = $_POST["qty"];
       $token = $_POST["token"];
-        
+
       if($token != $_SESSION["token"]) {
-          
+
           echo "Token is incorrect";
-          
+
       } else {
 
       if($qty == ""){
@@ -40,29 +42,30 @@ else
         $userresults = $conn->query("SELECT * FROM ht_users WHERE username='$_SESSION[gatekeeper]'");
         $userrow = $userresults->fetch(PDO::FETCH_ASSOC);
         $balance = $userrow["balance"];
-        $results = $conn->query("SELECT * FROM wadsongs WHERE id='$a'");
-        $row=$results->fetch(PDO::FETCH_ASSOC);
+        $DAO = new songDao($conn, "wadsongs");
+        $currentSong = $DAO->findById($a);
+        $currentQty = $currentSong->getQuantity();
 
-        if($results->rowCount() == 0 || $balance < $qty*1 || $row["qty"] < $qty){
+        if($currentSong == null || $balance < $qty*1 || $currentQty > $qty){
 
           echo "balance is to low or not enough quantity remain.";
 
         } else {
 
-          $conn->query("UPDATE wadsongs SET downloads=downloads+$qty, qty=qty-$qty WHERE ID = '$a'");
+          $currentSong->download($qty);
+          $currentSong->order($qty);
+          $DAO->updateSong($currentSong);
 
-          $results = $conn->query("SELECT * FROM wadsongs WHERE id='$a'");
           $price = 0;
-          while($row=$results->fetch(PDO::FETCH_ASSOC)){
-            echo "<p>";
-            echo " Title: ". $row["title"] ."<br/> ";
-            echo " Artist: " . $row["artist"] . "<br/> ";
-            echo " Year: " . $row["year"] . "<br/>";
-            echo " Genre: " . $row["genre"] . "<br/>";
-            echo " Total number of downloads is now: " . $row["downloads"] . "<br/>";
-            echo "</p>";
-            $price = $row["price"];
-          }
+
+          echo "<p>";
+          echo " Title: ". $currentSong->getTitle() ."<br/> ";
+          echo " Artist: " . $currentSong->getArtist() . "<br/> ";
+          echo " Year: " . $currentSong->getYear() . "<br/>";
+          echo " Total number of downloads is now: " . $currentSong->getDownloads() . "<br/>";
+          echo "</p>";
+
+          $price = 1;
 
           $totalPrice = $qty*$price;
 
