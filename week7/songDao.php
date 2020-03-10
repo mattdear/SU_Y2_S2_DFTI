@@ -14,7 +14,7 @@ class SongDao {
       $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE ID=:num");
       $stmt->execute([":num"=>$id]);
       $row = $stmt->fetch();
-      return new song($row["id"], $row["title"], $row["artist"], $row["year"], $row["qty"], $row["downloads"]);
+      return new song($row["ID"], $row["title"], $row["artist"], $row["year"], $row["qty"], $row["downloads"]);
     }
 
     public function searchByArtist($artist) {
@@ -22,7 +22,7 @@ class SongDao {
       $stmt->execute([":artist"=>$artist]);
       $songs = [];
       while($row = $stmt->fetch()) {
-        $song = new song($row["id"], $row["title"], $row["artist"], $row["year"], $row["qty"], $row["downloads"]);
+        $song = new song($row["ID"], $row["title"], $row["artist"], $row["year"], $row["qty"], $row["downloads"]);
         $songs[] = $song;
       }
       return $songs;
@@ -30,11 +30,15 @@ class SongDao {
 
     public function updateSong(Song $songObj) {
       try{
-      $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET title=:title, artist=:artist, year=:year, qty=:quantity, downloads=:downloads WHERE ID=:id");
-      $stmt->execute([":title"=>$songObj->getTitle(), ":artist"=>$songObj->getArtist(), ":year"=>$songObj->getYear(), ":quantity"=>$songObj->getQuantity(), ":downloads"=>$songObj->getDownloads(), ":id"=>$songObj->getId()]);
+       echo "from update song";
+          $songObj->display();
+      $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET title=?, artist=?, year=?, qty=?, downloads=? WHERE ID=?");
+      $stmt->execute([$songObj->getTitle(), $songObj->getArtist(), $songObj->getYear(), $songObj->getQuantity(), $songObj->getDownloads(), $songObj->getId()]);
     } catch(PDOException $e) {
         echo "Error: $e";
     }
     }
 }
 ?>
+
+// 
