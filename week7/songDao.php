@@ -27,10 +27,14 @@ class SongDao {
       }
       return $songs;
     }
-    
+
     public function updateSong(Song $songObj) {
-      $stmt = $this->conn->prepare("UPDATE " . $this->table .  " SET title=:title, artist=:artist, year=:year, qty=:quantity, downloads=:downloads WHERE ID=:id");
-      $stmt->execute([":id"=>$songObj->getId(), ":title"=>$songObj->getTitle(), ":artist"=>$songObj->getArtist(), ":year"=>$songObj->getYear(), ":quantity"=>$songObj->getQuantity(), ":downloads"=>$songObj->getDownloads()]);
+      try{
+      $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET title=:title, artist=:artist, year=:year, qty=:quantity, downloads=:downloads WHERE ID=:id");
+      $stmt->execute([":title"=>$songObj->getTitle(), ":artist"=>$songObj->getArtist(), ":year"=>$songObj->getYear(), ":quantity"=>$songObj->getQuantity(), ":downloads"=>$songObj->getDownloads(), ":id"=>$songObj->getId()]);
+    } catch(PDOException $e) {
+        echo "Error: $e";
+    }
     }
 }
 ?>
