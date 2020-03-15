@@ -30,6 +30,55 @@ class poiDTO {
       $this->name=$name;
     }
 
+    $this->type=$type;
+    function getName() {
+      return $this->name;
+    }
+
+    function setName() {
+      $this->name=$name;
+    }
+
+    function getCountry() {
+      return $this->country;
+    }
+
+    function setCountry($country) {
+      $this->country=$country;
+    }
+
+    function getRegion() {
+      return $this->region;
+    }
+
+    function setRegion($region) {
+      $this->region=$region;
+    }
+
+    function getDescription() {
+      return $this->description;
+    }
+
+    function setDescription($description) {
+      $this->description=$description;
+    }
+
+    function getRecommended() {
+      return $this->recommended;
+    }
+
+    function setRecommended($recommended) {
+      $this->recommended=$recommended;
+    }
+
+    function getUsername() {
+      return $this->username;
+    }
+
+    function setUsername($username) {
+      $this->username=$username;
+    }
+
     function display() {
         echo $this->id . " " . $this->title . " " . $this->artist . " " . $this->year . " " . $this->quantity . " " . $this->downloads . "<br />";
     }
