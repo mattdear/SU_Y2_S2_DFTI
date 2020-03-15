@@ -1,87 +1,107 @@
 <?php
-class poiDTO {
+
+class poiDTO
+{
 
     private $id, $name, $type, $country, $region, $description, $recommended, $username;
 
-    function __construct($id, $name, $type, $country, $region, $description, $recommended, $username) {
-      $this->id=$id;
-      $this->name=$name;
-      $this->type=$type;
-      $this->country=$country;
-      $this->region=$region;
-      $this->description=$description;
-      $this->recommended=$recommended;
-      $this->username=$username;
+    public function __construct($id, $name, $type, $country, $region, $description, $recommended, $username)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->type = $type;
+        $this->country = $country;
+        $this->region = $region;
+        $this->description = $description;
+        $this->recommended = $recommended;
+        $this->username = $username;
     }
 
-    function getId() {
-      return $this->id;
+    public function getId()
+    {
+        return $this->id;
     }
 
-    function setId($id) {
-      $this->id=$id;
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
-    function getName() {
-      return $this->name;
+    public function getName()
+    {
+        return $this->name;
     }
 
-    function setName() {
-      $this->name=$name;
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
-    $this->type=$type;
-    function getName() {
-      return $this->name;
+    public function getType()
+    {
+        return $this->type;
     }
 
-    function setName() {
-      $this->name=$name;
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 
-    function getCountry() {
-      return $this->country;
+    public function getCountry()
+    {
+        return $this->country;
     }
 
-    function setCountry($country) {
-      $this->country=$country;
+    public function setCountry($country)
+    {
+        $this->country = $country;
     }
 
-    function getRegion() {
-      return $this->region;
+    public function getRegion()
+    {
+        return $this->region;
     }
 
-    function setRegion($region) {
-      $this->region=$region;
+    public function setRegion($region)
+    {
+        $this->region = $region;
     }
 
-    function getDescription() {
-      return $this->description;
+    public function getDescription()
+    {
+        return $this->description;
     }
 
-    function setDescription($description) {
-      $this->description=$description;
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 
-    function getRecommended() {
-      return $this->recommended;
+    public function getRecommended()
+    {
+        return $this->recommended;
     }
 
-    function setRecommended($recommended) {
-      $this->recommended=$recommended;
+    public function setRecommended($recommended)
+    {
+        $this->recommended = $recommended;
     }
 
-    function getUsername() {
-      return $this->username;
+    public function getUsername()
+    {
+        return $this->username;
     }
 
-    function setUsername($username) {
-      $this->username=$username;
+    public function setUsername($username)
+    {
+        $this->username = $username;
     }
 
-    function display() {
-        echo $this->id . " " . $this->title . " " . $this->artist . " " . $this->year . " " . $this->quantity . " " . $this->downloads . "<br />";
+    function display()
+    {
+        echo $this->id . " " . $this->name . " " . $this->type . " " . $this->country . " " . $this->region . " " . $this->description . " " . $this->recommended . " " . $this->username . "<br />";
     }
 
 }
+
 ?>

@@ -1,30 +1,63 @@
 <?php
-class poiDTO {
 
-    private $id, $name, $type, $country, $region, $description, $recommended, $username;
+class usersDTO
+{
 
-    function __construct($id, $name, $type, $country, $region, $description, $recommended, $username) {
-      $this->id=$id;
-      $this->name=$name;
-      $this->type=$type;
-      $this->country=$country;
-      $this->region=$region;
-      $this->description=$description;
-      $this->recommended=$recommended;
-      $this->username=$username;
+    private $id, $username, $password, $isadmin;
+
+    public function __construct($id, $username, $password, $isadmin)
+    {
+        $this->id = $id;
+        $this->username = $username;
+        $this->password = $password;
+        $this->isadmin = $isadmin;
     }
 
-    function getId() {
-      return $this->id;
+    public function getId()
+    {
+        return $this->id;
     }
 
-    function setId($id) {
-      $this->id=$id;
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
-    function display() {
-        echo $this->id . " " . $this->title . " " . $this->artist . " " . $this->year . " " . $this->quantity . " " . $this->downloads . "<br />";
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function getIsadmin()
+    {
+        return $this->isadmin;
+    }
+
+    public function setIsadmin($isadmin)
+    {
+        $this->isadmin = $isadmin;
+    }
+
+    function display()
+    {
+        echo $this->id . " " . $this->username . " " . $this->password . " " . $this->isadmin . "<br />";
     }
 
 }
+
 ?>
