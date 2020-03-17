@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0077)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=lecture1.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./intro_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>Intro to the Unit; Clients, Servers and HTTP</h1></div><hr><p>Page 1</p><h1></h1>
+<h1 class="subtitle">Developing for the Internet</h1>
+<h2 class="subtitle">Nick Whitelegg</h2>
+<h3 class="subtitle">JM506</h3>
+<h3 class="subtitle">Lab sessions jointly with Darren Cunningham</h3>
+<hr><p>Page 2</p><h1>
+Developing for the Internet - What's it all about?
+</h1>
+<ul>
+<li>Taking it beyond simple, static HTML web pages</li>
+<li>... to interactive, dynamic websites which
+<em>interact</em> with the user</li>
+</ul>
+<hr><p>Page 3</p><h1>
+What are dynamic websites? 
+</h1>
+<ul>
+<li>Any site involving <em>two-way interactivity</em> with the user</li>
+<li>Web pages are generated dynamically, in response to user input</li>
+<li>For example, on a flight booking site, the list of flights to the user's
+chosen destination will depend on the destination the user input</li>
+<li>Pages are written in <em>server side scripting technologies</em> such as
+<em>PHP</em>, <em>Node.js</em>, or <em>ASP.NET</em>
+</li>
+<li>Other examples:
+    <ul>
+    <li>Online stores</li>
+    <li>Online banking</li>
+    <li>Social networking</li>
+    <li>Basically any site these days!</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 4</p><h1>Summary of content</h1>
+<ul>
+<li>Clients, Servers and HTTP</li>
+<li>Intro to PHP</li>
+<li>PHP Language Features (e.g. functions, arrays)</li>
+<li>Linking Web Applications with SQL Databases</li>
+<li>Multi-page dynamic websites</li>
+<li>Maintaining State: Sessions</li>
+<li>Security Issues - SQL Injection, Cross-site Scripting</li>
+<li>Object-Oriented PHP</li>
+<li>The Slim Framework</li>
+<li>Introduction to AJAX</li>
+<li>Introduction to Web Services and JSON</li>
+</ul>
+<hr><p>Page 5</p><h1>How the unit will be taught</h1>
+<ul>
+<li>One topic per week</li>
+<li>Lectures (1 hour a week introducing the topic)</li>
+<li>Three-hour lab sessions (break between second and third hours)
+	<ul>
+	<li>First two hours myself, third hour Darren Cunningham</li>
+	</ul>
+</li>
+</ul>
+<hr><p>Page 6</p><h1>Unit assessment</h1>
+<ul>
+<li>Coursework (50%) - "Assessment 2"
+    <ul>
+    <li>To design and develop a dynamic website</li>
+    <li>Available already, on SOL and this website</li>
+    <li>Due at end of week 11 (April 3rd)</li> 
+    </ul>
+</li>
+<li>Time Constrained Assessment (50%) - "Assessment 1"
+    <ul>
+    <li>Complete a partly-finished web application in an exam environment</li>
+    <li>You will be allowed access to your notes, the lecture notes, and assignment work</li>
+    <li>Two hours</li>
+    <li>Will take place during <strong>week of April 27th</strong>, 
+	during your normal lab session (to be advised)</li>
+	<li>Each tutor group will have their own separate TCA</li>
+	<li>Mock TCA the week before (week of April 20th)</li>
+    </ul>
+</li>
+<li>The numbering of the two assessments is for historical reasons</li>
+</ul>
+<hr><p>Page 7</p><h1>Clients, Servers and HTTP</h1>
+<ul>
+<li>Websites are stored on a <em>remote</em> machine
+	<ul>
+	<li>e.g. Twitter is stored on Twitter's machines</li>
+	</ul>
+</li>
+<li>When we type an address into the web browser, we <em>download</em> (fetch)
+a web page from that remote machine</li>
+<li>How exactly does this happen...?
+<ul>
+<li>The web browser <em>communicates</em> with the website</li>
+<li>The website then sends back a web page</li>
+<li>This is an example of a <em>client-server system</em></li>
+</ul>
+</li>
+</ul>
+<hr><p>Page 8</p><h1>What is a client/server system?</h1>
+<ul>
+<li>Two pieces of software which communicate with each other across a 
+network</li> 
+<li>The <em>client</em> software makes a <em>request</em> to the 
+<em>server</em> software...</li>
+<li>... which then answers with a <em>response</em></li>
+<li>Server software need to run <em>continuously</em> in order to accept 
+requests from clients at any time</li>
+</ul>
+<hr><p>Page 9</p><h1>Downloading a web page as a client/server system</h1>
+<ul>
+<li>The browser on your PC is the client
+	<ul>
+	<li>By typing in an address, you are making a <em>request</em> for a
+	webpage </li>
+	</ul>
+</li>
+<li>Special software running on the website's computer is the server
+	<ul>
+	<li>It is <em>listening</em> to requests from users and, as a 
+	<em>response</em>, delivering the appropriate web page</li>
+	</ul>
+</li>
+<li>Thus the remote computer which delivers the web pages is referred to as a
+<strong>web server</strong> computer</li>
+</ul>
+<hr><p>Page 10</p><h1>Clients and servers</h1>
+<img src="./intro_files/clientserver1.png" alt="A client/server system">
+<hr><p>Page 11</p><h1>Hypertext Transfer Protocol: HTTP</h1>
+<ul>
+<li>A set of instructions for sending messages across a network </li> 
+<li>The way in which your browser and the website communicate with each
+other</li>
+<li>Your browser sends the website an <em>HTTP request</em> for a web page</li>
+<li>The website then responds with an <em>HTTP response</em> containing your
+web page</li>
+</ul>
+<hr><p>Page 12</p><h1>The HTTP Request: Asking the Website for a Web Page</h1>
+<ul>
+<li>User enters the address in their browser e.g.
+<pre>http://www.hittastic.com/about.html</pre></li>
+<li>Browser generates an <em>HTTP request</em>
+	<ul>
+	<li>This is an instruction to the web server to send back the requested
+	page</li>
+	<li>It is in a format that the web server understands</li>
+	</ul>
+</li>
+<li>Example of an HTTP request:
+<pre>GET /about.html HTTP/1.1
+Host: www.hittastic.com</pre>
+</li>
+<li>HTTP request is then sent to the website's computer</li>
+</ul>
+<hr><p>Page 13</p><h1>How the website interprets the request</h1>
+<ul>
+<li>The website's computer has <em>server software</em> continuously 
+running on it</li>
+<li>This listens to HTTP requests for a given page from
+clients</li>
+<li>...and delivers the appropriate page back as an 
+<em>HTTP response</em></li>
+<li>If server software was not running on the website, the website would not
+function</li>
+</ul>
+<hr><p>Page 14</p><h1>Examples of server software</h1>
+<ul>
+<li><strong>Apache</strong>: free, open source, cross platform</li>
+<li><strong>Nginx</strong>: another free, open source server</li>
+<li><strong>Microsoft Internet Information Services (IIS)</strong>: 
+available for Windows only (comes with certain versions of Windows)</li>
+</ul>
+<hr><p>Page 15</p><h1>Server software</h1>
+<img src="./intro_files/clientserver2.png" alt="The role of web server software">
+<hr><p>Page 16</p><h1>Web Server Software and HTTP</h1>
+<ul>
+<li>The web server software <em>interprets</em> ("reads")
+the HTTP request from the client (the browser)</li>
+<li>... and sends the requested page (or image, video, etc)
+back as an <em>HTTP response</em> </li>
+</ul> 
+<hr><p>Page 17</p><h1>Web server software and HTTP</h1>
+<img src="./intro_files/http.png" alt="Web server software and HTTP">
+<hr><p>Page 18</p><h1>An HTTP response</h1>
+<pre>HTTP/1.1 200 OK
+Date: 
+Content-Type: text/html
+Content-Length: 4444
+
+&lt;!DOCTYPE ... &gt;
+&lt;html&gt;
+&lt;head&gt;
+...
+&lt;/head&gt;
+&lt;body&gt;
+...
+&lt;/body&gt;
+&lt;/html&gt; </pre>
+<hr><p>Page 19</p><h1>What is an HTTP response?</h1>
+<ul>
+<li>The response consists of three parts:
+	<ul>
+	<li>A <em>status code</em> (200 OK)</li>
+	<li>A <em>header</em>, consisting of information about the response</li>
+	<li>The <em>content</em> (the web page itself)</li>
+	</ul>
+</li>
+</ul>
+<hr><p>Page 20</p><h1>HTTP Response Part 1: Status Code</h1>
+<pre>HTTP/1.1 200 OK</pre>
+<ul>
+<li>Status codes indicate to the client whether the request was successful</li>
+<li><em>200 OK</em> indicates that the request was successful</li>
+<li>Others include:
+	<ul>
+	<li><em>404 Not Found</em> - the requested page was not on the server;
+	</li>
+	<li><em>500 Internal Server Error</em> - the web server software encountered
+	some sort of internal error</li>
+	<li><em>401 Unauthorized</em> - you tried to request a web page which you do not
+	have the rights to view</li>
+	</ul>
+</li>
+<li>If the response contains an error code, the browser can act appropriately
+</li>
+</ul>
+<hr><p>Page 21</p><h1>HTTP Response Part 2: The header</h1>
+<pre>Date: Fri, 31 Dec 1999 23:59:59 GMT
+Content-Type: text/html
+Content-Length: 4444</pre>
+<ul>
+<li>The header consists of <em>information about the response</em>, including:
+	<ul>
+	<li>The <em>MIME type</em> (content-type) - 
+	what sort of content is being sent
+	back (HTML, image, PDF file, etc)</li>
+	<li>The <em>content length</em> - length of the content</li>
+	<li>The <em>date</em></li>
+	</ul>
+</li>
+<li>The client's browser <em>uses the contents of the header</em> to determine
+<em>how to display the content</em>
+</li>
+</ul>
+<hr><p>Page 22</p><h1>Example MIME types</h1>
+<ul>
+<li>Example MIME types:
+<ul>
+<li><em>text/html</em> - the server is sending back an HTML page</li>
+<li><em>image/jpeg</em> - the server is sending back a JPEG image</li>
+</ul>
+</li>
+<li>The client's browser <em>uses the MIME type</em> (and content length)
+to determine <em>how to display the content</em>:
+	<ul>
+	<li>i.e. to ensure that HTML is displayed as HTML, while images are
+	displayed as images</li>
+	</ul>
+</li>
+</ul>
+<hr><p>Page 23</p><h1>Client and server software over the web</h1>
+<img src="./intro_files/clientserver3.png" alt="Client and server software over the web">
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./intro_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture1.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture1.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture1.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture1.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>

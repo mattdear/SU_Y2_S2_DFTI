@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0077)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=lecture4.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./multi-page php applications_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>Introduction to multi-page PHP applications; Functions</h1></div><hr><p>Page 1</p><h1>Introduction to Multi-Page PHP applications; Functions</h1>
+<ul>
+<li>GET requests and query strings</li>
+<li>Hidden form fields</li>
+<li>GET vs POST requests</li>
+<li>Functions</li>
+</ul>
+<hr><p>Page 2</p><h1>Query Strings</h1>
+<ul>
+<li>We've already looked at sending information to a PHP script using an HTML
+<em>form</em></li>
+<li>You may have noticed that the form data is added onto the end of the URL
+when the form is submitted</li>
+<li>e.g.
+<pre>http://server/searchresults.php?<em>artist=Oasis</em></pre>
+</li>
+<li>This information is called a <em>query string</em></li>
+<li>In this example, we are sending a piece of information called <em>artist</em> to the PHP script 
+<em>searchresults.php</em>, which has the value <em>Oasis</em>
+</li>
+<li>You could actually run the script directly (without going through the form) by manually adding the query string onto the URL yourself</li>
+<li>Query strings can be described as <em>name-value pairs</em>: the piece of information
+has a <em>name</em>, artist, and a <em>value</em>, Oasis
+    <ul>
+    <li>The general form of a URL containing a query string is:
+    <pre>http://server/script.php<em>?name=value</em></pre>
+    </li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 3</p><h1>Query Strings without Forms</h1>
+<ul>
+<li>Query strings can be useful in web applications even when forms are not involved</li>
+<li>Imagine a typical search results page, in which the user is searching for
+films</li>
+<li>Each search result has a "Book" link, which links to a "book.php" script to allow the user
+to book that film</li>
+<li>The "book" script would book the film using an UPDATE statement to reduce the number of tickets</li>
+<li>It needs to know which film we're buying, so we need to pass the ID of the film through</li>
+<li>This is done by adding the ID of the film to the URL of "book.php" as a query string</li>
+<li><em>To do this, we need to write out the query string dynamically from PHP, so that it contains the ID
+of the film from the database</em></li>
+</ul>
+<hr><p>Page 4</p><h1>Maintaining State</h1>
+<ul>
+<li>The previous scenario is an example of the more general concept of <em>maintaining state</em></li>
+<li>Maintaining state is the concept of preserving information from page to page</li>
+<li>In the previous example, the ID of the film was passed from the search results script to
+the book script</li>
+</ul>
+<hr><p>Page 5</p><h1>Reading information from a query string</h1>
+<ul>
+<li>Use <em>$_GET</em> with the query string variable name to read the query string value in</li>
+<li>For example, for this query string:
+<pre>&lt;a href="lecture.php?<em>week=11</em>"&gt;</pre>
+you would read in the query string variable <em>week</em> with <em>$_GET["week"]</em>, e.g.:
+<pre>$w = $_GET["week"];</pre>
+</li>
+</ul>
+<hr><p>Page 6</p><h1>Generating a query string from PHP</h1>
+<ul>
+<li>In many cases, the query string is itself dynamically generated from
+PHP</li>
+<li>A common example of this is where the query string contains information
+from the database, such as the ID of a record</li>
+<li>This frequently happens on e-commerce sites where we want to give the
+user the opportunity to buy a product after searching for it</li>
+<li>The approach here would be to write a "Buy" link for each search
+result, linking to a buy script and passing across the ID through a query
+string</li>
+<li><strong>Incomplete</strong> example using the student database from last 
+week :
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt; 
+&lt;body&gt;
+&lt;?php
+
+$a = $_GET["course"];
+$conn = new PDO("mysql:host=localhost;dbname=student_records;", "username","password");
+
+
+$results = $conn-&gt;query("select * from students where course='$a'");
+while($row=$results-&gt;fetch())
+{
+    echo "&lt;p&gt;";
+    echo "Student ID " . $row["ID"] ." &lt;br/&gt; ";
+    echo "Name " . $row["name"]  . "&lt;br/&gt;"; 
+    echo "Phone ".  $row["phone"] . "&lt;br/&gt;"; 
+    echo "&lt;a href='showmarks.php?QUERYSTRINGNAME=" . QUERYSTRINGVALUE . "'&gt;Show Marks&lt;/a&gt;";
+    echo "&lt;/p&gt;";
+}
+
+
+?&gt;
+&lt;/body&gt; 
+&lt;/html&gt;</pre>
+</li>
+<li>Note how we <em>write out the link to the showmarks.php script</em>
+(which will show the marks for that student) and
+<em>the link contains the query string</em>
+</li>
+<li>To avoid making the lab exercise too easy,
+I haven't shown you the actual query string you need to write!
+    <ul>
+    <li>As in the previous example, the query string needs to have a 
+    <em>name</em> and a <em>value</em></li>
+	<li>In the complete version, you would replace
+	<em>QUERYSTRINGNAME</em> and <em>QUERYSTRINGVALUE</em> with something
+	else!</li>
+    </ul>
+</li>
+<li>In this way, we pass the ID of the student over to the 
+<em>showmarks.php</em> script</li>
+</ul>
+<hr><p>Page 7</p><h1>
+Passing more than one piece of information in a query string
+</h1>
+<ul>
+<li>We can pass <em>more than one</em> piece of information in a query string
+</li>
+<li>We do this by separating each item with a <em>&amp; sign</em></li>
+<li>Each piece of information has a name and a value</li>
+<li>e.g:
+<pre>http://edward/lecture.php?week=11&amp;unit=dfti</pre>
+</li>
+<li>We are passing to lecture.php  <em>two pieces of information</em> with the names <em>week</em> and <em>unit</em> and the values <em>11</em> and <em>dfti</em></li>
+<li>These would be read from PHP with <em>$_GET["week"]</em> and <em>$_GET["unit"]</em> respectively</li>
+<li>The general form of a query string with more than one piece of information is:
+<pre>http://server/script.php<em>?name1=value1&amp;name2=value2&amp;...nameN=valueN</em></pre>
+</li>
+</ul>
+<hr><p>Page 8</p><h1>Hidden form fields</h1>
+<ul>
+<li>Hidden form fields are another way in which we can pass information from
+one page to the next</li>
+<li>We add an extra field to a form which passes information through that the
+user cannot change</li>
+<li>e.g. 
+<pre>&lt;input type="hidden" name="name" value="Tim Smith" /&gt;</pre>
+</li>
+<li>Typically, we would echo out a form from within a PHP script, and
+embed values from the previous page in the form as hidden fields</li>
+</ul>
+<hr><p>Page 9</p><h1>Hidden form fields: example</h1>
+<ul>
+<li>Imagine you have a two-step event booking application in which the user
+enters the event and number of tickets on the first page, and their name and
+phone number on the second</li>
+<li>The information in this form is then 
+sent to the final script, which actually does the booking</li>
+<li>Since this final script requires the event name and number of tickets 
+(read from the confirmation page) as
+well as the customer name and phone number, we need to pass this information
+across too</li>
+<li>Hidden fields would be an ideal solution here</li>
+<li>To do this we can echo out the whole form from within PHP</li>
+<li>See <a href="https://edward2.solent.ac.uk/course/dfti/examples/multipage/hidden">this example</a></li>
+</ul>
+<hr><p>Page 10</p><h1>Hidden form fields in PHP: example</h1>
+<pre>&lt;?php
+
+// Read event and tickets from the previous page
+$a = $_POST['event'];
+$b = $_POST['tickets'];
+
+// Echo the form, with hidden fields containing the event and number of tickets
+
+echo "&lt;form method='post' action='bookevent.php' &gt;";
+echo "Your name: &lt;input name='name' /&gt;";
+echo "Your phone number: &lt;input name='phone' /&gt;";
+echo "&lt;input type='hidden' name='event' value='$a' /&gt; ";
+echo "&lt;input type='hidden' name='tickets' value='$b' /&gt; ";
+echo "&lt;input type='submit' value='Go!' /&gt;";
+?&gt;
+</pre>
+<p>See <a href="https://edward2.solent.ac.uk/course/dfti/examples/multipage/hidden">here</a>: the page with
+the hidden fields is the third page</p>
+<hr><p>Page 11</p><h1>Using GET and POST correctly in multi-page applications</h1>
+<ul>
+<li>Technically,
+a script which uses a query string to send an ID across to a "buy" or "book"
+script is violating the GET/POST usage rules
+    <ul>
+    <li>Query strings use GET requests, and we are communicating with a script which <em>changes</em> something, i.e. reduces the 
+    quantity in stock of the song</li>
+    <li>Really we should use POST</li>
+    <li>However we're doing it this way initially to gently introduce query strings</li>
+    </ul>
+</li>
+<li>A more correct and realistic approach would work as follows:
+    <ul>
+    <li>The search results page links (using a query string) to a <em>confirmation page</em>, 
+    passing the ID of the item over via a query string;</li>
+    <li>The confirmation page displays information about the item being bought and asks the user to confirm;
+    </li>
+    <li>This confirmation page contains a form with a method of <em>"post"</em> which sends a request to the
+    actual "buy" or "book" script, using a hidden field to pass on the ID and a regular field for the quantity of the item desired by the user</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 12</p><h1>Functions</h1>
+<ul>
+<li>In addition to query strings and hidden fields,
+this week provides a convenient opportunity to introduce <em>functions</em>
+</li>
+<li>Functions are 
+reusable modules of code, which you can write once and then re-use again and 
+again</li>
+</ul>
+<hr><p>Page 13</p><h1>Example: writing out a sidebar</h1>
+<p>We can use a PHP function to write a sidebar, then call the function on
+all of our pages</p>
+<pre>&lt;?php
+function write_sidebar()
+{
+    ?&gt;
+    &lt;div id='sidebar'&gt;
+    Sidebar content
+    &lt;/div&gt;
+    &lt;?php
+}
+?&gt;
+</pre>
+<ul>
+<li><em>write_sidebar()</em> is the function name</li>
+<li>Notice also how in this code we come out of PHP, write some straight HTML,
+then go back into PHP again</li>
+</ul>
+<hr><p>Page 14</p><h1>Where do we write the functions?</h1>
+<ul>
+<li>Functions go in a separate PHP file called the <em>include file</em></li>
+<li>We write them once in this file, then we can import the file into any
+other PHP script, allowing us to reuse the functions over and over again</li>
+</ul>
+<hr><p>Page 15</p><h1>Calling the functions</h1>
+<ul>
+<li>Having written our functions, we can then <em>call</em> them from the
+main block of PHP code</li>
+<li>e.g.
+<pre>&lt;html&gt;
+&lt;body&gt;
+&lt;?php
+
+include('functions.php');
+
+write_sidebar();
+echo "&lt;div id='main'&gt;";
+echo "Here is the main part of the page";
+echo "&lt;/div&gt;";
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</li>
+<li>The <em>include('functions.php')</em> line includes the functions.php
+file, which is the file containing our functions above</li>
+<li>The code then calls the function itself: <em>write_sidebar()</em> to 
+write out the sidebar</li>
+</ul>
+<hr><p>Page 16</p><h1>Example 2: function to connect to a database</h1>
+<pre>&lt;?php
+function connect()
+{
+    $connection=new PDO("mysql:host=localhost;dbname=mydb","username","password");
+    return $connection;
+}
+?&gt;
+</pre>
+<ul>
+<li>Note how here, we <em>return</em> the connection variable $connection to the
+outside world, so that it can be used outside the function</li>
+<li>We would call the function in this way:
+<pre>$conn=connect();</pre>
+Notice how we are assigning the <em>returned</em> value from the function
+($connection) to the variable $conn</li>
+</ul>
+<hr><p>Page 17</p><h1>Functions Example 3: Parameters</h1>
+<ul>
+<li>Sometimes a function needs information from outside,
+in order to do its job</li>
+<li>For example, imagine a function which displays a message a certain number of
+times - it needs to know <em>how many times</em> to display the message</li>
+<li>We use a <em>parameter</em> to tell the function this information</li>
+<li>A <em>parameter</em> is a piece of information sent to a function 
+from outside</li>
+<li>e.g.:
+<pre>function write_message($ntimes)
+{
+    $i = 1;
+    while ($i &lt;= $ntimes)
+    {
+        echo "Hello! &lt;br/&gt; ";
+        $i++;
+    }
+}
+</pre>
+</li>
+<li>Example of calling the function (to display the message 3 times):
+<pre>write_message(3);
+</pre>
+</li>
+<li>The parameter <em>$ntimes</em> takes on the value passed in, i.e. 3 here</li>
+</ul>
+<hr><p>Page 18</p><h1>Multiple parameters</h1>
+<ul>
+<li>We can pass more than one parameter to a function, by separating them with a comma, e.g:
+<pre>function write_message($message,$ntimes)
+{
+    $i = 1;
+    while ($i &lt;= $ntimes)
+    {
+        echo "$message &lt;br/&gt; ";
+        $i++;
+    }
+}
+</pre>
+</li>
+<li>In this example, both the message and the number of times to display it are passed to
+the function</li>
+<li>Example of calling the function:
+<pre>write_message("Hello!", 5);</pre>
+</li>
+</ul>
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./multi-page php applications_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture4.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture4.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture4.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture4.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>
