@@ -1,5 +1,5 @@
 <?php
-function head(){
+function title(){
   echo "<h1>PointsOfInterest<h1>";
 }
 
@@ -14,6 +14,6 @@ function databaseConnection(){
 }
 
 function footer(){
-  echo "<h5>Copywrite 2020<h5>";
+  echo "<h5>PointsOfInterest &copy; " . date("Y") . "<h5>";
 }
 ?>

@@ -28,7 +28,7 @@ include("poiDAO.php");
           echo "Your search returned no results.";
 
         } else {
-          head();
+          title();
           echo "<table style='width:100%'>";
           echo "<tr>";
           echo "<th>Name</th>";
