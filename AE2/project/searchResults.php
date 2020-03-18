@@ -28,9 +28,23 @@ include("poiDAO.php");
           echo "Your search returned no results.";
 
         } else {
-          foreach($pois as $value)
-          $value->display();
+          head();
+          echo "<table style='width:100%'>";
+          echo "<tr>";
+          echo "<th>Name</th>";
+          echo "<th>Type</th>";
+          echo "<th>Description</th>";
+          echo "</tr>";
+          foreach($pois as $value){
+          echo "<tr>";
+          echo "<td>" . $value->getName() . "</td>";
+          echo "<td>" . $value->getType() . "</td>";
+          echo "<td>" . $value->getDescription() . "</td>";
+          echo "</tr>";
         }
+        }
+        echo "</table>";
+        footer();
       }
     } catch(PDOException $e) {
         echo "Error: $e";
