@@ -21,16 +21,15 @@ include("poiDAO.php");
       } else {
 
         $DAO = new poiDAO($conn, "pointsofinterest");
-        $pois = $DAO->findById(2);
+        $pois = $DAO->findByRegion($region);
 
         if($pois == null){
 
           echo "Your search returned no results.";
 
         } else {
-
-          //foreach($pois as $value)
-          echo $pois->display();
+          foreach($pois as $value)
+          $value->display();
         }
       }
     } catch(PDOException $e) {

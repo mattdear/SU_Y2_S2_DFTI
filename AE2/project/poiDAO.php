@@ -10,25 +10,13 @@ class poiDAO {
         $this->table = $t;
     }
 
-    public function findById($id) {
-  $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE ID=:num");
-  $stmt->execute([":num"=>$id]);
-  $row = $stmt->fetch();
-  return new poiDTO($id["ID"], $name["name"], $type["type"], $country["country"], $region["region"], $description["description"], $recommended["recommended"], $username["username"]);
-}
-
     public function findByRegion($regionIn) {
-      $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE id='2'");
-      //$stmt->execute([":region"=>2]);
-$row = $stmt->fetch();
-      //while($row = $stmt->fetch()) {
-        $poi = new poiDTO($id["ID"], $name["name"], $type["type"], $country["country"], $region["region"], $description["description"], $recommended["recommended"], $username["username"]);
-
-        $poi2 = new poiDTO(1, "name", "type", "country", $regionIn, "description", "recommended", "username");
+      $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE region=:region");
+      $stmt->execute([":region"=>$regionIn]);
+      while($row = $stmt->fetch()) {
+        $poi = new poiDTO($row["ID"], $row["name"], $row["type"], $row["country"], $row["region"], $row["description"], $row["recommended"], $row["username"]);
         $pois[] = $poi;
-        $pois[] = $poi2;
-
-      //}
+      }
 
     return $pois;
     }
