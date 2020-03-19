@@ -10,35 +10,34 @@ include("poiDAO.php");
     <body>
     <?php
     try{
-      $conn = databaseConnection();
+      $connPoi = databaseConnection();
+      $connReview = databaseConnection();
 
-      $region = $_GET["region"];
+      $poiId = $_GET["id"];
 
-      if($region == ""){
+      if($poiId == ""){
 
-        echo "No region enterd.";
+        echo "No poiId entered.";
 
       } else {
 
-        $DAO = new poiDAO($conn, "pointsofinterest");
-        $pois = $DAO->findByRegion($region);
+        $poiDAO = new poiDAO($conn, "pointsofinterest");
+        $pois = $poiDAO->findById($poiId);
 
-        if($pois == null){
+        $reviewsDAO = new poiDAO($conn, "poi_reviews");
+        $reviews = $reviewsDAO->findByPoiId($poiId);
+
+        if($reviews == null){
 
           echo "Your search returned no results.";
 
         } else {
           title();
-          echo "<p>Search results for POI's in $region.</p>";
+          echo "<p>Reviews for $pois['name'].</p>";
           echo "<table>";
           echo "<tr>";
-          echo "<th>Name</th>";
-          echo "<th>Type</th>";
-          echo "<th>Country</th>";
-          echo "<th>Region</th>";
-          echo "<th>Description</th>";
-          echo "<th>Recommended</th>";
-          echo "<th>Add Recomendation</th>";
+          echo "<th>ID</th>";
+          echo "<th>Review</th>";
           echo "</tr>";
           foreach($pois as $value){
           echo "<tr>";

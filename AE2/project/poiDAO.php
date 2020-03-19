@@ -31,19 +31,5 @@ class poiDAO {
 
     }
 
-    public function update(poiDAO $poiObj) {
-      try{
-       echo "from update song";
-          $songObj->display();
-      $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET title=?, artist=?, year=?, qty=?, downloads=? WHERE ID=?");
-      $stmt->execute([$songObj->getTitle(), $songObj->getArtist(), $songObj->getYear(), $songObj->getQuantity(), $songObj->getDownloads(), $songObj->getId()]);
-    } catch(PDOException $e) {
-        echo "Error: $e";
-    }
-    }
-
-    public function delete(poiDAO $poiObj){
-
-    }
 }
 ?>
