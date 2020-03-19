@@ -1,6 +1,6 @@
 <?php
 function title(){
-  echo "<h1>PointsOfInterest<h1>";
+  echo "<h1>PointsOfInterest</h1>";
 }
 
 function databaseConnection(){
@@ -14,6 +14,6 @@ function databaseConnection(){
 }
 
 function footer(){
-  echo "<h5>PointsOfInterest &copy; " . date("Y") . "<h5>";
+  echo "<h5>Copywrite PointsOfInterest &copy; " . date("Y") . "<h5>";
 }
 ?>
