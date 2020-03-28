@@ -1,16 +1,12 @@
 <?php
-function title(){
-  echo "<h1>PointsOfInterest</h1>";
-}
-
 function links(){
     $links = [
         ["name" => "Home",
         "link" => "index.php"],
         ["name" => "Add POI",
-        "link" => "addPOI.php"],
+        "link" => "addPOIForm.php"],
         ["name" => "Login",
-        "link" => "login.html"],
+        "link" => "loginForm.php"],
         ["name" => "Logout",
         "link" => "logout.php"]
     ];
@@ -18,6 +14,11 @@ function links(){
 foreach($links as $link){
     echo "<a href='" . $link["link"] . "'>" . $link["name"] . "</a><br>";
 }
+}
+
+function title(){
+  echo "<h1>PointsOfInterest</h1>";
+  links();
 }
 
 function databaseConnection(){
