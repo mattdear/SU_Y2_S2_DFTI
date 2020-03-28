@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+<?php
+session_start();
+
+include("functions.php");
+
+if ( !isset ($_SESSION["gatekeeper"]))
+{
+    header("Location: loginForm.php");
+}
+else
+{
+?>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -7,8 +18,6 @@
   </head>
   <body>
     <?php
-    include("functions.php");
-    session_start();
     title();
     if (isset ($_SESSION["gatekeeper"]))
     {
@@ -18,23 +27,20 @@
     ?>
     <p>Fill in the form below to add a new point of interest.</p>
     <form method="post" action="addPOI.php">
-    <label for="Name">Name:</label>
-    <input name="Name" id="Name"/>
+    <label for="name">Name:</label>
+    <input name="name" id="name"/>
     <br/>
-    <label for="Type">Type:</label>
-    <input name="Type" id="Type"/>
+    <label for="type">Type:</label>
+    <input name="type" id="type"/>
     <br/>
-    <label for="Country">Country:</label>
-    <input name="Country" id="Country"/>
+    <label for="country">Country:</label>
+    <input name="country" id="country"/>
     <br/>
-    <label for="Region">Region:</label>
-    <input name="Region" id="Region"/>
+    <label for="region">Region:</label>
+    <input name="region" id="region"/>
     <br/>
-    <label for="Desciption">Desciption:</label>
-    <input name="Desciption" id="Desciption"/>
-    <br/>
-    <input type='hidden' name='username' value='$un'>
-    <input type='hidden' name='recommended' value=1>
+    <label for="desciption">Desciption:</label>
+    <input name="desciption" id="desciption"/>
     <br/>
     <input type="submit" value="Submit POI" />
     <br/>
@@ -43,3 +49,6 @@
     <?php footer()?>
   </body>
 </html>
+<?php
+}
+?>

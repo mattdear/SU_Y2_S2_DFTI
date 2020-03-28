@@ -3,7 +3,7 @@ session_start();
 
 if ( !isset ($_SESSION["gatekeeper"]))
 {
-    echo "You're not logged in. Go away!";
+    header("Location: loginForm.php");
 }
 else
 {
@@ -14,36 +14,38 @@ else
     </head>
     <body>
     <?php
+
     try{
-      $conn = databaseConnection();
+      include("poiDAO.php");
 
-      $a = $_GET["name"];
+      $conn = new PDO ("mysql:host=localhost;dbname=assign204;", "assign204", "dohpatie");
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      if($a == ""){
+      $name = $_POST["name"];
+      $type = $_POST["type"];
+      $country = $_POST["country"];
+      $region = $_POST["region"];
+      $desciption = $_POST["desciption"];
+      $username = $_SESSION["gatekeeper"];
 
-        echo "You must enter an artist name.";
+        if($name == "" || $type == "" || $country == "" || $region == "" || $desciption == ""){
 
-      } else {
-
-        $results = $conn->query("SELECT * FROM wadsongs WHERE artist='$a'");
-
-        if($results->rowCount() == 0){
-
-          echo "Your search returned no results.";
+          echo "something is blank";
 
         } else {
 
-          while($row=$results->fetch(PDO::FETCH_ASSOC)){
-            echo "<p>";
-            echo " Title ". $row["title"] ."<br/> ";
-            echo " Artist " . $row["artist"] . "<br/> ";
-            echo " Year " . $row["year"] . "<br/>";
-            echo " Genre " . $row["genre"] . "<br/>";
-            echo "<a href='order1.php?id=" . $row["ID"] . "&token=" . $_SESSION["token"] . "'>Download this hit</a>";
-            echo "</p>";
+          $poiDTO = new poiDTO("", $name, $type, $country, $region, $desciption, 0, $username);
+
+          $poiDAO = new poiDAO($conn, "pointsofinterest");
+
+          echo $poiDTO->display();
+
+          $ReturnedPOIDTO = $poiDAO->add($poiDTO);
+
+            echo $ReturnedPOIDTO->display();
+
           }
-        }
-      }
+
     } catch(PDOException $e) {
         echo "Error: $e";
     }

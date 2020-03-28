@@ -14,6 +14,11 @@ function links(){
 foreach($links as $link){
     echo "<a href='" . $link["link"] . "'>" . $link["name"] . "</a><br>";
 }
+backButton();
+}
+
+function backButton(){
+  echo '<p><a href="javascript:history.go(-1)">Back</a></p>';
 }
 
 function title(){
@@ -32,7 +37,6 @@ function databaseConnection(){
 }
 
 function footer(){
-  links();
   echo "<h5>Copywrite PointsOfInterest &copy; " . date("Y") . "<h5>";
 }
 ?>

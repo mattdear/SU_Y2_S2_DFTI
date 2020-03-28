@@ -19,7 +19,7 @@
     <p>Please enter a region to search for points of interest. (e.g. Hampshire, Normandy, Or California.)</p>
     <form method="get" action="searchResults.php">
     <input name="region" />
-    <input type="submit" value="Search" /><br><br>
+    <input type="submit" value="Search POI's" /><br><br>
   </form>
     <?php footer()?>
   </body>

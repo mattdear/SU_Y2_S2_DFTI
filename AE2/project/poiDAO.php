@@ -38,13 +38,11 @@ class poiDAO {
       header ("location: searchResults.php?region=$regionIn");
     }
 
-    public function add(poiDAO $poiObj){
-      $stmt = $this->conn->prepare("INSERT INTO " . $this->table . " (ID, name, type, country, region, description, recommended, username) VALUES (:ID, :name, :type, :country, :region, :description, :recommended, :username");
-      $stmt->execute([":ID"=>$poiObj->getId()],[":name"=>$poiObj->getName()],[":type"=>$poiObj->getType()],[":country"=>$poiObj->getCountry()],[":region"=>$poiObj->getRegion()],[":description"=>$poiObj->getDescription()],[":recommended"=>$poiObj->getRecommended()],[":username"=>$poiObj->getUsername()]);
-      while($row = $stmt->fetch()) {
-        $poi = new poiDTO($row["ID"], $row["name"], $row["type"], $row["country"], $row["region"], $row["description"], $row["recommended"], $row["username"]);
-        $pois[] = $poi;
-      }
+    public function add(poiDTO &$poiObj){
+      $stmt = $this->conn->prepare("INSERT INTO " . $this->table . "(name, type, country, region, description, recommended, username) VALUES (:name, :type, :country, :region, :description, :recommended, :username)");
+      $stmt->execute([":name"=>$poiObj->getName(), ":type"=>$poiObj->getType(), ":country"=>$poiObj->getCountry(), ":region"=>$poiObj->getRegion(), ":description"=>$poiObj->getDescription(), ":recommended"=>$poiObj->getRecommended(), ":username"=>$poiObj->getUsername()]);
+      $poiObj->setId($this->conn->lastInsertId());
+      return $poiObj;
     }
 
 }
