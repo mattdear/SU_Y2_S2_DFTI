@@ -6,4 +6,7 @@ $poi2 = new poiDTO(1, "name", "type", "country", "london", "description", "recom
 
 $poi1->display();
 $poi2->display();
+
+include("usersDTO.php");
+
 ?>

@@ -1,12 +1,14 @@
 <?php
 session_start();
 
+include("functions.php");
+include("usersDAO.php");
+
 $un = $_POST["username"];
 $pw = $_POST["password"];
 
 try{
-  $conn = new PDO ("mysql:host=localhost;dbname=ephp039;", "assign204", "dohpatie");
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $conn = databaseConnection();
 
   if($un == "" || $pw == ""){
 
@@ -14,19 +16,20 @@ try{
 
   } else {
 
-    $statement = $conn->prepare("SELECT * FROM ht_users WHERE username=:un AND password=:pw");
-    $statement->execute([":un"=>$un, ":pw"=>$pw]);
+    $DAO = new usersDAO($conn, "poi_users");
+    $statement = $DAO->verifyLogin($un, $pw);
 
-    if($statement->rowCount() != 1){
+    //if($statement->rowCount() != 1){
 
-      echo "more or less than one row";
+      //echo "more or less than one row";
 
-    } else {
+    //} else {
       $_SESSION["token"] = $token = bin2hex(random_bytes(32));
       $_SESSION["gatekeeper"] = $un;
+      $_SESSION["isadmin"] = $statement->getIsAdmin();
       header ("location: index.php");
 
-    }
+    //}
   }
 } catch(PDOException $e) {
     echo "Error: $e";
