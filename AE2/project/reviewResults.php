@@ -38,6 +38,7 @@ include("poiDAO.php");
         } else {
           title();
           echo "<p>Reviews for " . $poi->getName() . ", " . $poi->getRegion() . ", " . $poi->getCountry() . ".</p>";
+          echo "<td><a href='addReviewForm.php?poiId=" . $poi->getId() . "&poiName=" . $poi->getName() . "'><button>Add Review</button></a><br>";
           echo "<table>";
           echo "<tr>";
           echo "<th>ID</th>";
@@ -52,7 +53,8 @@ include("poiDAO.php");
           echo "<td>" . $value->getReview() . "</td>";
           echo "<td>" . $value->getApproved() . "</td>";
           echo "</tr>";
-        }
+          }
+
         }
         echo "</table>";
         footer();

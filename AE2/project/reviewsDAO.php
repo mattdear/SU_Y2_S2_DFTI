@@ -10,6 +10,7 @@ class reviewsDAO {
         $this->table = $t;
     }
 
+    #This function still needs to be tested.
     public function findByPoiId($poiIdIn) {
       $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE poi_id=:id");
       $stmt->execute([":id"=>$poiIdIn]);
@@ -20,23 +21,12 @@ class reviewsDAO {
       return $reviews;
     }
 
-        public function add(reviewsDAO $reviewObj){
-
-        }
-
-        public function update(reviewsDAO $reviewObj) {
-          try{
-           echo "from update song";
-              $songObj->display();
-          $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET title=?, artist=?, year=?, qty=?, downloads=? WHERE ID=?");
-          $stmt->execute([$songObj->getTitle(), $songObj->getArtist(), $songObj->getYear(), $songObj->getQuantity(), $songObj->getDownloads(), $songObj->getId()]);
-        } catch(PDOException $e) {
-            echo "Error: $e";
-        }
-        }
-
-        public function delete(reviewsDAO $reviewObj){
-
-        }
+    #This function still needs to be tested.
+    public function addReview(reviewsDTO &$reviewObj){
+      $stmt = $this->conn->prepare("INSERT INTO " . $this->table . "(poi_id, review, approved) VALUES (:poi_id, :review, :approved)");
+      $stmt->execute([":poi_id"=>$reviewObj->getPoiId(), ":review"=>$reviewObj->getReview(), ":approved"=>$reviewObj->getApproved()]);
+      $reviewObj->setId($this->conn->lastInsertId());
+      return $reviewObj;
     }
-    ?>
+}
+?>

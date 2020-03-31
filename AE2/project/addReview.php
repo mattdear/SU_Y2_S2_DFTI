@@ -16,33 +16,29 @@ else
     <?php
 
     try{
-      include("poiDAO.php");
+      include("reviewsDAO.php");
 
       $conn = new PDO ("mysql:host=localhost;dbname=assign204;", "assign204", "dohpatie");
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      $name = $_POST["name"];
-      $type = $_POST["type"];
-      $country = $_POST["country"];
-      $region = $_POST["region"];
-      $desciption = $_POST["desciption"];
-      $username = $_SESSION["gatekeeper"];
+      $poiId = $_POST["poiId"];
+      $review = $_POST["review"];
 
-        if($name == "" || $type == "" || $country == "" || $region == "" || $desciption == ""){
+        if($poiId == "" || $review == ""){
 
           echo "something is blank";
 
         } else {
 
-          $poiDTO = new poiDTO("", $name, $type, $country, $region, $desciption, 0, $username);
+          $reviewsDTO = new reviewsDTO("", $poiId, $review, 0);
 
-          $poiDAO = new poiDAO($conn, "pointsofinterest");
+          $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
 
-          echo $poiDTO->display();
+          echo $reviewsDTO->display();
 
-          $ReturnedPOIDTO = $poiDAO->add($poiDTO);
+          $ReturnedReviewDTO = $reviewsDAO->addReview($reviewsDTO);
 
-            echo $ReturnedPOIDTO->display();
+            echo $ReturnedReviewDTO->display();
 
           }
 

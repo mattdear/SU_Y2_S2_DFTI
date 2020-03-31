@@ -2,6 +2,7 @@
 session_start();
 
 include("functions.php");
+include("poiDAO.php");
 
 if ( !isset ($_SESSION["gatekeeper"]))
 {
@@ -14,39 +15,37 @@ else
   <head>
     <meta charset="utf-8">
 
-    <title>PointsOfInterest - Add</title>
+    <title>PointsOfInterest - Add Review</title>
   </head>
   <body>
     <?php
-    title();
-    if (isset ($_SESSION["gatekeeper"]))
-    {
-      $un = $_SESSION["gatekeeper"];
-      echo "<p>Welcome, $un<p>";
+    try{
+      title();
+      if (isset ($_SESSION["gatekeeper"]))
+      {
+        $un = $_SESSION["gatekeeper"];
+        echo "<p>Welcome, $un<p>";
+      }
+      $poiId = $_GET["poiId"];
+      $poiName = $_GET["poiName"];
+      $conn = databaseConnection();
+      $poiDAO = new poiDAO($conn, "pointsofinterest");
+      $poi = $poiDAO->findByid($poiId);
+      echo "<p>To add a review for $poiName. Please fill in the form below and click submit review.</p>";
+      echo "<form method='post' action='addReview.php'>";
+      echo "<label for='review'>Review:</label>";
+      echo "<input name='review' id='review'/>";
+      echo "<input type='hidden' name='poiId' value='$poiId'>";
+      echo "<br/>";
+      echo "<input type='submit' value='Submit Review'/>";
+      echo "<br/>";
+      echo "<br/>";
+      echo "</form>";
+      footer();
+    } catch(PDOException $e) {
+        echo "Error: $e";
     }
-    ?>
-    <p>Fill in the form below to add a new point of interest.</p>
-    <form method="post" action="addPOI.php">
-    <label for="name">Name:</label>
-    <input name="name" id="name"/>
-    <br/>
-    <label for="type">Type:</label>
-    <input name="type" id="type"/>
-    <br/>
-    <label for="country">Country:</label>
-    <input name="country" id="country"/>
-    <br/>
-    <label for="region">Region:</label>
-    <input name="region" id="region"/>
-    <br/>
-    <label for="desciption">Desciption:</label>
-    <input name="desciption" id="desciption"/>
-    <br/>
-    <input type="submit" value="Submit POI" />
-    <br/>
-    <br/>
-    </form>
-    <?php footer()?>
+      ?>
   </body>
 </html>
 <?php
