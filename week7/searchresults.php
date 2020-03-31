@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Test that the authentication session variable exists
+
 if ( !isset ($_SESSION["gatekeeper"]))
 {
     echo "You're not logged in. Go away!";

@@ -10,7 +10,8 @@ class poiDAO {
         $this->table = $t;
     }
 
-    public function findRegions($regionIn) {
+    #This function is not currently working.
+    public function findRegion($regionIn) {
       $stmt = $this->conn->prepare("SELECT region FROM " . $this->table);
       $stmt->execute();
       while($row = $stmt->fetch()) {
@@ -21,6 +22,7 @@ class poiDAO {
     return $regions;
     }
 
+    #This function is tested and working.
     public function findByRegion($regionIn) {
       $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE region=:region");
       $stmt->execute([":region"=>$regionIn]);
@@ -32,12 +34,23 @@ class poiDAO {
     return $pois;
     }
 
+    #This function is awaiting testing.
+    public function findById($poiId) {
+      $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE ID=:id");
+      $stmt->execute([":id"=>$poiId]);
+      $row = $stmt->fetch();
+      $poi = new poiDTO($row["ID"], $row["name"], $row["type"], $row["country"], $row["region"], $row["description"], $row["recommended"], $row["username"]);
+      return $poi;
+    }
+
+    #This function is tested and working.
     public function addRecommendation($idIn, $regionIn) {
       $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET recommended=recommended+1 WHERE ID=:id");
       $stmt->execute([":id"=>$idIn]);
       header ("location: searchResults.php?region=$regionIn");
     }
 
+    #This function is tested and working.
     public function add(poiDTO &$poiObj){
       $stmt = $this->conn->prepare("INSERT INTO " . $this->table . "(name, type, country, region, description, recommended, username) VALUES (:name, :type, :country, :region, :description, :recommended, :username)");
       $stmt->execute([":name"=>$poiObj->getName(), ":type"=>$poiObj->getType(), ":country"=>$poiObj->getCountry(), ":region"=>$poiObj->getRegion(), ":description"=>$poiObj->getDescription(), ":recommended"=>$poiObj->getRecommended(), ":username"=>$poiObj->getUsername()]);

@@ -49,7 +49,7 @@ include("poiDAO.php");
           echo "<td>" . $value->getDescription() . "</td>";
           echo "<td>" . $value->getRecommended() . "</td>";
           echo "<td><a href='addRecommendation.php?id=" . $value->getId() . "&region=" . $region . "'><button>Recommend</button></a><br>";
-          echo "<a href='addRecommendation.php?id=" . $value->getId() . "&region=" . $region . "'><button>See Reviews</button></a></td>";
+          echo "<a href='reviewResults.php?poiId=" . $value->getId() . "'><button>See Reviews</button></a></td>";
           echo "</tr>";
         }
         }

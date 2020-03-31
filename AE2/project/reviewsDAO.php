@@ -10,11 +10,14 @@ class reviewsDAO {
         $this->table = $t;
     }
 
-    public function findById($id) {
-      $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE ID=:num");
-      $stmt->execute([":num"=>$id]);
-      $row = $stmt->fetch();
-      return new song($row["ID"], $row["title"], $row["artist"], $row["year"], $row["qty"], $row["downloads"]);
+    public function findByPoiId($poiIdIn) {
+      $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE poi_id=:id");
+      $stmt->execute([":id"=>$poiIdIn]);
+      while($row = $stmt->fetch()) {
+        $review = new reviewsDTO($row["ID"], $row["poi_id"], $row["review"], $row["approved"]);
+        $reviews[] = $review;
+      }
+      return $reviews;
     }
 
         public function add(reviewsDAO $reviewObj){
