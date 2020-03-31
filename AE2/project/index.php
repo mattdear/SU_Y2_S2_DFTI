@@ -9,11 +9,10 @@
     <?php
     include("functions.php");
     session_start();
-    title();
+    title($_SESSION["isadmin"], $byDefault = 0);
     if (isset ($_SESSION["gatekeeper"]))
     {
-      $un = $_SESSION["gatekeeper"];
-      echo "<p>Welcome, $un<p>";
+      echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
     }
     ?>
     <p>Please enter a region to search for points of interest. (e.g. Hampshire, Normandy, Or California.)</p>

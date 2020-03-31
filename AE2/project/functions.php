@@ -1,5 +1,6 @@
 <?php
-function links(){
+function links($userType) {
+  if($userType == 1){
     $links = [
         ["name" => "Home",
         "link" => "index.php"],
@@ -7,26 +8,46 @@ function links(){
         "link" => "addPOIForm.php"],
         ["name" => "Login",
         "link" => "loginForm.php"],
+        ["name" => "Awaiting Approval",
+        "link" => "reviewResultsAdmin.php"],
         ["name" => "Logout",
         "link" => "logout.php"]
     ];
 
-foreach($links as $link){
+    foreach($links as $link) {
+      echo "<a href='" . $link["link"] . "'>" . $link["name"] . "</a><br>";
+    }
+    backButton();
+  } else {
+
+  $links = [
+      ["name" => "Home",
+      "link" => "index.php"],
+      ["name" => "Add POI",
+      "link" => "addPOIForm.php"],
+      ["name" => "Login",
+      "link" => "loginForm.php"],
+      ["name" => "Logout",
+      "link" => "logout.php"]
+  ];
+
+foreach($links as $link) {
     echo "<a href='" . $link["link"] . "'>" . $link["name"] . "</a><br>";
 }
 backButton();
 }
+}
 
-function backButton(){
+function backButton() {
   echo '<p><a href="javascript:history.go(-1)">Back</a></p>';
 }
 
-function title(){
+function title($userType) {
   echo "<h1>PointsOfInterest</h1>";
-  links();
+  links($userType);
 }
 
-function databaseConnection(){
+function databaseConnection() {
   try{
     $conn = new PDO ("mysql:host=localhost;dbname=assign204;", "assign204", "dohpatie");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -36,7 +57,7 @@ function databaseConnection(){
   }
 }
 
-function footer(){
+function footer() {
   echo "<h5>Copywrite PointsOfInterest &copy; " . date("Y") . "<h5>";
 }
 ?>

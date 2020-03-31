@@ -16,9 +16,8 @@ try{
 
   } else {
 
-    $DAO = new usersDAO($conn, "poi_users");
-    $statement = $DAO->verifyLogin($un, $pw);
-
+    $usersDAO = new usersDAO($conn, "poi_users");
+    $usersDTO = $usersDAO->verifyLogin($un, $pw);
     //if($statement->rowCount() != 1){
 
       //echo "more or less than one row";
@@ -26,7 +25,7 @@ try{
     //} else {
       $_SESSION["token"] = $token = bin2hex(random_bytes(32));
       $_SESSION["gatekeeper"] = $un;
-      $_SESSION["isadmin"] = $statement->getIsAdmin();
+      $_SESSION["isadmin"] = $usersDTO->getIsadmin();
       header ("location: index.php");
 
     //}

@@ -18,7 +18,7 @@ else
   </head>
   <body>
     <?php
-    title();
+    title($_SESSION["isadmin"], $byDefault = 0);
     if (isset ($_SESSION["gatekeeper"]))
     {
       $un = $_SESSION["gatekeeper"];

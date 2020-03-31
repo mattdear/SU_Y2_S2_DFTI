@@ -7,7 +7,7 @@
   <?php
   include("functions.php");
   session_start();
-  title();
+  title($_SESSION["isAdmin"], $byDefault = 0);
   if (isset ($_SESSION["gatekeeper"]))
   {
     $un = $_SESSION["gatekeeper"];
