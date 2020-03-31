@@ -28,7 +28,7 @@ include("poiDAO.php");
           echo "Your search returned no results.";
 
         } else {
-          title();
+          title($_SESSION["isadmin"], $byDefault = 0);
           echo "<p>Search results for POI's in $region.</p>";
           echo "<table>";
           echo "<tr>";

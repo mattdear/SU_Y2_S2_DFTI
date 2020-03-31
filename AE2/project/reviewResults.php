@@ -36,7 +36,7 @@ include("poiDAO.php");
           echo "There are currently no reviews for this POI.";
 
         } else {
-          title();
+          title($_SESSION["isadmin"], $byDefault = 0);
           echo "<p>Reviews for " . $poi->getName() . ", " . $poi->getRegion() . ", " . $poi->getCountry() . ".</p>";
           echo "<td><a href='addReviewForm.php?poiId=" . $poi->getId() . "&poiName=" . $poi->getName() . "'><button>Add Review</button></a><br>";
           echo "<table>";

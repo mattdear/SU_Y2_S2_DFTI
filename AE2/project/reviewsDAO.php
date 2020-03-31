@@ -26,7 +26,7 @@ class reviewsDAO {
       $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE approved='0'");
       $stmt->execute();
       while($row = $stmt->fetch()) {
-        $review = new reviewsDTO($row["ID"], $row["poi_id"], $row["review"], $row["approved"]);
+        $review = new reviewsDTO($row["id"], $row["poi_id"], $row["review"], $row["approved"]);
         $reviews[] = $review;
       }
       return $reviews;

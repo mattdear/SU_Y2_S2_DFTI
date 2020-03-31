@@ -32,6 +32,7 @@ include("poiDAO.php");
           echo "<th>Approve?</th>";
           echo "</tr>";
           foreach($reviews as $value){
+          echo $value->display();
           echo "<tr>";
           echo "<td>" . $value->getId() . "</td>";
           echo "<td>" . $value->getPoiId() . "</td>";
