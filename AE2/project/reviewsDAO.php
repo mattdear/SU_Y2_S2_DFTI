@@ -11,8 +11,19 @@ class reviewsDAO {
     }
 
     #This function still needs to be tested.
-    public function findByPoiId($poiIdIn) {
-      $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE poi_id=:id");
+    public function findByPoiIdandApproved($poiIdIn) {
+      $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE poi_id=:id AND approved='1'");
+      $stmt->execute([":id"=>$poiIdIn]);
+      while($row = $stmt->fetch()) {
+        $review = new reviewsDTO($row["ID"], $row["poi_id"], $row["review"], $row["approved"]);
+        $reviews[] = $review;
+      }
+      return $reviews;
+    }
+
+    #This function still needs to be tested.
+    public function findByPoiIdandUnapproved($poiIdIn) {
+      $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE poi_id=:id AND approved='0'");
       $stmt->execute([":id"=>$poiIdIn]);
       while($row = $stmt->fetch()) {
         $review = new reviewsDTO($row["ID"], $row["poi_id"], $row["review"], $row["approved"]);

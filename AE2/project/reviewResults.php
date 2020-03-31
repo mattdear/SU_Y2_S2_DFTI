@@ -22,7 +22,7 @@ include("poiDAO.php");
       } else {
 
         $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
-        $reviews = $reviewsDAO->findByPoiId($poiId);
+        $reviews = $reviewsDAO->findByPoiIdandApproved($poiId);
 
         $poiDAO = new poiDAO($conn, "pointsofinterest");
         $poi = $poiDAO->findByid($poiId);
