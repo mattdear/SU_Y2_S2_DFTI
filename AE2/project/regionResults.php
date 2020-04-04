@@ -7,6 +7,7 @@ include("poiDAO.php");
     <html>
     <head>
       <link rel="stylesheet" href="style.css">
+      <title>PointsOfInterest - Region</title>
     </head>
     <body>
     <?php
@@ -17,7 +18,15 @@ include("poiDAO.php");
 
       if($region == ""){
 
-        echo "No region enterd.";
+        title($_SESSION["isadmin"], $byDefault = 0);
+        if (isset ($_SESSION["gatekeeper"]))
+        {
+          echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+        }
+
+        echo "No region was enterd please go back and try again.";
+
+        footer();
 
       } else {
 
@@ -26,7 +35,15 @@ include("poiDAO.php");
 
         if($pois == null){
 
-          echo "Your search returned no results.";
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+          }
+
+          echo "Your search returned no results please go back and try again.";
+
+          footer();
 
         } else {
           title($_SESSION["isadmin"], $byDefault = 0);
@@ -35,7 +52,7 @@ include("poiDAO.php");
             $un = $_SESSION["gatekeeper"];
             echo "<p>Welcome, $un<p>";
           }
-          echo "<p>Search results for POI's in $region.</p>";
+          echo "<p>Results for POI's in $region.</p>";
           echo "<table>";
           echo "<tr>";
           echo "<th>Name</th>";
@@ -55,7 +72,8 @@ include("poiDAO.php");
             echo "<td>" . $value->getDescription() . "</td>";
             echo "<td>" . $value->getRecommended() . "</td>";
             echo "<td><form method='post' action='addRecommendation.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='hidden' name='region' value='$region'><input type='submit' value='Recommend'></form><br>";
-            echo "<a href='reviewResults.php?poiId=" . $value->getId() . "'><button>See Reviews</button></a></td>";
+            echo "<a href='reviewResults.php?poiId=" . $value->getId() . "'><button>See Reviews</button></a><br>";
+            echo "<a href='addReviewForm.php?poiId=" . $value->getId() . "&poiName=" . $value->getName() . "'><button>Add Review</button></a></td>";
             echo "</tr>";
         }
         }

@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include("functions.php");
 
 if ( !isset ($_SESSION["gatekeeper"]))
@@ -10,13 +9,12 @@ if ( !isset ($_SESSION["gatekeeper"]))
 else
 {
 ?>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-
-    <title>PointsOfInterest - Add</title>
-  </head>
-  <body>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <title>PointsOfInterest - Add POI</title>
+</head>
+<body>
     <?php
     title($_SESSION["isadmin"], $byDefault = 0);
     if (isset ($_SESSION["gatekeeper"]))
@@ -30,17 +28,17 @@ else
     <label for="name">Name:</label>
     <input name="name" id="name"/>
     <br/>
+    <label for="desciption">Desciption:</label>
+    <input name="desciption" id="desciption"/>
+    <br/>
     <label for="type">Type:</label>
     <input name="type" id="type"/>
-    <br/>
-    <label for="country">Country:</label>
-    <input name="country" id="country"/>
     <br/>
     <label for="region">Region:</label>
     <input name="region" id="region"/>
     <br/>
-    <label for="desciption">Desciption:</label>
-    <input name="desciption" id="desciption"/>
+    <label for="country">Country:</label>
+    <input name="country" id="country"/>
     <br/>
     <input type="submit" value="Submit POI" />
     <br/>

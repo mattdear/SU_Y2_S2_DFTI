@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include("functions.php");
 include("usersDAO.php");
 
@@ -12,7 +11,15 @@ try{
 
   if($un == "" || $pw == ""){
 
-    echo "No username or password entered";
+    title($_SESSION["isadmin"], $byDefault = 0);
+    if (isset ($_SESSION["gatekeeper"]))
+    {
+      echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+    }
+
+    echo "No username or password was entered please go back and try again.";
+
+    footer();
 
   } else {
 
@@ -22,7 +29,7 @@ try{
     $_SESSION["gatekeeper"] = $un;
     $_SESSION["isadmin"] = $usersDTO->getIsadmin();
     header ("location: index.php");
-  
+
   }
 } catch(PDOException $e) {
     echo "Error: $e";

@@ -1,5 +1,7 @@
 <?php
 session_start();
+include("functions.php");
+include("poiDAO.php");
 
 if ( !isset ($_SESSION["gatekeeper"]))
 {
@@ -16,8 +18,6 @@ else
     <?php
 
     try{
-      include("functions.php");
-      include("poiDAO.php");
 
       $conn = databaseConnection();
 
@@ -30,7 +30,15 @@ else
 
         if($name == "" || $type == "" || $country == "" || $region == "" || $desciption == ""){
 
-          echo "something is blank";
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+          }
+
+          echo "Something went wrong please go back and try again.";
+
+          footer();
 
         } else {
 
@@ -38,11 +46,22 @@ else
 
           $poiDAO = new poiDAO($conn, "pointsofinterest");
 
-          echo $poiDTO->display();
+          $returnedPOIDTO = $poiDAO->add($poiDTO);
 
-          $ReturnedPOIDTO = $poiDAO->add($poiDTO);
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+          }
 
-            echo $ReturnedPOIDTO->display();
+          echo "POI added.<br>";
+          echo "<br>Name: " . $returnedPOIDTO->getName();
+          echo "<br>Desciption: " . $returnedPOIDTO->getDescription();
+          echo "<br>Type: " . $returnedPOIDTO->getType();
+          echo "<br>Region: " . $returnedPOIDTO->getRegion();
+          echo "<br>Country: " . $returnedPOIDTO->getCountry();
+
+          footer();
 
           }
 

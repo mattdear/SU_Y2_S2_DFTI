@@ -1,5 +1,7 @@
 <?php
 session_start();
+include("functions.php");
+include("reviewsDAO.php");
 
 if ( !isset ($_SESSION["gatekeeper"]))
 {
@@ -16,17 +18,25 @@ else
     <?php
 
     try{
-      include("functions.php");
-      include("reviewsDAO.php");
 
       $conn = databaseConnection();
-      
+
       $poiId = $_POST["poiId"];
       $review = $_POST["review"];
 
         if($poiId == "" || $review == ""){
 
-          echo "something is blank";
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+          }
+
+          echo "poiid = " . $poiId;
+          echo "<br>review = " . $review;
+          echo "<br>Something went wrong please go back and try again.";
+
+          footer();
 
         } else {
 
@@ -34,11 +44,18 @@ else
 
           $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
 
-          echo $reviewsDTO->display();
+          $returnedReviewDTO = $reviewsDAO->addReview($reviewsDTO);
 
-          $ReturnedReviewDTO = $reviewsDAO->addReview($reviewsDTO);
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+          }
 
-            echo $ReturnedReviewDTO->display();
+          echo "Review added<br>";
+          echo "<br>Review: " . $returnedReviewDTO->getReview();
+
+          footer();
 
           }
 

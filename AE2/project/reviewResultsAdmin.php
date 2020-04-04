@@ -5,11 +5,12 @@ include("reviewsDAO.php");
 include("poiDAO.php");
 
 ?>
-    <html>
-    <head>
-      <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <title>PointsOfInterest - Approval</title>
+</head>
+<body>
     <?php
     try{
       $conn = databaseConnection();
@@ -19,7 +20,15 @@ include("poiDAO.php");
 
         if($reviews == null){
 
-          echo "Phew I bet you were worried you might have to do some work... Well it is you lucky day you are all caught up.";
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+          }
+
+          echo "There are no reviews pending approval.";
+
+          footer();
 
         } else {
           title($_SESSION["isadmin"], $byDefault = 0);
@@ -28,7 +37,7 @@ include("poiDAO.php");
             $un = $_SESSION["gatekeeper"];
             echo "<p>Welcome, $un<p>";
           }
-          echo "<p>Below are all the reviews pending apprval</p>";
+          echo "<p>Below are all reviews pending apprval.</p>";
           echo "<table>";
           echo "<tr>";
           echo "<th>ID</th>";
@@ -46,10 +55,10 @@ include("poiDAO.php");
             echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Approve'></form></td><br>";
             echo "</tr>";
           }
-
+          echo "</table>";
+          footer();
         }
-        echo "</table>";
-        footer();
+
 
     } catch(PDOException $e) {
         echo "Error: $e";

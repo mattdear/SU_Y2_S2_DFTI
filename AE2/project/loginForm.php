@@ -4,7 +4,8 @@ include("functions.php");
 ?>
 <html>
 <head>
-<title>PointsOfInterest - Login</title>
+  <link rel="stylesheet" href="style.css">
+  <title>PointsOfInterest - Login</title>
 </head>
 <body>
   <?php

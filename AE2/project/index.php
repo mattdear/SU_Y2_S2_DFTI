@@ -4,7 +4,8 @@ include("functions.php");
 ?>
 <html>
 <head>
-<title>PointsOfInterest - Home</title>
+  <link rel="stylesheet" href="style.css">
+  <title>PointsOfInterest - Home</title>
 </head>
 <body>
     <?php

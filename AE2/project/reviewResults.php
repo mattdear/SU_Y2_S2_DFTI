@@ -5,11 +5,12 @@ include("reviewsDAO.php");
 include("poiDAO.php");
 
 ?>
-    <html>
-    <head>
-      <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <title>PointsOfInterest - Reviews</title>
+</head>
+<body>
     <?php
     try{
       $conn = databaseConnection();
@@ -18,7 +19,15 @@ include("poiDAO.php");
 
       if($poiId == ""){
 
-        echo "No POI selected.";
+        title($_SESSION["isadmin"], $byDefault = 0);
+        if (isset ($_SESSION["gatekeeper"]))
+        {
+          echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+        }
+
+        echo "No POI selected please go back and try again.";
+
+        footer();
 
       } else {
 
@@ -30,11 +39,28 @@ include("poiDAO.php");
 
         if($poi == null){
 
-          echo "Your search returned no results.";
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+          }
+
+          echo "Your search returned no results please go back and try again.";
+
+          footer();
 
         } elseif ($reviews == null) {
 
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
+          }
+
           echo "There are currently no reviews for this POI.";
+          echo "<br><br><a href='addReviewForm.php?poiId=" . $poi->getId() . "&poiName=" . $poi->getName() . "'><button>Add Review</button></a><br>";
+
+          footer();
 
         } else {
           title($_SESSION["isadmin"], $byDefault = 0);
@@ -44,7 +70,7 @@ include("poiDAO.php");
             echo "<p>Welcome, $un<p>";
           }
           echo "<p>Reviews for " . $poi->getName() . ", " . $poi->getRegion() . ", " . $poi->getCountry() . ".</p>";
-          echo "<td><a href='addReviewForm.php?poiId=" . $poi->getId() . "&poiName=" . $poi->getName() . "'><button>Add Review</button></a><br>";
+          echo "<a href='addReviewForm.php?poiId=" . $poi->getId() . "&poiName=" . $poi->getName() . "'><button>Add Review</button></a><br>";
           echo "<table>";
           echo "<tr>";
           echo "<th>ID</th>";
@@ -60,10 +86,10 @@ include("poiDAO.php");
           echo "<td>" . $value->getApproved() . "</td>";
           echo "</tr>";
           }
-
+          echo "</table>";
+          footer();
         }
-        echo "</table>";
-        footer();
+
       }
     } catch(PDOException $e) {
         echo "Error: $e";
