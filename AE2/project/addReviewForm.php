@@ -33,9 +33,6 @@ if (!isset ($_SESSION["gatekeeper"])) {
             footer();
 
         } else {
-            //$conn = databaseConnection();
-            //$poiDAO = new poiDAO($conn, "pointsofinterest");
-            //$poi = $poiDAO->findByid($poiId);
             echo "<p>To add a review for $poiName. Please fill in the form below and click submit review.</p>";
             echo "<form method='post' action='addReview.php'>";
             echo "<label for='review'>Review:</label>";
