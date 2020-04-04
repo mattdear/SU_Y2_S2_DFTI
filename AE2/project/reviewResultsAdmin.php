@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("functions.php");
 include("reviewsDAO.php");
 include("poiDAO.php");
@@ -22,6 +23,11 @@ include("poiDAO.php");
 
         } else {
           title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            $un = $_SESSION["gatekeeper"];
+            echo "<p>Welcome, $un<p>";
+          }
           echo "<p>Below are all the reviews pending apprval</p>";
           echo "<table>";
           echo "<tr>";

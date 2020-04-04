@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("functions.php");
 include("reviewsDAO.php");
 include("poiDAO.php");
@@ -37,6 +38,11 @@ include("poiDAO.php");
 
         } else {
           title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            $un = $_SESSION["gatekeeper"];
+            echo "<p>Welcome, $un<p>";
+          }
           echo "<p>Reviews for " . $poi->getName() . ", " . $poi->getRegion() . ", " . $poi->getCountry() . ".</p>";
           echo "<td><a href='addReviewForm.php?poiId=" . $poi->getId() . "&poiName=" . $poi->getName() . "'><button>Add Review</button></a><br>";
           echo "<table>";

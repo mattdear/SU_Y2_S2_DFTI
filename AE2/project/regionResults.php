@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("functions.php");
 include("poiDAO.php");
 
@@ -29,6 +30,11 @@ include("poiDAO.php");
 
         } else {
           title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            $un = $_SESSION["gatekeeper"];
+            echo "<p>Welcome, $un<p>";
+          }
           echo "<p>Search results for POI's in $region.</p>";
           echo "<table>";
           echo "<tr>";

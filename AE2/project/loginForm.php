@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+<?php
+session_start();
+include("functions.php");
+?>
 <html>
 <head>
 <title>PointsOfInterest - Login</title>
 </head>
 <body>
   <?php
-  include("functions.php");
-  session_start();
-  title($_SESSION["isAdmin"], $byDefault = 0);
+  title($_SESSION["isadmin"], $byDefault = 0);
   if (isset ($_SESSION["gatekeeper"]))
   {
     $un = $_SESSION["gatekeeper"];

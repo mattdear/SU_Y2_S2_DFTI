@@ -29,7 +29,7 @@ else
       $poiId = $_GET["poiId"];
       $poiName = $_GET["poiName"];
       if($poiId="" || $poiName=""){
-        echo "Something is blank."
+        echo "Something is blank.";
       } else {
       $conn = databaseConnection();
       $poiDAO = new poiDAO($conn, "pointsofinterest");
