@@ -2,7 +2,7 @@
 include("functions.php");
 include("poiDAO.php");
 
-$id = $_POST["JoshSucks"];
+$id = $_POST["id"];
 $region = $_POST["region"];
 
 $conn = databaseConnection();

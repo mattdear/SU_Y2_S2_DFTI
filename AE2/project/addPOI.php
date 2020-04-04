@@ -16,10 +16,10 @@ else
     <?php
 
     try{
+      include("functions.php");
       include("poiDAO.php");
 
-      $conn = new PDO ("mysql:host=localhost;dbname=assign204;", "assign204", "dohpatie");
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $conn = databaseConnection();
 
       $name = $_POST["name"];
       $type = $_POST["type"];

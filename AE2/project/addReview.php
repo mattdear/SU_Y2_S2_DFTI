@@ -16,11 +16,11 @@ else
     <?php
 
     try{
+      include("functions.php");
       include("reviewsDAO.php");
 
-      $conn = new PDO ("mysql:host=localhost;dbname=assign204;", "assign204", "dohpatie");
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+      $conn = databaseConnection();
+      
       $poiId = $_POST["poiId"];
       $review = $_POST["review"];
 

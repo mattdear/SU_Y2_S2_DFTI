@@ -20,7 +20,7 @@ else
   <body>
     <?php
     try{
-      title();
+      title($_SESSION["isadmin"], $byDefault = 0);
       if (isset ($_SESSION["gatekeeper"]))
       {
         $un = $_SESSION["gatekeeper"];
@@ -28,6 +28,9 @@ else
       }
       $poiId = $_GET["poiId"];
       $poiName = $_GET["poiName"];
+      if($poiId="" || $poiName=""){
+        echo "Something is blank."
+      } else {
       $conn = databaseConnection();
       $poiDAO = new poiDAO($conn, "pointsofinterest");
       $poi = $poiDAO->findByid($poiId);
@@ -42,6 +45,7 @@ else
       echo "<br/>";
       echo "</form>";
       footer();
+    }
     } catch(PDOException $e) {
         echo "Error: $e";
     }

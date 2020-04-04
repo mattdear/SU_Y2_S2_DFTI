@@ -12,23 +12,17 @@ try{
 
   if($un == "" || $pw == ""){
 
-    echo "no username or password";
+    echo "No username or password entered";
 
   } else {
 
     $usersDAO = new usersDAO($conn, "poi_users");
     $usersDTO = $usersDAO->verifyLogin($un, $pw);
-    //if($statement->rowCount() != 1){
-
-      //echo "more or less than one row";
-
-    //} else {
-      $_SESSION["token"] = $token = bin2hex(random_bytes(32));
-      $_SESSION["gatekeeper"] = $un;
-      $_SESSION["isadmin"] = $usersDTO->getIsadmin();
-      header ("location: index.php");
-
-    //}
+    $_SESSION["token"] = $token = bin2hex(random_bytes(32));
+    $_SESSION["gatekeeper"] = $un;
+    $_SESSION["isadmin"] = $usersDTO->getIsadmin();
+    header ("location: index.php");
+  
   }
 } catch(PDOException $e) {
     echo "Error: $e";
