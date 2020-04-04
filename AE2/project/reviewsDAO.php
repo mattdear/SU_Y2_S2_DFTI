@@ -39,5 +39,11 @@ class reviewsDAO {
       $reviewObj->setId($this->conn->lastInsertId());
       return $reviewObj;
     }
+
+    public function approveReview($idIn){
+      $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET approved=1 WHERE id=:id");
+      $stmt->execute([":id"=>$idIn]);
+      header ("location: reviewResultsAdmin.php");
+    }
 }
 ?>

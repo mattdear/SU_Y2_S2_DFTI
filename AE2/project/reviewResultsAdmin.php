@@ -32,14 +32,13 @@ include("poiDAO.php");
           echo "<th>Approve?</th>";
           echo "</tr>";
           foreach($reviews as $value){
-          echo $value->display();
-          echo "<tr>";
-          echo "<td>" . $value->getId() . "</td>";
-          echo "<td>" . $value->getPoiId() . "</td>";
-          echo "<td>" . $value->getReview() . "</td>";
-          echo "<td>" . $value->getApproved() . "</td>";
-          echo "<td><a href='approveReview.php?id=" . $value->getId() . "'><button>Approve</button></a><br>";
-          echo "</tr>";
+            echo "<tr>";
+            echo "<td>" . $value->getId() . "</td>";
+            echo "<td>" . $value->getPoiId() . "</td>";
+            echo "<td>" . $value->getReview() . "</td>";
+            echo "<td>" . $value->getApproved() . "</td>";
+            echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Approve'></form></td><br>";
+            echo "</tr>";
           }
 
         }

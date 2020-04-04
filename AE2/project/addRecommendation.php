@@ -2,10 +2,10 @@
 include("functions.php");
 include("poiDAO.php");
 
-$id = $_GET["id"];
-$region = $_GET["region"];
+$id = $_POST["JoshSucks"];
+$region = $_POST["region"];
 
 $conn = databaseConnection();
-$DAO = new poiDAO($conn, "pointsofinterest");
-$DAO->addRecommendation($id,$region);
+$poiDAO = new poiDAO($conn, "pointsofinterest");
+$poiDAO->addRecommendation($id, $region);
 ?>

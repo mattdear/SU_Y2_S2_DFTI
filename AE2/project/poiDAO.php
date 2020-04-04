@@ -47,7 +47,7 @@ class poiDAO {
     public function addRecommendation($idIn, $regionIn) {
       $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET recommended=recommended+1 WHERE ID=:id");
       $stmt->execute([":id"=>$idIn]);
-      header ("location: searchResults.php?region=$regionIn");
+      header ("location: regionResults.php?region=$regionIn");
     }
 
     #This function is tested and working.
