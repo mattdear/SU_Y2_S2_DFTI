@@ -14,6 +14,7 @@ include("functions.php");
 <body>
   <div id="all_content">
     <header>
+      <img src="assets/compass_logo.png">
       <?php
       title($_SESSION["isadmin"], $byDefault = 0);
       if (isset ($_SESSION["gatekeeper"]))
