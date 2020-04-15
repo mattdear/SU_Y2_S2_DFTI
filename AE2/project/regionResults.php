@@ -6,11 +6,26 @@ include("poiDAO.php");
 ?>
     <html>
     <head>
-      <link rel="stylesheet" href="style.css">
-      <title>PointsOfInterest - Region</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" href="css/style.css">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <title>Points Of Interest - Region Search</title>
     </head>
     <body>
-    <?php
+      <div id="all_content">
+        <header>
+          <?php
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "Welcome, " . $_SESSION["gatekeeper"];
+          }
+          ?>
+          <h2>Awaiting Approval</h2>
+        </header>
+        <?php
     try{
       $conn = databaseConnection();
 
@@ -35,23 +50,10 @@ include("poiDAO.php");
 
         if($pois == null){
 
-          title($_SESSION["isadmin"], $byDefault = 0);
-          if (isset ($_SESSION["gatekeeper"]))
-          {
-            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
-          }
-
           echo "Your search returned no results please go back and try again.";
 
-          footer();
-
         } else {
-          title($_SESSION["isadmin"], $byDefault = 0);
-          if (isset ($_SESSION["gatekeeper"]))
-          {
-            $un = $_SESSION["gatekeeper"];
-            echo "<p>Welcome, $un<p>";
-          }
+
           echo "<p>Results for POI's in $region.</p>";
           echo "<table>";
           echo "<tr>";
@@ -61,7 +63,7 @@ include("poiDAO.php");
           echo "<th>Region</th>";
           echo "<th>Description</th>";
           echo "<th>Recommended</th>";
-          echo "<th>Add Recomendation</th>";
+          echo "<th>Actions</th>";
           echo "</tr>";
           foreach($pois as $value){
             echo "<tr>";
@@ -71,18 +73,20 @@ include("poiDAO.php");
             echo "<td>" . $value->getRegion() . "</td>";
             echo "<td>" . $value->getDescription() . "</td>";
             echo "<td>" . $value->getRecommended() . "</td>";
-            echo "<td><form method='post' action='addRecommendation.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='hidden' name='region' value='$region'><input type='submit' value='Recommend'></form><br>";
+            echo "<td><form method='post' action='addRecommendation.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='hidden' name='region' value='$region'><input type='submit' value='Recommended'></form>";
             echo "<a href='reviewResults.php?poiId=" . $value->getId() . "'><button>See Reviews</button></a><br>";
             echo "<a href='addReviewForm.php?poiId=" . $value->getId() . "&poiName=" . $value->getName() . "'><button>Add Review</button></a></td>";
             echo "</tr>";
         }
         }
         echo "</table>";
-        footer();
       }
     } catch(PDOException $e) {
         echo "Error: $e";
     }
     ?>
+  </div>
+  <!--</div id="all_content"-->
+  <?php footer()?>
     </body>
     </html>

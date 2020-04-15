@@ -22,8 +22,6 @@ function links($userType) {
 
     echo "</ul>";
 
-    backButton();
-
   } else {
 
   $links = [
@@ -45,8 +43,6 @@ function links($userType) {
 
     echo "</ul>";
 
-backButton();
-
 }
 }
 
@@ -55,6 +51,7 @@ function backButton() {
 }
 
 function title($userType) {
+  echo "<img src='assets/compass_logo.png'>";
   echo "<h1>Points Of Interest</h1>";
   links($userType);
 }
@@ -70,6 +67,8 @@ function databaseConnection() {
 }
 
 function footer() {
+  echo "<footer>";
   echo "Copywrite Points Of Interest &copy; " . date("Y");
+  echo "</footer>";
 }
 ?>

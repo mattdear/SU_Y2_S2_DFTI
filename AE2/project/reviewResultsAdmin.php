@@ -7,10 +7,25 @@ include("poiDAO.php");
 ?>
 <html>
 <head>
-  <link rel="stylesheet" href="style.css">
-  <title>PointsOfInterest - Approval</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <title>Points Of Interest - Review Approval</title>
 </head>
 <body>
+  <div id="all_content">
+    <header>
+      <?php
+      title($_SESSION["isadmin"], $byDefault = 0);
+      if (isset ($_SESSION["gatekeeper"]))
+      {
+        echo "Welcome, " . $_SESSION["gatekeeper"];
+      }
+      ?>
+      <h2>Awaiting Approval</h2>
+    </header>
     <?php
     try{
       $conn = databaseConnection();
@@ -20,24 +35,12 @@ include("poiDAO.php");
 
         if($reviews == null){
 
-          title($_SESSION["isadmin"], $byDefault = 0);
-          if (isset ($_SESSION["gatekeeper"]))
-          {
-            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
-          }
-
           echo "There are no reviews pending approval.";
 
-          footer();
-
         } else {
-          title($_SESSION["isadmin"], $byDefault = 0);
-          if (isset ($_SESSION["gatekeeper"]))
-          {
-            $un = $_SESSION["gatekeeper"];
-            echo "<p>Welcome, $un<p>";
-          }
+
           echo "<p>Below are all reviews pending apprval.</p>";
+          echo "<br>";
           echo "<table>";
           echo "<tr>";
           echo "<th>ID</th>";
@@ -52,11 +55,10 @@ include("poiDAO.php");
             echo "<td>" . $value->getPoiId() . "</td>";
             echo "<td>" . $value->getReview() . "</td>";
             echo "<td>" . $value->getApproved() . "</td>";
-            echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Approve'></form></td><br>";
+            echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Approve'></form></td>";
             echo "</tr>";
           }
           echo "</table>";
-          footer();
         }
 
 
@@ -64,5 +66,8 @@ include("poiDAO.php");
         echo "Error: $e";
     }
     ?>
-    </body>
-    </html>
+    </div>
+    <!--</div id="all_content"-->
+    <?php footer()?>
+  </body>
+</html>

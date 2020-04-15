@@ -14,14 +14,15 @@ include("functions.php");
 <body>
   <div id="all_content">
     <header>
-      <img src="assets/compass_logo.png">
       <?php
       title($_SESSION["isadmin"], $byDefault = 0);
       if (isset ($_SESSION["gatekeeper"]))
       {
-        echo "Welcome, " . $_SESSION["gatekeeper"];
+        echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
       }
+      backbutton();
       ?>
+
       <h2>Region Search</h2>
     </header>
       <p>Please enter a region to search for points of interest. (e.g. Hampshire, Normandy, Or California.)</p>
@@ -31,8 +32,6 @@ include("functions.php");
     </form>
   </div>
   <!--</div id="all_content"-->
-  <footer>
     <?php footer()?>
-  </footer>
   </body>
 </html>
