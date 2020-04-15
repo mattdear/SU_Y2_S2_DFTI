@@ -14,10 +14,16 @@ function links($userType) {
         "link" => "logout.php"]
     ];
 
+    echo "<ul id='menu_top'>";
+
     foreach($links as $link) {
-      echo "<a href='" . $link["link"] . "'>" . $link["name"] . "</a><br>";
+      echo "<li><a href='" . $link["link"] . "'>" . $link["name"] . "</a></li>";
     }
+
+    echo "</ul>";
+
     backButton();
+
   } else {
 
   $links = [
@@ -31,15 +37,21 @@ function links($userType) {
       "link" => "logout.php"]
   ];
 
-foreach($links as $link) {
-    echo "<a href='" . $link["link"] . "'>" . $link["name"] . "</a><br>";
-}
+    echo "<ul id='menu_top'>";
+
+    foreach($links as $link) {
+      echo "<li><a href='" . $link["link"] . "'>" . $link["name"] . "</a></li>";
+    }
+
+    echo "</ul>";
+
 backButton();
+
 }
 }
 
 function backButton() {
-  echo '<p><a href="javascript:history.go(-1)">Back</a></p>';
+  echo '<p><a href="javascript:history.go(-1)" id="back_button">< Back</a></p>';
 }
 
 function title($userType) {
@@ -58,6 +70,6 @@ function databaseConnection() {
 }
 
 function footer() {
-  echo "<h5>Copywrite PointsOfInterest &copy; " . date("Y") . "<h5>";
+  echo "Copywrite PointsOfInterest &copy; " . date("Y");
 }
 ?>

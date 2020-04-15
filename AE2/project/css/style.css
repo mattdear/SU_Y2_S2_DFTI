@@ -1,0 +1,178 @@
+* {
+    margin: 0%;
+    padding: 0%;
+}
+
+#all_content {
+    margin: 5% 5%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#menu_top {
+  text-align: center;
+  font-weight: bold;
+}
+
+#menu_top li {
+  display:block;
+}
+
+#menu_top li a {
+  text-decoration:none;
+  color: #000000;
+}
+
+#back_button {
+  text-decoration: none;
+  color: #000000;
+}
+
+h1 {
+    margin: 5% 0% 2% 0%;
+    color: #FF585D;
+    text-decoration-line: underline;
+    text-align: center;
+}
+
+p {
+  padding: 3% 0%;
+}
+
+#contact_form {
+    width: 99.5%;
+}
+
+#contact_form label {
+    float: left;
+    width: 30%;
+    margin: 5% 0% 1% 0%;
+}
+
+#contact_form input[type="text"] {
+    width: 100%;
+    padding: 1%;
+    border: solid black;
+    border-width: 1px;
+    border-radius: 6px;
+}
+
+#contact_form input[type="submit"] {
+    width: 100%;
+    margin: 3% 0% 0% 0%;
+    padding: 1%;
+    font-size: 20px;
+    border: none;
+    background-color: #FF585D;
+    color: #ffffff;
+    border-radius: 6px;
+}
+
+#contact_form input[type="submit"]:active {
+    width: 100%;
+    margin: 3% 0% 0% 0%;
+    font-size: 20px;
+    border: none;
+    background-color: #ffffff;
+    color: #FF585D;
+    border-radius: 6px;
+}
+
+footer {
+    margin: 8% 0% 0% 0%;
+    padding: 5% 0% 5% 0%;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    position:fixed;
+    bottom:0;
+    width: 100%;
+}
+
+@media (min-width: 700px) {
+    * {
+        margin: 0%;
+        padding: 0%;
+    }
+
+    #all_content {
+      margin: 0% 20% 0% 20%;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    #menu_top {
+      margin: 3% auto;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    #menu_top li {
+      display:inline;
+    }
+
+    #menu_top li a {
+      padding:0 30px;
+      text-decoration:none;
+      color: #000000;
+    }
+
+    h1 {
+        margin: 5% 0% 2% 0%;
+        color: #FF585D;
+        text-decoration-line: underline;
+        text-align: center;
+    }
+
+    #contact_form {
+        width: 100%;
+        margin: 0% auto;
+    }
+
+    #contact_form label {
+        float: left;
+        width: 30%;
+        margin: 5% 0% 1% 0%;
+        text-align: left;
+    }
+
+    #contact_form p {
+        text-align: left;
+    }
+
+    #contact_form input[type="text"] {
+        width: 100%;
+        padding: 1%;
+        border: solid black;
+        border-width: 1px;
+        border-radius: 10px;
+    }
+
+    #contact_form input[type="submit"] {
+        width: 20%;
+        margin: 3% 0% 0% 0%;
+        font-size: 20px;
+        border: none;
+        background-color: #FF585D;
+        color: #ffffff;
+        border-radius: 10px;
+    }
+
+    #contact_form input[type="submit"]:active {
+        width: 20%;
+        margin: 3% 0% 0% 0%;
+        font-size: 20px;
+        border: none;
+        background-color: #ffffff;
+        color: #FF585D;
+        border-radius: 10px;
+    }
+
+    footer {
+        margin: 8% 0% 0% 0%;
+        padding: 5% 0% 5% 0%;
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+        position:fixed;
+        bottom:0;
+        width: 100%;
+    }
+
+}
