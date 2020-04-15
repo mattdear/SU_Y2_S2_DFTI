@@ -55,7 +55,7 @@ function backButton() {
 }
 
 function title($userType) {
-  echo "<h1>PointsOfInterest</h1>";
+  echo "<h1>Points Of Interest</h1>";
   links($userType);
 }
 
@@ -70,6 +70,6 @@ function databaseConnection() {
 }
 
 function footer() {
-  echo "Copywrite PointsOfInterest &copy; " . date("Y");
+  echo "Copywrite Points Of Interest &copy; " . date("Y");
 }
 ?>
