@@ -25,8 +25,9 @@ else
       title($_SESSION["isadmin"], $byDefault = 0);
       if (isset ($_SESSION["gatekeeper"]))
       {
-        echo "Welcome, " . $_SESSION["gatekeeper"];
+        echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
       }
+      backbutton();
       ?>
       <h2>Add POI</h2>
     </header>

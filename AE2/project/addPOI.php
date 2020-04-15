@@ -28,6 +28,7 @@ else
           {
             echo "Welcome, " . $_SESSION["gatekeeper"];
           }
+          backbutton();
           ?>
           <h2>Add POI</h2>
         </header>

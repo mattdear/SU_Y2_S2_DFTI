@@ -22,14 +22,16 @@ include("functions.php");
       }
       backbutton();
       ?>
-
       <h2>Region Search</h2>
     </header>
       <p>Please enter a region to search for points of interest. (e.g. Hampshire, Normandy, Or California.)</p>
+      <div id="home_search">
       <form method="get" action="regionResults.php" id="contact_form">
       <input name="region" type="text"/>
       <input type="submit" value="Search POI's" /><br><br>
     </form>
+  </div>
+  <!--</div id="home_search"-->
   </div>
   <!--</div id="all_content"-->
     <?php footer()?>

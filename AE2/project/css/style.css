@@ -123,6 +123,10 @@ footer {
       font-family: 'Open Sans', sans-serif;
     }
 
+    #home_search {
+      margin-top: 3%;
+    }
+
     #menu_top {
       margin: 3% auto;
       text-align: center;
