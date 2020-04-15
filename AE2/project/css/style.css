@@ -110,8 +110,8 @@ footer {
     text-align: center;
     width: 100%;
 }
-*/
-@media (min-width: 700px) {
+
+@media (min-width: 700px) {*/
     * {
         margin: 0%;
         padding: 0%;
@@ -183,7 +183,7 @@ footer {
     form label {
       float: left;
       width: 100%;
-      margin: 5% 0% 1% 0%;
+      margin: 2% 0% 1% 0%;
       text-align: left;
     }
 
@@ -194,7 +194,6 @@ footer {
     form input[type="text"] {
       width: 100%;
       padding: 1%;
-      font-size: 20px;
       border: solid black;
       border-radius: 10px;
       border-width: thin;
@@ -202,10 +201,9 @@ footer {
     }
 
     form input[type="submit"] {
-      width: 50%;
-      margin: 8% 0% 8% 0%;
+      width: 25%;
+      margin: 4% 0% 4% 0%;
       padding: 1%;
-      font-size: 20px;
       border-radius: 10px;
       border-color: #FF585D;
       border-width: thin;
@@ -215,10 +213,9 @@ footer {
     }
 
     form input[type="submit"]:hover {
-      width: 50%;
-      margin: 8% 0% 8% 0%;
+      width: 25%;
+      margin: 4% 0% 4% 0%;
       padding: 1%;
-      font-size: 20px;
       border-radius: 10px;
       border-color: #FF585D;
       border-width: thin;

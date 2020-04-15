@@ -14,28 +14,23 @@ include("functions.php");
 <body>
   <div id="all_content">
     <header>
-  <?php
-  title($_SESSION["isadmin"], $byDefault = 0);
-  if (isset ($_SESSION["gatekeeper"]))
-  {
-    $un = $_SESSION["gatekeeper"];
-    echo "<p>Welcome, $un<p>";
-  }
-  ?>
-  <h2>Login</h2>
-</header>
+      <?php
+      title($_SESSION["isadmin"], $byDefault = 0);
+      if (isset ($_SESSION["gatekeeper"]))
+      {
+        echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
+      }
+      backbutton();
+      ?>
+      <h2>Login</h2>
+    </header>
 <p>Login below using your username and password.</p>
 <form method="post" action="login.php">
 <label for="username">Username:</label>
-<input name="username" id="username"/>
-<br/>
+<input name="username" id="username" type="text"/>
 <label for="password">Password:</label>
-<input name="password" id="password" type="password"/>
-<br/>
-<br/>
+<input name="password" id="password" type="text"/>
 <input type="submit" value="Login" />
-<br/>
-<br/>
 </form>
 <?php footer()?>
 </body>

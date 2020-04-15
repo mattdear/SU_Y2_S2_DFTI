@@ -26,11 +26,11 @@ else
           title($_SESSION["isadmin"], $byDefault = 0);
           if (isset ($_SESSION["gatekeeper"]))
           {
-            echo "Welcome, " . $_SESSION["gatekeeper"];
+            echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
           }
           backbutton();
           ?>
-          <h2>Add POI</h2>
+          <h2>Region Search</h2>
         </header>
         <?php
         try{
@@ -71,6 +71,7 @@ else
         ?>
       </div>
       <!--</div id="all_content"-->
+      <?php footer()?>
     </body>
   </html>
   <?php
