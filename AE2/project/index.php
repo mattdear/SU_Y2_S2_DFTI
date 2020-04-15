@@ -21,6 +21,7 @@ include("functions.php");
         echo "Welcome, " . $_SESSION["gatekeeper"];
       }
       ?>
+      <h2>Region Search</h2>
     </header>
       <p>Please enter a region to search for points of interest. (e.g. Hampshire, Normandy, Or California.)</p>
       <form method="get" action="regionResults.php" id="contact_form">
