@@ -12,8 +12,6 @@ class poiDAO
         $this->table = $t;
     }
 
-    #This function is not currently working.
-    #Used to pull out the regions from the database for the home page.
     public function findRegions()
     {
         $stmt = $this->conn->prepare("SELECT DISTINCT region FROM " . $this->table);
@@ -26,7 +24,6 @@ class poiDAO
         return $regions;
     }
 
-    #This function is tested and working.
     public function findByRegion($regionIn)
     {
         $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE region=:region");
@@ -39,7 +36,6 @@ class poiDAO
         return $pois;
     }
 
-    #This function is awaiting testing.
     public function findById($poiId)
     {
         $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE ID=:id");
@@ -49,7 +45,6 @@ class poiDAO
         return $poi;
     }
 
-    #This function is tested and working.
     public function addRecommendation($idIn, $regionIn)
     {
         $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET recommended=recommended+1 WHERE ID=:id");
@@ -57,7 +52,6 @@ class poiDAO
         header("location: regionResults.php?region=$regionIn");
     }
 
-    #This function is tested and working.
     public function add(poiDTO &$poiObj)
     {
         $stmt = $this->conn->prepare("INSERT INTO " . $this->table . "(name, type, country, region, description, recommended, username) VALUES (:name, :type, :country, :region, :description, :recommended, :username)");

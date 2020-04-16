@@ -31,16 +31,12 @@ if (!isset ($_SESSION["gatekeeper"])) {
         <form method="post" action="addPOI.php">
             <label for="name">Name:</label>
             <input name="name" id="name" type="text"/>
-            <br/>
             <label for="desciption">Desciption:</label>
             <input name="desciption" id="desciption" type="text"/>
-            <br/>
             <label for="type">Type:</label>
             <input name="type" id="type" type="text"/>
-            <br/>
             <label for="region">Region:</label>
             <input name="region" id="region"/ type="text">
-            <br/>
             <label for="country">Country:</label>
             <select name="country">
                 <option value='Afghanistan'>Afghanistan</option>
@@ -288,10 +284,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
                 <option value='Zambia'>Zambia</option>
                 <option value='Zimbabwe'>Zimbabwe</option>
             </select>
-            <br/>
             <input type="submit" value="Submit POI"/>
-            <br/>
-            <br/>
         </form>
     </div>
     <!--</div id="all_content"-->

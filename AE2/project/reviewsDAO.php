@@ -12,7 +12,6 @@ class reviewsDAO
         $this->table = $t;
     }
 
-    #This function still needs to be tested.
     public function findByPoiIdandApproved($poiIdIn)
     {
         $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE poi_id=:id AND approved='1'");
@@ -24,7 +23,6 @@ class reviewsDAO
         return $reviews;
     }
 
-    #This function still needs to be tested.
     public function findByUnapproved($poiIdIn)
     {
         $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE approved='0'");
@@ -36,7 +34,6 @@ class reviewsDAO
         return $reviews;
     }
 
-    #This function still needs to be tested.
     public function addReview(reviewsDTO &$reviewObj)
     {
         $stmt = $this->conn->prepare("INSERT INTO " . $this->table . "(poi_id, review, approved) VALUES (:poi_id, :review, :approved)");

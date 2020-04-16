@@ -64,7 +64,7 @@ include("poiDAO.php");
                     echo "<td>" . $value->getRecommended() . "</td>";
                     echo "<td>" . $value->getUsername() . "</td>";
                     echo "<td><form method='post' action='addRecommendation.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='hidden' name='region' value='$region'><input type='submit' value='Recommended'></form>";
-                    echo "<a href='reviewResults.php?poiId=" . $value->getId() . "'><button>See Reviews</button></a><br>";
+                    echo "<a href='reviewResults.php?poiId=" . $value->getId() . "'><button>See Reviews</button></a>";
                     echo "<a href='addReviewForm.php?poiId=" . $value->getId() . "&poiName=" . $value->getName() . "'><button>Add Review</button></a></td>";
                     echo "</tr>";
                 }
