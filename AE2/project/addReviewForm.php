@@ -43,10 +43,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
                 echo "<label for='review'>Review:</label>";
                 echo "<textarea name='review' id='review'></textarea>";
                 echo "<input type='hidden' name='poiId' value='$poiId'>";
-                echo "<br/>";
                 echo "<input type='submit' value='Submit Review'/>";
-                echo "<br/>";
-                echo "<br/>";
                 echo "</form>";
             }
         } catch (PDOException $e) {

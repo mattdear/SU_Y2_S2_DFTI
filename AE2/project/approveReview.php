@@ -35,12 +35,13 @@ else {
 
 $id = $_POST["id"];
 
-if(preg_match("/^[0-9]$/", $id){
+if(preg_match("/^[0-9]{1,30}$/", $id)){
   $conn = databaseConnection();
   $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
   $reviewsDAO->approveReview($id);
 } else {
   echo "Somthing went wrong";
+}
 }
 } catch(PDOException $e) {
     echo "Error: $e";

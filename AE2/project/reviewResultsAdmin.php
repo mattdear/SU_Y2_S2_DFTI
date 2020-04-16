@@ -40,13 +40,11 @@ include("poiDAO.php");
         } else {
 
             echo "<p>Below are all reviews pending apprval.</p>";
-            echo "<br>";
             echo "<table>";
             echo "<tr>";
             echo "<th>ID</th>";
             echo "<th>POI ID</th>";
             echo "<th>Review</th>";
-            echo "<th>Approved</th>";
             echo "<th>Approve?</th>";
             echo "</tr>";
             foreach ($reviews as $value) {
@@ -54,7 +52,6 @@ include("poiDAO.php");
                 echo "<td>" . $value->getId() . "</td>";
                 echo "<td>" . $value->getPoiId() . "</td>";
                 echo "<td>" . $value->getReview() . "</td>";
-                echo "<td>" . $value->getApproved() . "</td>";
                 echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Approve'></form></td>";
                 echo "</tr>";
             }
