@@ -24,7 +24,7 @@ include("poiDAO.php");
         }
         backbutton();
         ?>
-        <h2>Region Search</h2>
+        <h2>Reviews</h2>
     </header>
     <?php
     try {
@@ -40,7 +40,7 @@ include("poiDAO.php");
           if ($poi == null) {
               echo "Your search returned no results please go back and try again.";
           } elseif ($reviews == null) {
-              echo "There are currently no reviews for this POI.";
+              echo "There are currently no reviews for this POI.<br>";
               echo "<a href='addReviewForm.php?poiId=" . $poi->getId() . "&poiName=" . $poi->getName() . "'><button>Add Review</button></a>";
           } else {
               echo "<p>The reviews below are for " . $poi->getName() . ", " . $poi->getRegion() . ", " . $poi->getCountry() . ". If you would like to add your own please click the add review button.</p>";

@@ -36,8 +36,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
             $poiId = $_POST["poiId"];
             $review = $_POST["review"];
 
-            if (preg_match("/^[0-9]{1,30}$/", $poiId) && preg_match("/^[a-zA-Z0-9]{5,1000}$/", $review)) {
-
+            if (preg_match("/^[0-9]{1,30}$/", $poiId) && preg_match("/^[a-zA-Z0-9 _.!?'£%&()=:;\-\,\/]{10,1000}$/", $review)) {
 
                 $reviewsDTO = new reviewsDTO("", $poiId, $review, 0);
 
@@ -50,8 +49,6 @@ if (!isset ($_SESSION["gatekeeper"])) {
 
             } else {
 
-                echo "poiid = " . $poiId;
-                echo "<br>review = " . $review;
                 echo "<br>Something went wrong please go back and try again.";
 
             }

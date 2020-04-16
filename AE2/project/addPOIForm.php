@@ -283,7 +283,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
                 <option value='Yemen'>Yemen</option>
                 <option value='Zambia'>Zambia</option>
                 <option value='Zimbabwe'>Zimbabwe</option>
-            </select>
+            </select><br>
             <input type="submit" value="Submit POI"/>
         </form>
     </div>

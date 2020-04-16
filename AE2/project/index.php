@@ -36,7 +36,7 @@ include("poiDAO.php");
             foreach ($pois as $value) {
                 echo "<option value='$value'>$value</option>";
             }
-            echo "</select>";
+            echo "</select><br>";
             echo "<input type='submit' value='Search POI's'>";
 
         } catch (PDOException $e) {
