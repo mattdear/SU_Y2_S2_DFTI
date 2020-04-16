@@ -24,7 +24,7 @@ include("poiDAO.php");
         ?>
         <h2>Region Search</h2>
     </header>
-    <p>Please enter a region to search for points of interest. (e.g. Hampshire, Normandy, Or California.)</p>
+    <p>Please select a region below to search for points of interest.</p>
     <div id="home_search">
         <?php
         try {
@@ -42,8 +42,6 @@ include("poiDAO.php");
         } catch (PDOException $e) {
             echo "Error: $e";
         }
-
-
         ?>
     </div>
     <!--</div id="home_search"-->

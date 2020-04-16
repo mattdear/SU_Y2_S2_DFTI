@@ -9,12 +9,12 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-#home_search {
+/* #home_search {
     margin-top: 3%;
-}
+} */
 
 #menu_top {
-    margin: 3% auto;
+    margin: 1% auto;
     text-align: center;
     font-weight: bold;
 }
@@ -53,13 +53,12 @@ img {
 }
 
 h1 {
-    margin: 0% 0% 2% 0%;
     color: #FF585D;
     text-align: center;
 }
 
 h2 {
-    padding: 3% 0% 0% 0%;
+    padding: 1% 0% 0% 0%;
 }
 
 form {
@@ -77,11 +76,30 @@ form p {
     text-align: left;
 }
 
+form select {
+  width: 100%;
+  padding: 1%;
+  border: solid black;
+  /* border-radius: 10px; */
+  border-width: thin;
+  border-style: solid;
+}
+
+form textarea {
+  width: 100%;
+  height: 10%;
+  padding: 1%;
+  border: solid black;
+  /* border-radius: 10px; */
+  border-width: thin;
+  border-style: solid;
+}
+
 form input[type="text"] {
     width: 100%;
     padding: 1%;
     border: solid black;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     border-width: thin;
     border-style: solid;
 }
