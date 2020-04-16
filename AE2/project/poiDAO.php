@@ -13,7 +13,7 @@ class poiDAO {
     #This function is not currently working.
     #Used to pull out the regions from the database for the home page.
     public function findRegions() {
-      $stmt = $this->conn->prepare("SELECT region FROM " . $this->table);
+      $stmt = $this->conn->prepare("SELECT DISTINCT region FROM " . $this->table);
       $stmt->execute();
       while($row = $stmt->fetch()) {
         $region = $row["region"];

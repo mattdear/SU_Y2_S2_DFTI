@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("functions.php");
+include("poiDAO.php");
 ?>
 <html>
 <head>
@@ -26,10 +27,26 @@ include("functions.php");
     </header>
       <p>Please enter a region to search for points of interest. (e.g. Hampshire, Normandy, Or California.)</p>
       <div id="home_search">
-      <form method="get" action="regionResults.php" id="contact_form">
-      <input name="region" type="text"/>
-      <input type="submit" value="Search POI's" /><br><br>
-    </form>
+      <?php
+      try {
+              $conn = databaseConnection();
+              $DAO = new poiDAO($conn, "pointsofinterest");
+              $pois = $DAO->findRegions();
+              echo "<form method='get' action='regionResults.php' id='contact_form'>";
+              echo "<select name='region'>";
+              foreach($pois as $value){
+                echo "<option value='$value'>$value</option>";
+              }
+              echo "</select>";
+              echo "<input type='submit' value='Search POI's'>";
+
+      } catch(PDOException $e) {
+          echo "Error: $e";
+      }
+
+
+
+      ?>
   </div>
   <!--</div id="home_search"-->
   </div>
