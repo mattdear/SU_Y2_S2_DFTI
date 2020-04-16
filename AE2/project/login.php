@@ -32,7 +32,7 @@ $pw = $_POST["password"];
 try{
   $conn = databaseConnection();
 
-  if($un == "" || $pw == ""){
+  if(preg_match("/^[a-z]{2,30}$/", $un) || preg_match("/^[a-zA-Z \-]{2,30}$/", $pw)){
 
     echo "No username or password was entered please go back and try again.";
 

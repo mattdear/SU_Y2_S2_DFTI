@@ -41,7 +41,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
             echo "<p>To add a review for $poiName. Please fill in the form below and click submit review.</p>";
             echo "<form method='post' action='addReview.php'>";
             echo "<label for='review'>Review:</label>";
-            echo "<input name='review' id='review'/>";
+            echo "<textarea name='review' id='review'></textarea>";
             echo "<input type='hidden' name='poiId' value='$poiId'>";
             echo "<br/>";
             echo "<input type='submit' value='Submit Review'/>";
