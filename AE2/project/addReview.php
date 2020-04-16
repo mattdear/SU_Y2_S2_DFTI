@@ -40,7 +40,7 @@ else
       $poiId = $_POST["poiId"];
       $review = $_POST["review"];
 
-        if(preg_match("/^[0-9]$/", $poiId) && preg_match("/^[a-zA-Z0-9]{2,30}$/", $review)){
+        if(preg_match("/^[0-9]$/", $poiId) && preg_match("/^[a-zA-Z0-9]{5,1000}$/", $review)){
 
 
           $reviewsDTO = new reviewsDTO("", $poiId, $review, 0);

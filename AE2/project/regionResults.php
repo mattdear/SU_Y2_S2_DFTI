@@ -32,16 +32,12 @@ include("poiDAO.php");
 
       $region = $_GET["region"];
 
-      if($region == ""){
-
-        echo "No region was enterd please go back and try again.";
-
-      } else {
+      if(preg_match("/^[a-zA-Z0-9]{2,30}$/", $region)){
 
         $DAO = new poiDAO($conn, "pointsofinterest");
         $pois = $DAO->findByRegion($region);
 
-        if(preg_match("/^[a-zA-Z0-9]{2,30}$/", $pois)){
+        if($pois == null){
 
           echo "Your search returned no results please go back and try again.";
 
@@ -56,6 +52,7 @@ include("poiDAO.php");
           echo "<th>Region</th>";
           echo "<th>Description</th>";
           echo "<th>Recommended</th>";
+          echo "<th>Username</th>";
           echo "<th>Actions</th>";
           echo "</tr>";
           foreach($pois as $value){
@@ -66,13 +63,19 @@ include("poiDAO.php");
             echo "<td>" . $value->getRegion() . "</td>";
             echo "<td>" . $value->getDescription() . "</td>";
             echo "<td>" . $value->getRecommended() . "</td>";
+            echo "<td>" . $value->getUsername() . "</td>";
             echo "<td><form method='post' action='addRecommendation.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='hidden' name='region' value='$region'><input type='submit' value='Recommended'></form>";
             echo "<a href='reviewResults.php?poiId=" . $value->getId() . "'><button>See Reviews</button></a><br>";
             echo "<a href='addReviewForm.php?poiId=" . $value->getId() . "&poiName=" . $value->getName() . "'><button>Add Review</button></a></td>";
             echo "</tr>";
-        }
+          }
         }
         echo "</table>";
+
+      } else {
+
+        echo "No region was enterd please go back and try again.";
+
       }
     } catch(PDOException $e) {
         echo "Error: $e";

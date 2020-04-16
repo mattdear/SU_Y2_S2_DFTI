@@ -151,8 +151,8 @@ else
 '>Cook Islands
 </option><option value='Costa Rica
 '>Costa Rica
-</option><option value='Cote D'ivoire
-'>Cote D'ivoire
+</option><option value="Cote D'ivoire
+">Cote D'ivoire
 </option><option value='Croatia
 '>Croatia
 </option><option value='Cuba
@@ -271,8 +271,8 @@ else
 '>Kenya
 </option><option value='Kiribati
 '>Kiribati
-</option><option value='Korea, Democratic People's Republic Of
-'>Korea, Democratic People's Republic Of
+</option><option value="Korea, Democratic People's Republic Of
+">Korea, Democratic People's Republic Of
 </option><option value='Korea, Republic Of
 '>Korea, Republic Of
 </option><option value='Kosovo
@@ -281,8 +281,8 @@ else
 '>Kuwait
 </option><option value='Kyrgyzstan
 '>Kyrgyzstan
-</option><option value='Lao People's Democratic Republic
-'>Lao People's Democratic Republic
+</option><option value="Lao People's Democratic Republic
+">Lao People's Democratic Republic
 </option><option value='Latvia
 '>Latvia
 </option><option value='Lebanon
