@@ -44,12 +44,8 @@ else
           $desciption = $_POST["desciption"];
           $username = $_SESSION["gatekeeper"];
 
-            if($name == "" || $type == "" || $country == "" || $region == "" || $desciption == ""){
-
-              echo "Something went wrong please go back and try again.";
-
-            } else {
-
+            if(preg_match("/^[a-zA-Z0-9]{2,30}$/", $name) && preg_match("/^[a-zA-Z0-9]{2,30}$/", $type) && preg_match("/^[a-zA-Z0-9]{2,30}$/", $region) && preg_match("/^[a-zA-Z0-9]{2,30}$/", $desciption))
+            {
               $poiDTO = new poiDTO("", $name, $type, $country, $region, $desciption, 0, $username);
 
               $poiDAO = new poiDAO($conn, "pointsofinterest");
@@ -62,6 +58,10 @@ else
               echo "<br>Type: " . $returnedPOIDTO->getType();
               echo "<br>Region: " . $returnedPOIDTO->getRegion();
               echo "<br>Country: " . $returnedPOIDTO->getCountry();
+
+            } else {
+
+              echo "Something went wrong please go back and try again.";
 
               }
 

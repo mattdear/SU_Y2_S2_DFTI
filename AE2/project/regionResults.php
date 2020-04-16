@@ -41,7 +41,7 @@ include("poiDAO.php");
         $DAO = new poiDAO($conn, "pointsofinterest");
         $pois = $DAO->findByRegion($region);
 
-        if($pois == null){
+        if(preg_match("/^[a-zA-Z0-9]{2,30}$/", $pois)){
 
           echo "Your search returned no results please go back and try again.";
 

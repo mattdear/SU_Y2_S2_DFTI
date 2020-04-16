@@ -33,7 +33,7 @@ include("poiDAO.php");
 
       $poiId = $_GET["poiId"];
 
-      if($poiId == ""){
+      if(preg_match("/^[0-9]$/", $poiId)){
 
         echo "No POI selected please go back and try again.";
 

@@ -11,8 +11,13 @@ else {
 
 $id = $_POST["id"];
 
-$conn = databaseConnection();
-$reviewsDAO = new reviewsDAO($conn, "poi_reviews");
-$reviewsDAO->approveReview($id);
+if(preg_match("/^[0-9]$/", $id){
+  $conn = databaseConnection();
+  $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
+  $reviewsDAO->approveReview($id);
+} else {
+  echo "Somthing went wrong";
+}
+
 }
 ?>

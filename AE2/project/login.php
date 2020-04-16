@@ -32,11 +32,7 @@ $pw = $_POST["password"];
 try{
   $conn = databaseConnection();
 
-  if(preg_match("/^[a-z]{2,30}$/", $un) || preg_match("/^[a-zA-Z \-]{2,30}$/", $pw)){
-
-    echo "No username or password was entered please go back and try again.";
-
-  } else {
+  if(preg_match("/^[a-z]{2,30}$/", $un) && preg_match("/^[a-zA-Z0-9]{2,30}$/", $pw)){
 
     $usersDAO = new usersDAO($conn, "poi_users");
     $usersDTO = $usersDAO->verifyLogin($un, $pw);
@@ -44,6 +40,10 @@ try{
     $_SESSION["gatekeeper"] = $un;
     $_SESSION["isadmin"] = $usersDTO->getIsadmin();
     header ("location: index.php");
+
+  } else {
+
+    echo "No username or password was entered please go back and try again.";
 
   }
 } catch(PDOException $e) {

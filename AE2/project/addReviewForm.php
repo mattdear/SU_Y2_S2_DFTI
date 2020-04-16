@@ -33,6 +33,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
     try {
         $poiId = $_GET["poiId"];
         $poiName = $_GET["poiName"];
+        
         if ($poiId == "" || $poiName == "") {
 
             echo "Something went wrong please go back and try again.";

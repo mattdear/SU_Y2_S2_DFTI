@@ -40,13 +40,8 @@ else
       $poiId = $_POST["poiId"];
       $review = $_POST["review"];
 
-        if($poiId == "" || $review == ""){
+        if(preg_match("/^[0-9]$/", $poiId) && preg_match("/^[a-zA-Z0-9]{2,30}$/", $review)){
 
-          echo "poiid = " . $poiId;
-          echo "<br>review = " . $review;
-          echo "<br>Something went wrong please go back and try again.";
-
-        } else {
 
           $reviewsDTO = new reviewsDTO("", $poiId, $review, 0);
 
@@ -56,6 +51,12 @@ else
 
           echo "Review added<br>";
           echo "<br>Review: " . $returnedReviewDTO->getReview();
+
+        } else {
+
+          echo "poiid = " . $poiId;
+          echo "<br>review = " . $review;
+          echo "<br>Something went wrong please go back and try again.";
 
           }
 
