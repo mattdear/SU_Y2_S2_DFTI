@@ -17,24 +17,25 @@ if (!isset ($_SESSION["gatekeeper"])) {
       <title>PointsOfInterest - Add Review Form</title>
     </head>
     <body>
+      <div id="all_content">
+        <header>
+          <?php
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
+          }
+          backbutton();
+          ?>
+          <h2>Add Review Form</h2>
+        </header>
     <?php
     try {
-        title($_SESSION["isadmin"], $byDefault = 0);
-        if (isset ($_SESSION["gatekeeper"])) {
-            $un = $_SESSION["gatekeeper"];
-            echo "<p>Welcome, $un<p>";
-        }
         $poiId = $_GET["poiId"];
         $poiName = $_GET["poiName"];
         if ($poiId == "" || $poiName == "") {
 
-            title($_SESSION["isadmin"], $byDefault = 0);
-            if (isset ($_SESSION["gatekeeper"])) {
-                echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
-            }
             echo "Something went wrong please go back and try again.";
-
-            footer();
 
         } else {
             echo "<p>To add a review for $poiName. Please fill in the form below and click submit review.</p>";
@@ -47,12 +48,14 @@ if (!isset ($_SESSION["gatekeeper"])) {
             echo "<br/>";
             echo "<br/>";
             echo "</form>";
-            footer();
         }
     } catch (PDOException $e) {
         echo "Error: $e";
     }
     ?>
+  </div>
+  <!--</div id="all_content"-->
+    <?php footer()?>
     </body>
     </html>
     <?php

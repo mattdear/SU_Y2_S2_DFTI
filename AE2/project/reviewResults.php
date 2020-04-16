@@ -15,6 +15,18 @@ include("poiDAO.php");
   <title>Points Of Interest - Reviews</title>
 </head>
 <body>
+  <div id="all_content">
+    <header>
+      <?php
+      title($_SESSION["isadmin"], $byDefault = 0);
+      if (isset ($_SESSION["gatekeeper"]))
+      {
+        echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
+      }
+      backbutton();
+      ?>
+      <h2>Region Search</h2>
+    </header>
     <?php
     try{
       $conn = databaseConnection();
@@ -23,15 +35,7 @@ include("poiDAO.php");
 
       if($poiId == ""){
 
-        title($_SESSION["isadmin"], $byDefault = 0);
-        if (isset ($_SESSION["gatekeeper"]))
-        {
-          echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
-        }
-
         echo "No POI selected please go back and try again.";
-
-        footer();
 
       } else {
 
@@ -43,36 +47,15 @@ include("poiDAO.php");
 
         if($poi == null){
 
-          title($_SESSION["isadmin"], $byDefault = 0);
-          if (isset ($_SESSION["gatekeeper"]))
-          {
-            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
-          }
-
           echo "Your search returned no results please go back and try again.";
 
-          footer();
-
         } elseif ($reviews == null) {
-
-          title($_SESSION["isadmin"], $byDefault = 0);
-          if (isset ($_SESSION["gatekeeper"]))
-          {
-            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
-          }
 
           echo "There are currently no reviews for this POI.";
           echo "<br><br><a href='addReviewForm.php?poiId=" . $poi->getId() . "&poiName=" . $poi->getName() . "'><button>Add Review</button></a><br>";
 
-          footer();
-
         } else {
-          title($_SESSION["isadmin"], $byDefault = 0);
-          if (isset ($_SESSION["gatekeeper"]))
-          {
-            $un = $_SESSION["gatekeeper"];
-            echo "<p>Welcome, $un<p>";
-          }
+
           echo "<p>Reviews for " . $poi->getName() . ", " . $poi->getRegion() . ", " . $poi->getCountry() . ".</p>";
           echo "<a href='addReviewForm.php?poiId=" . $poi->getId() . "&poiName=" . $poi->getName() . "'><button>Add Review</button></a><br>";
           echo "<table>";
@@ -91,7 +74,6 @@ include("poiDAO.php");
           echo "</tr>";
           }
           echo "</table>";
-          footer();
         }
 
       }

@@ -30,7 +30,7 @@ else
           }
           backbutton();
           ?>
-          <h2>Region Search</h2>
+          <h2>Add POI</h2>
         </header>
         <?php
         try{

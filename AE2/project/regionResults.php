@@ -34,15 +34,7 @@ include("poiDAO.php");
 
       if($region == ""){
 
-        title($_SESSION["isadmin"], $byDefault = 0);
-        if (isset ($_SESSION["gatekeeper"]))
-        {
-          echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
-        }
-
         echo "No region was enterd please go back and try again.";
-
-        footer();
 
       } else {
 

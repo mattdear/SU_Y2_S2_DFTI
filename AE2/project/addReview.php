@@ -20,9 +20,20 @@ else
       <title>Points Of Interest - Add Review</title>
     </head>
     <body>
-    <?php
-
-    try{
+      <div id="all_content">
+        <header>
+          <?php
+          title($_SESSION["isadmin"], $byDefault = 0);
+          if (isset ($_SESSION["gatekeeper"]))
+          {
+            echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
+          }
+          backbutton();
+          ?>
+          <h2>Add Review</h2>
+        </header>
+        <?php
+        try{
 
       $conn = databaseConnection();
 
@@ -31,17 +42,9 @@ else
 
         if($poiId == "" || $review == ""){
 
-          title($_SESSION["isadmin"], $byDefault = 0);
-          if (isset ($_SESSION["gatekeeper"]))
-          {
-            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
-          }
-
           echo "poiid = " . $poiId;
           echo "<br>review = " . $review;
           echo "<br>Something went wrong please go back and try again.";
-
-          footer();
 
         } else {
 
@@ -51,16 +54,8 @@ else
 
           $returnedReviewDTO = $reviewsDAO->addReview($reviewsDTO);
 
-          title($_SESSION["isadmin"], $byDefault = 0);
-          if (isset ($_SESSION["gatekeeper"]))
-          {
-            echo "<p>Welcome, " . $_SESSION["gatekeeper"] . "<p>";
-          }
-
           echo "Review added<br>";
           echo "<br>Review: " . $returnedReviewDTO->getReview();
-
-          footer();
 
           }
 
@@ -68,6 +63,9 @@ else
         echo "Error: $e";
     }
     ?>
+  </div>
+  <!--</div id="all_content"-->
+    <?php footer()?>
     </body>
     </html>
     <?php

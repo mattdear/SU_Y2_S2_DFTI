@@ -32,6 +32,8 @@ include("functions.php");
 <input name="password" id="password" type="text"/>
 <input type="submit" value="Login" />
 </form>
+</div>
+<!--</div id="all_content"-->
 <?php footer()?>
 </body>
 </html>
