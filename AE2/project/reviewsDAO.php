@@ -48,6 +48,13 @@ class reviewsDAO
         $stmt->execute([":id" => $idIn]);
         header("location: reviewResultsAdmin.php");
     }
+
+    public function deleteReview($idIn)
+    {
+      $stmt = $this->conn->prepare("DELETE FROM " .  $this->table . " WHERE ID=:id");
+      $stmt->execute([":id" => $idIn]);
+      header("location: reviewResultsAdmin.php");
+    }
 }
 
 ?>

@@ -52,7 +52,7 @@ include("poiDAO.php");
                 echo "<td>" . $value->getId() . "</td>";
                 echo "<td>" . $value->getPoiId() . "</td>";
                 echo "<td>" . $value->getReview() . "</td>";
-                echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Approve'></form></td>";
+                echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Approve'></form><form method='post' action='deleteReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Delete'></form></td>";
                 echo "</tr>";
             }
             echo "</table>";
