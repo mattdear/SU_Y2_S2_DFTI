@@ -73,8 +73,9 @@ class poiDAO
       {
         $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET recommended=recommended+1 WHERE ID=:id");
         $stmt->execute([":id" => $idIn]);
+        return true;
       }
-      return null;
+      return false;
     }
 
     public function add(poiDTO &$poiObj)

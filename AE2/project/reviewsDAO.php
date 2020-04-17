@@ -75,8 +75,9 @@ class reviewsDAO
       {
         $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET approved=1 WHERE id=:id");
         $stmt->execute([":id" => $idIn]);
+        return true;
       }
-      return null;
+      return false;
     }
 
     public function deleteReview($idIn)
@@ -85,8 +86,9 @@ class reviewsDAO
       {
         $stmt = $this->conn->prepare("DELETE FROM " .  $this->table . " WHERE ID=:id");
         $stmt->execute([":id" => $idIn]);
+        return true;
       }
-      return null;
+      return false;
     }
 }
 
