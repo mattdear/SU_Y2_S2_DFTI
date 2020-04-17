@@ -53,7 +53,7 @@ class poiDAO
             $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE ID=:id");
             $stmt->execute([":id" => $poiId]);
             $count = $stmt->rowCount();
-            if ($count != 1) {
+            if ($count == 1) {
                 $row = $stmt->fetch();
                 $poi = new poiDTO($row["ID"], $row["name"], $row["type"], $row["country"], $row["region"], $row["description"], $row["recommended"], $row["username"]);
                 return $poi;
