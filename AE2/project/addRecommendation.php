@@ -31,9 +31,15 @@ include("poiDAO.php");
         if (preg_match("/^[0-9]$/", $id) || preg_match("/^[a-zA-Z0-9]{2,30}$/", $region)) {
             $conn = databaseConnection();
             $poiDAO = new poiDAO($conn, "pointsofinterest");
-            $poiDAO->addRecommendation($id, $region);
+            $isComplete = $poiDAO->addRecommendation($id, $region);
+            if($isComplete)
+            {
+                header("Location: regionResults.php?region=" . $region . "");
+            } else {
+              echo "Somthing went wrong please try again.";
+            }
         } else {
-            echo "Somthing went wrong";
+            echo "Somthing went wrong please try again.";
         }
     } catch (PDOException $e) {
         echo "Error: $e";

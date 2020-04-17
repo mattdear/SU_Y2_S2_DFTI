@@ -34,10 +34,8 @@ class reviewsDAO
       return null;
     }
 
-    public function findByUnapproved($poiIdIn)
+    public function findByUnapproved()
     {
-      if($poiIdIn != null)
-      {
         $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE approved='0'");
         $stmt->execute();
         $count = $stmt->rowCount();
@@ -53,8 +51,6 @@ class reviewsDAO
         }
         return null;
       }
-      return null;
-    }
 
     public function addReview(reviewsDTO &$reviewObj)
     {

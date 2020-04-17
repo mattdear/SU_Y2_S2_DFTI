@@ -34,7 +34,7 @@ if ($_SESSION["isadmin"] != 1) {
         $conn = databaseConnection();
 
         $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
-        $reviews = $reviewsDAO->findByUnapproved($poiId);
+        $reviews = $reviewsDAO->findByUnapproved();
 
         if ($reviews == null) {
 

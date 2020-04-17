@@ -38,9 +38,15 @@ $id = $_POST["id"];
 if(preg_match("/^[0-9]{1,30}$/", $id)){
   $conn = databaseConnection();
   $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
-  $reviewsDAO->deleteReview($id);
+  $isComplete = $reviewsDAO->deleteReview($id);
+  if($isComplete)
+  {
+    header("Location: reviewResultsAdmin.php");
+  } else {
+    echo "Somthing went wrong please try again.";
+  }
 } else {
-  echo "Somthing went wrong";
+  echo "Somthing went wrong please try again.";
 }
 }
 } catch(PDOException $e) {
