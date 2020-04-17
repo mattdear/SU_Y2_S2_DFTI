@@ -1,62 +1,67 @@
 <?php
-function links($userType)
+function title($username, $userType)
+{
+    echo "<img src='assets/compass_logo.png'>";
+    echo "<h1>Points Of Interest</h1>";
+    links($username, $userType);
+}
+
+function links($username, $userType)
 {
     if ($userType == 1) {
-        $links = [
+        $adminLinks = [
             ["name" => "Home",
                 "link" => "index.php"],
             ["name" => "Add POI",
                 "link" => "addPOIForm.php"],
-            ["name" => "Login",
-                "link" => "loginForm.php"],
             ["name" => "Awaiting Approval",
-                "link" => "reviewResultsAdmin.php"],
-            ["name" => "Logout",
-                "link" => "logout.php"]
+                "link" => "reviewResultsAdmin.php"]
         ];
 
         echo "<ul id='menu_top'>";
 
-        foreach ($links as $link) {
+        foreach ($adminLinks as $link) {
             echo "<li><a href='" . $link["link"] . "'>" . $link["name"] . "</a></li>";
         }
+
+        loginLogoutButtons($username);
 
         echo "</ul>";
 
     } else {
 
-        $links = [
+        $userLinks = [
             ["name" => "Home",
                 "link" => "index.php"],
             ["name" => "Add POI",
                 "link" => "addPOIForm.php"],
-            ["name" => "Login",
-                "link" => "loginForm.php"],
-            ["name" => "Logout",
-                "link" => "logout.php"]
         ];
 
         echo "<ul id='menu_top'>";
 
-        foreach ($links as $link) {
+        foreach ($userLinks as $link) {
             echo "<li><a href='" . $link["link"] . "'>" . $link["name"] . "</a></li>";
         }
+
+        loginLogoutButtons($username);
 
         echo "</ul>";
 
     }
 }
 
+function loginLogoutButtons($isLoggedIn)
+{
+if($isLoggedIn != null) {
+      echo "<li><a href='logout.php'>Logout</a></li>";
+} else {
+  echo "<li><a href='loginForm.php'>Login</a></li>";
+}
+}
+
 function backButton()
 {
     echo '<p><a href="javascript:history.go(-1)" id="back_button">< Back</a></p>';
-}
-
-function title($userType)
-{
-    echo "<img src='assets/compass_logo.png'>";
-    echo "<h1>Points Of Interest</h1>";
-    links($userType);
 }
 
 function databaseConnection()
