@@ -58,7 +58,6 @@ class reviewsDAO
       {
         $stmt = $this->conn->prepare("INSERT INTO " . $this->table . "(poi_id, review, approved) VALUES (:poi_id, :review, :approved)");
         $stmt->execute([":poi_id" => $reviewObj->getPoiId(), ":review" => $reviewObj->getReview(), ":approved" => $reviewObj->getApproved()]);
-        $count = $stmt->rowCount();
         $reviewObj->setId($this->conn->lastInsertId());
         return $reviewObj;
       }

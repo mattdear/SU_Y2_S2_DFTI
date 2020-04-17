@@ -37,7 +37,7 @@ include("poiDAO.php");
           $reviews = $reviewsDAO->findByPoiIdandApproved($poiId);
           $poiDAO = new poiDAO($conn, "pointsofinterest");
           $poi = $poiDAO->findByid($poiId);
-          if ($poi == null) {
+          if ($poi == null || $reviews == null) {
               echo "Your search returned no results please go back and try again.";
           } elseif ($reviews == null) {
               echo "There are currently no reviews for this POI.<br>";

@@ -31,13 +31,18 @@ include("poiDAO.php");
             $conn = databaseConnection();
             $DAO = new poiDAO($conn, "pointsofinterest");
             $pois = $DAO->findRegions();
-            echo "<form method='get' action='regionResults.php' id='contact_form'>";
-            echo "<select name='region'>";
-            foreach ($pois as $value) {
-                echo "<option value='$value'>$value</option>";
+            if($pois != null)
+            {
+              echo "<form method='get' action='regionResults.php' id='contact_form'>";
+              echo "<select name='region'>";
+              foreach ($pois as $value) {
+                  echo "<option value='$value'>$value</option>";
+              }
+              echo "</select><br>";
+              echo "<input type='submit' value='Search POI's'>";
+            } else {
+              echo "Somthing went wrong please try again.";
             }
-            echo "</select><br>";
-            echo "<input type='submit' value='Search POI's'>";
 
         } catch (PDOException $e) {
             echo "Error: $e";

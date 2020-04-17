@@ -34,6 +34,7 @@ class poiDAO
       {
         $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE region=:region");
         $stmt->execute([":region" => $regionIn]);
+        $count = $stmt->rowCount();
         if($count == 0)
         {
           $pois = [];
@@ -51,7 +52,7 @@ class poiDAO
 
     public function findById($poiId)
     {
-      if(poiId != null)
+      if($poiId != null)
       {
         $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE ID=:id");
         $stmt->execute([":id" => $poiId]);

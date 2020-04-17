@@ -44,12 +44,17 @@ if (!isset ($_SESSION["gatekeeper"])) {
 
                 $returnedReviewDTO = $reviewsDAO->addReview($reviewsDTO);
 
-                echo "Review added<br>";
-                echo "<br>Review: " . $returnedReviewDTO->getReview();
+                if($returnedReviewDTO != null)
+                {
+                  echo "Review added<br>";
+                  echo "<br>Review: " . $returnedReviewDTO->getReview();
+                } else {
+                  echo "Somthing went wrong please try again.";
+                }
 
             } else {
 
-                echo "<br>Something went wrong please go back and try again.";
+                echo "Somthing went wrong please try again.";
 
             }
 
