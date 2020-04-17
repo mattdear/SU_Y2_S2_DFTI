@@ -30,21 +30,23 @@ if (!isset ($_SESSION["gatekeeper"])) {
         </header>
         <?php
         try {
+          $conn = databaseConnection();
             $poiId = $_GET["poiId"];
-            $poiName = $_GET["poiName"];
 
-            if ($poiId == "" || $poiName == "") {
+            $DAO = new poiDAO($conn, "pointsofinterest");
+            $poi = $DAO->findById($poiId);
 
-                echo "Something went wrong please go back and try again.";
+            if (preg_match("/^[0-9]{1,30}$/", $poiId) && $poi != "") {
 
+              echo "<p>To add a review for " . $poi->getName() . " please fill in the form below and click submit review.</p>";
+              echo "<form method='post' action='addReview.php'>";
+              echo "<label for='review'>Review:</label>";
+              echo "<textarea name='review' id='review'></textarea>";
+              echo "<input type='hidden' name='poiId' value=" . $poi->getId() . "><br>";
+              echo "<input type='submit' value='Submit Review'/>";
+              echo "</form>";
             } else {
-                echo "<p>To add a review for $poiName. Please fill in the form below and click submit review.</p>";
-                echo "<form method='post' action='addReview.php'>";
-                echo "<label for='review'>Review:</label>";
-                echo "<textarea name='review' id='review'></textarea>";
-                echo "<input type='hidden' name='poiId' value='$poiId'><br>";
-                echo "<input type='submit' value='Submit Review'/>";
-                echo "</form>";
+                echo "Something went wrong please go back and try again.";
             }
         } catch (PDOException $e) {
             echo "Error: $e";

@@ -4,6 +4,9 @@ include("functions.php");
 include("reviewsDAO.php");
 include("poiDAO.php");
 
+if ($_SESSION["isadmin"] != 1) {
+    header("Location: loginForm.php");
+} else {
 ?>
 <html>
 <head>
@@ -68,3 +71,6 @@ include("poiDAO.php");
 <?php footer() ?>
 </body>
 </html>
+<?php
+}
+?>

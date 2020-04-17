@@ -37,7 +37,7 @@ include("usersDAO.php");
             $usersDTO = $usersDAO->verifyLogin($un, $pw);
             $_SESSION["token"] = $token = bin2hex(random_bytes(32));
             $_SESSION["gatekeeper"] = $un;
-            $_SESSION["isadmin"] = $usersDTO->getIsadmin();
+            $_SESSION["isadmin"] = (int)$usersDTO->getIsadmin();
             header("location: index.php");
 
         } else {
