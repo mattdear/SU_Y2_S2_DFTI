@@ -25,34 +25,31 @@ include("reviewsDAO.php");
         <h2>Region Search</h2>
     </header>
     <?php
-    try{
+    try {
 
-if ( !isset ($_SESSION["gatekeeper"]))
-{
-    header("Location: loginForm.php");
-}
-else {
+        if (!isset ($_SESSION["gatekeeper"])) {
+            header("Location: loginForm.php");
+        } else {
 
-$id = $_POST["id"];
+            $id = $_POST["id"];
 
-if(preg_match("/^[0-9]{1,30}$/", $id)){
-  $conn = databaseConnection();
-  $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
-  $isComplete = $reviewsDAO->deleteReview($id);
-  if($isComplete)
-  {
-    header("Location: reviewResultsAdmin.php");
-  } else {
-    echo "Somthing went wrong please try again.";
-  }
-} else {
-  echo "Somthing went wrong please try again.";
-}
-}
-} catch(PDOException $e) {
-    echo "Error: $e";
-}
-?>
+            if (preg_match("/^[0-9]{1,30}$/", $id)) {
+                $conn = databaseConnection();
+                $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
+                $isComplete = $reviewsDAO->deleteReview($id);
+                if ($isComplete) {
+                    header("Location: reviewResultsAdmin.php");
+                } else {
+                    echo "Somthing went wrong please try again.";
+                }
+            } else {
+                echo "Somthing went wrong please try again.";
+            }
+        }
+    } catch (PDOException $e) {
+        echo "Error: $e";
+    }
+    ?>
 </div>
 <!--</div id="main_content"-->
 <?php footer() ?>

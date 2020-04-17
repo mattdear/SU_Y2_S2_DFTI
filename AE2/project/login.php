@@ -35,15 +35,14 @@ include("usersDAO.php");
 
             $usersDAO = new usersDAO($conn, "poi_users");
             $usersDTO = $usersDAO->verifyLogin($un, $pw);
-            if($usersDTO != null)
-            {
-            $_SESSION["token"] = $token = bin2hex(random_bytes(32));
-            $_SESSION["gatekeeper"] = $un;
-            $_SESSION["isadmin"] = (int)$usersDTO->getIsadmin();
-            header("location: index.php");
-          } else {
-            echo "Somthing went wrong please try again.";
-          }
+            if ($usersDTO != null) {
+                $_SESSION["token"] = $token = bin2hex(random_bytes(32));
+                $_SESSION["gatekeeper"] = $un;
+                $_SESSION["isadmin"] = (int)$usersDTO->getIsadmin();
+                header("location: index.php");
+            } else {
+                echo "Somthing went wrong please try again.";
+            }
 
         } else {
 
@@ -54,8 +53,8 @@ include("usersDAO.php");
         echo "Error: $e";
     }
     ?>
-  </div>
-  <!--</div id="main_content"-->
+</div>
+<!--</div id="main_content"-->
 <?php footer() ?>
 </body>
 </html>

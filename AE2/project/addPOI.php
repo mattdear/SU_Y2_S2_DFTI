@@ -64,8 +64,8 @@ if (!isset ($_SESSION["gatekeeper"])) {
             echo "Error: $e";
         }
         ?>
-      </div>
-      <!--</div id="main_content"-->
+    </div>
+    <!--</div id="main_content"-->
     <?php footer() ?>
     </body>
     </html>

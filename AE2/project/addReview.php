@@ -44,12 +44,11 @@ if (!isset ($_SESSION["gatekeeper"])) {
 
                 $returnedReviewDTO = $reviewsDAO->addReview($reviewsDTO);
 
-                if($returnedReviewDTO != null)
-                {
-                  echo "Review added<br>";
-                  echo "<br>Review: " . $returnedReviewDTO->getReview();
+                if ($returnedReviewDTO != null) {
+                    echo "Review added<br>";
+                    echo "<br>Review: " . $returnedReviewDTO->getReview();
                 } else {
-                  echo "Somthing went wrong please try again.";
+                    echo "Somthing went wrong please try again.";
                 }
 
             } else {
@@ -62,8 +61,8 @@ if (!isset ($_SESSION["gatekeeper"])) {
             echo "Error: $e";
         }
         ?>
-      </div>
-      <!--</div id="main_content"-->
+    </div>
+    <!--</div id="main_content"-->
     <?php footer() ?>
     </body>
     </html>

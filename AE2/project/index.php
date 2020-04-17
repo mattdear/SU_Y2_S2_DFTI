@@ -13,7 +13,7 @@ include("poiDAO.php");
     <title>PointsOfInterest - Home</title>
 </head>
 <body>
-  <div id="main_content">
+<div id="main_content">
     <header>
         <?php
         title($_SESSION["gatekeeper"], $_SESSION["isadmin"], $byDefault = 0);
@@ -25,30 +25,29 @@ include("poiDAO.php");
         <h2>Region Search</h2>
     </header>
     <p>Please select a region below to search for points of interest.</p>
-        <?php
-        try {
-            $conn = databaseConnection();
-            $DAO = new poiDAO($conn, "pointsofinterest");
-            $pois = $DAO->findRegions();
-            if($pois != null)
-            {
-              echo "<form method='get' action='regionResults.php' id='contact_form'>";
-              echo "<select name='region'>";
-              foreach ($pois as $value) {
-                  echo "<option value='$value'>$value</option>";
-              }
-              echo "</select><br>";
-              echo "<input type='submit' value='Search POI's'></form>";
-            } else {
-              echo "Somthing went wrong please try again.";
+    <?php
+    try {
+        $conn = databaseConnection();
+        $DAO = new poiDAO($conn, "pointsofinterest");
+        $pois = $DAO->findRegions();
+        if ($pois != null) {
+            echo "<form method='get' action='regionResults.php' id='contact_form'>";
+            echo "<select name='region'>";
+            foreach ($pois as $value) {
+                echo "<option value='$value'>$value</option>";
             }
-
-        } catch (PDOException $e) {
-            echo "Error: $e";
+            echo "</select><br>";
+            echo "<input type='submit' value='Search POI's'></form>";
+        } else {
+            echo "Somthing went wrong please try again.";
         }
-        ?>
-      </div>
-      <!--</div id="main_content"-->
+
+    } catch (PDOException $e) {
+        echo "Error: $e";
+    }
+    ?>
+</div>
+<!--</div id="main_content"-->
 <?php footer() ?>
 </body>
 </html>

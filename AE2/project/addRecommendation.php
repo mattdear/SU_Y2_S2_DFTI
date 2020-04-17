@@ -32,11 +32,10 @@ include("poiDAO.php");
             $conn = databaseConnection();
             $poiDAO = new poiDAO($conn, "pointsofinterest");
             $isComplete = $poiDAO->addRecommendation($id, $region);
-            if($isComplete)
-            {
+            if ($isComplete) {
                 header("Location: regionResults.php?region=" . $region . "");
             } else {
-              echo "Somthing went wrong please try again.";
+                echo "Somthing went wrong please try again.";
             }
         } else {
             echo "Somthing went wrong please try again.";
@@ -45,8 +44,8 @@ include("poiDAO.php");
         echo "Error: $e";
     }
     ?>
-  </div>
-  <!--</div id="main_content"-->
+</div>
+<!--</div id="main_content"-->
 <?php footer() ?>
 </body>
 </html>

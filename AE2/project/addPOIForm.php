@@ -286,8 +286,8 @@ if (!isset ($_SESSION["gatekeeper"])) {
             </select><br>
             <input type="submit" value="Submit POI"/>
         </form>
-      </div>
-      <!--</div id="main_content"-->
+    </div>
+    <!--</div id="main_content"-->
     <?php footer() ?>
     </body>
     </html>

@@ -30,7 +30,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
         </header>
         <?php
         try {
-          $conn = databaseConnection();
+            $conn = databaseConnection();
             $poiId = $_GET["poiId"];
 
             $DAO = new poiDAO($conn, "pointsofinterest");
@@ -38,13 +38,13 @@ if (!isset ($_SESSION["gatekeeper"])) {
 
             if (preg_match("/^[0-9]{1,30}$/", $poiId) && $poi != "") {
 
-              echo "<p>To add a review for " . $poi->getName() . " please fill in the form below and click submit review.</p>";
-              echo "<form method='post' action='addReview.php'>";
-              echo "<label for='review'>Review:</label>";
-              echo "<textarea name='review' id='review'></textarea>";
-              echo "<input type='hidden' name='poiId' value=" . $poi->getId() . "><br>";
-              echo "<input type='submit' value='Submit Review'/>";
-              echo "</form>";
+                echo "<p>To add a review for " . $poi->getName() . " please fill in the form below and click submit review.</p>";
+                echo "<form method='post' action='addReview.php'>";
+                echo "<label for='review'>Review:</label>";
+                echo "<textarea name='review' id='review'></textarea>";
+                echo "<input type='hidden' name='poiId' value=" . $poi->getId() . "><br>";
+                echo "<input type='submit' value='Submit Review'/>";
+                echo "</form>";
             } else {
                 echo "Something went wrong please go back and try again.";
             }
@@ -52,8 +52,8 @@ if (!isset ($_SESSION["gatekeeper"])) {
             echo "Error: $e";
         }
         ?>
-      </div>
-      <!--</div id="main_content"-->
+    </div>
+    <!--</div id="main_content"-->
     <?php footer() ?>
     </body>
     </html>

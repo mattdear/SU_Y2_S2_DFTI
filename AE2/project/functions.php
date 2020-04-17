@@ -52,11 +52,11 @@ function links($username, $userType)
 
 function loginLogoutButtons($isLoggedIn)
 {
-if($isLoggedIn != null) {
-      echo "<li><a href='logout.php'>Logout</a></li>";
-} else {
-  echo "<li><a href='loginForm.php'>Login</a></li>";
-}
+    if ($isLoggedIn != null) {
+        echo "<li><a href='logout.php'>Logout</a></li>";
+    } else {
+        echo "<li><a href='loginForm.php'>Login</a></li>";
+    }
 }
 
 function backButton()
