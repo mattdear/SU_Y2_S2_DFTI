@@ -16,10 +16,10 @@ if (!isset ($_SESSION["gatekeeper"])) {
         <title>Points Of Interest - Add POI Form</title>
     </head>
     <body>
-    <div id="all_content">
+    <div id="main_content">
         <header>
             <?php
-            title($_SESSION["isadmin"], $byDefault = 0);
+            title($_SESSION["gatekeeper"], $_SESSION["isadmin"], $byDefault = 0);
             if (isset ($_SESSION["gatekeeper"])) {
                 echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
             }
@@ -286,8 +286,8 @@ if (!isset ($_SESSION["gatekeeper"])) {
             </select><br>
             <input type="submit" value="Submit POI"/>
         </form>
-    </div>
-    <!--</div id="all_content"-->
+      </div>
+      <!--</div id="main_content"-->
     <?php footer() ?>
     </body>
     </html>

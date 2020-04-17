@@ -3,7 +3,7 @@
     padding: 0%;
 }
 
-#all_content {
+#main_content {
     overflow: auto;
     margin: 0% 10% 0% 10%;
     font-family: 'Open Sans', sans-serif;
@@ -103,6 +103,8 @@ form select, form textarea, form input {
   border: solid black;
   border-width: thin;
   border-style: solid;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
 }
 
 form input[type="submit"] {
@@ -113,6 +115,8 @@ form input[type="submit"] {
     border-color: #FF585D;
     border-width: thin;
     border-style: solid;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
     background-color: #FFFFFF;
     color: #FF585D;
 }
@@ -125,6 +129,8 @@ form input[type="submit"]:hover {
     border-color: #FF585D;
     border-width: thin;
     border-style: solid;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
     background-color: #FF585D;
     color: #FFFFFF;
 }
@@ -155,6 +161,8 @@ table button, table form input[type="submit"] {
     border-color: #FF585D;
     border-width: thin;
     border-style: solid;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
     background-color: #FFFFFF;
     color: #FF585D;
 }
@@ -167,6 +175,8 @@ table button:hover, table form input[type="submit"]:hover {
     border-color: #FF585D;
     border-width: thin;
     border-style: solid;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
     background-color: #FF585D;
     color: #FFFFFF;
 }

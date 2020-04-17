@@ -15,10 +15,10 @@ include("poiDAO.php");
     <title>Points Of Interest - Reviews</title>
 </head>
 <body>
-<div id="all_content">
+<div id="main_content">
     <header>
         <?php
-        title($_SESSION["isadmin"], $byDefault = 0);
+        title($_SESSION["gatekeeper"], $_SESSION["isadmin"], $byDefault = 0);
         if (isset ($_SESSION["gatekeeper"])) {
             echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
         }
@@ -37,7 +37,7 @@ include("poiDAO.php");
           $reviews = $reviewsDAO->findByPoiIdandApproved($poiId);
           $poiDAO = new poiDAO($conn, "pointsofinterest");
           $poi = $poiDAO->findByid($poiId);
-          if ($poi == null || $reviews == null) {
+          if ($poi == null) {
               echo "Your search returned no results please go back and try again.";
           } elseif ($reviews == null) {
               echo "There are currently no reviews for this POI.<br>";
@@ -64,7 +64,7 @@ include("poiDAO.php");
     }
     ?>
 </div>
-<!--</div id="all_content"-->
+<!--</div id="main_content"-->
 <?php footer() ?>
 </body>
 </html>

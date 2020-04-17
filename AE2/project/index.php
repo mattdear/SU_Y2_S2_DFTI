@@ -13,7 +13,7 @@ include("poiDAO.php");
     <title>PointsOfInterest - Home</title>
 </head>
 <body>
-<div id="all_content">
+  <div id="main_content">
     <header>
         <?php
         title($_SESSION["gatekeeper"], $_SESSION["isadmin"], $byDefault = 0);
@@ -25,7 +25,6 @@ include("poiDAO.php");
         <h2>Region Search</h2>
     </header>
     <p>Please select a region below to search for points of interest.</p>
-    <div id="home_search">
         <?php
         try {
             $conn = databaseConnection();
@@ -39,7 +38,7 @@ include("poiDAO.php");
                   echo "<option value='$value'>$value</option>";
               }
               echo "</select><br>";
-              echo "<input type='submit' value='Search POI's'>";
+              echo "<input type='submit' value='Search POI's'></form>";
             } else {
               echo "Somthing went wrong please try again.";
             }
@@ -48,10 +47,8 @@ include("poiDAO.php");
             echo "Error: $e";
         }
         ?>
-    </div>
-    <!--</div id="home_search"-->
-</div>
-<!--</div id="all_content"-->
+      </div>
+      <!--</div id="main_content"-->
 <?php footer() ?>
 </body>
 </html>

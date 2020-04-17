@@ -35,7 +35,7 @@ class poiDAO
         $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE region=:region");
         $stmt->execute([":region" => $regionIn]);
         $count = $stmt->rowCount();
-        if($count == 0)
+        if($count != 0)
         {
           $pois = [];
           while ($row = $stmt->fetch()) {

@@ -14,10 +14,10 @@ include("poiDAO.php");
     <title>Points Of Interest - Region Search</title>
 </head>
 <body>
-<div id="all_content">
+<div id="main_content">
     <header>
         <?php
-        title($_SESSION["isadmin"], $byDefault = 0);
+        title($_SESSION["gatekeeper"], $_SESSION["isadmin"], $byDefault = 0);
         if (isset ($_SESSION["gatekeeper"])) {
             echo "<p>Logged In User, " . $_SESSION["gatekeeper"] . "</p><br>";
         }
@@ -80,8 +80,8 @@ include("poiDAO.php");
         echo "Error: $e";
     }
     ?>
-</div>
-<!--</div id="all_content"-->
+  </div>
+  <!--</div id="main_content"-->
 <?php footer() ?>
 </body>
 </html>
