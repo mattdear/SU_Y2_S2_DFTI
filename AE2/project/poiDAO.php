@@ -25,7 +25,7 @@ class poiDAO
           }
           return $regions;
         }
-        return null;  
+        return null;
     }
 
     public function findByRegion($regionIn)
@@ -67,13 +67,12 @@ class poiDAO
       return null;
     }
 
-    public function addRecommendation($idIn, $regionIn)
+    public function addRecommendation($idIn)
     {
-      if($idIn != null && $regionIn != null)
+      if($idIn != null)
       {
         $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET recommended=recommended+1 WHERE ID=:id");
         $stmt->execute([":id" => $idIn]);
-        header("location: regionResults.php?region=$regionIn");
       }
       return null;
     }

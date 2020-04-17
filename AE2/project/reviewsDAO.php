@@ -31,7 +31,7 @@ class reviewsDAO
         }
         return null;
       }
-      return null;  
+      return null;
     }
 
     public function findByUnapproved($poiIdIn)
@@ -75,7 +75,6 @@ class reviewsDAO
       {
         $stmt = $this->conn->prepare("UPDATE " . $this->table . " SET approved=1 WHERE id=:id");
         $stmt->execute([":id" => $idIn]);
-        header("location: reviewResultsAdmin.php");
       }
       return null;
     }
@@ -86,7 +85,6 @@ class reviewsDAO
       {
         $stmt = $this->conn->prepare("DELETE FROM " .  $this->table . " WHERE ID=:id");
         $stmt->execute([":id" => $idIn]);
-        header("location: reviewResultsAdmin.php");
       }
       return null;
     }
