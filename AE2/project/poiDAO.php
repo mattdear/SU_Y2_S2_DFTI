@@ -16,6 +16,7 @@ class poiDAO
     {
         $stmt = $this->conn->prepare("SELECT DISTINCT region FROM " . $this->table);
         $stmt->execute();
+        $regions = [];
         while ($row = $stmt->fetch()) {
             $region = $row["region"];
             $regions[] = $region;
@@ -28,6 +29,7 @@ class poiDAO
     {
         $stmt = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE region=:region");
         $stmt->execute([":region" => $regionIn]);
+        $pois = [];
         while ($row = $stmt->fetch()) {
             $poi = new poiDTO($row["ID"], $row["name"], $row["type"], $row["country"], $row["region"], $row["description"], $row["recommended"], $row["username"]);
             $pois[] = $poi;
