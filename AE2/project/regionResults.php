@@ -28,7 +28,7 @@ include("poiDAO.php");
     try {
         $conn = databaseConnection();
         $region = $_GET["region"];
-        if (preg_match("/^[a-zA-Z]{2,100}$/", $region)) {
+        if (preg_match("/^[a-zA-Z ]{2,100}$/", $region)) {
             $poiDAO = new poiDAO($conn, "pointsofinterest");
             $pois = $poiDAO->findByRegion($region);
             if ($pois == null) {

@@ -14,7 +14,7 @@ function links($username, $userType)
                 "link" => "index.php"],
             ["name" => "Add POI",
                 "link" => "addPOIForm.php"],
-            ["name" => "Awaiting Approval",
+            ["name" => "Pending Reviews",
                 "link" => "reviewResultsAdmin.php"]
         ];
 

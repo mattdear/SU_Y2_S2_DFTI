@@ -3,7 +3,7 @@ session_start();
 include("functions.php");
 include("reviewsDAO.php");
 include("poiDAO.php");
-if (!isset ($_SESSION["isadmin"]) && $_SESSION["isadmin"] != 1) {
+if ($_SESSION["isadmin"] != 1) {
     header("Location: loginForm.php");
 } else {
     ?>
@@ -14,7 +14,7 @@ if (!isset ($_SESSION["isadmin"]) && $_SESSION["isadmin"] != 1) {
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <title>POI - Review Approval</title>
+        <title>POI - Pending Reviews</title>
     </head>
     <body>
     <div id="main_content">
@@ -26,7 +26,7 @@ if (!isset ($_SESSION["isadmin"]) && $_SESSION["isadmin"] != 1) {
             }
             backbutton();
             ?>
-            <h2>Review Approval</h2>
+            <h2>Pending Reviews</h2>
         </header>
         <?php
         try {
@@ -43,10 +43,9 @@ if (!isset ($_SESSION["isadmin"]) && $_SESSION["isadmin"] != 1) {
               echo "<th>Approve?</th>";
               echo "</tr>";
               foreach ($reviews as $value) {
-                  $poiId = $value->getId();
-                  $returnedPOI = poiDAO->findById($poiId);
+                  $returnedPOI = $poiDAO->findById($value->getPoiId());
                   echo "<tr>";
-                  echo "<td>" . $returnedPOI->getId() . "</td>";
+                  echo "<td>" . $returnedPOI->getName() . "</td>";
                   echo "<td>" . $value->getReview() . "</td>";
                   echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='reviewId' value=" . $value->getId() . "><input type='submit' value='Approve'></form><form method='post' action='deleteReview.php'><input type='hidden' name='reviewId' value=" . $value->getId() . "><input type='submit' value='Delete'></form></td>";
                   echo "</tr>";
