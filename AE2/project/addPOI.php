@@ -36,7 +36,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
             $region = $_POST["region"];
             $desciption = $_POST["desciption"];
             $username = $_SESSION["gatekeeper"];
-            if (preg_match("/^[a-zA-Z ]{2,30}$/", $name) && preg_match("/^[a-zA-Z ]{2,30}$/", $type) && preg_match("/^[a-zA-Z ]{2,30}$/", $region) && preg_match("/^[a-zA-Z0-9 _.!?'£%&()=:;\-\,\/]{5,1000}$/", $desciption)) {
+            if (preg_match("/^[a-zA-Z ]{2,100}$/", $name) && preg_match("/^[a-zA-Z ]{2,100}$/", $type) && preg_match("/^[a-zA-Z ]{2,100}$/", $region) && preg_match("/^[a-zA-Z0-9 _.!?'£%&()=:;\-\,\/]{5,1000}$/", $desciption)) {
                 $poiDTO = new poiDTO(null, $name, $type, $country, $region, $desciption, 0, $username);
                 $poiDAO = new poiDAO($conn, "pointsofinterest");
                 $returnedDTO = $poiDAO->add($poiDTO);
