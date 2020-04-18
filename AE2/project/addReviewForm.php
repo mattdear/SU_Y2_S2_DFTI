@@ -2,7 +2,6 @@
 session_start();
 include("functions.php");
 include("poiDAO.php");
-
 if (!isset ($_SESSION["gatekeeper"])) {
     header("Location: loginForm.php");
 } else {
@@ -14,7 +13,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <title>PointsOfInterest - Add Review Form</title>
+        <title>POI - Add Review</title>
     </head>
     <body>
     <div id="main_content">
@@ -26,27 +25,25 @@ if (!isset ($_SESSION["gatekeeper"])) {
             }
             backbutton();
             ?>
-            <h2>Add Review Form</h2>
+            <h2>Add Review</h2>
         </header>
         <?php
         try {
             $conn = databaseConnection();
             $poiId = $_GET["poiId"];
+            $poiDAO = new poiDAO($conn, "pointsofinterest");
+            $poi = $poiDAO->findById($poiId);
+            if (preg_match("/^[0-9]$/", $poiId) && $poi != null) {
 
-            $DAO = new poiDAO($conn, "pointsofinterest");
-            $poi = $DAO->findById($poiId);
-
-            if (preg_match("/^[0-9]{1,30}$/", $poiId) && $poi != "") {
-
-                echo "<p>To add a review for " . $poi->getName() . " please fill in the form below and click submit review.</p>";
+                echo "<p>To add a review for " . $poi->getName() . " please fill in the form below and click add review.</p>";
                 echo "<form method='post' action='addReview.php'>";
                 echo "<label for='review'>Review:</label>";
                 echo "<textarea name='review' id='review'></textarea>";
                 echo "<input type='hidden' name='poiId' value=" . $poi->getId() . "><br>";
-                echo "<input type='submit' value='Submit Review'/>";
+                echo "<input type='submit' value='Add Review'/>";
                 echo "</form>";
             } else {
-                echo "Something went wrong please go back and try again.";
+                echo "No ID entered please go back and try again.";
             }
         } catch (PDOException $e) {
             echo "Error: $e";

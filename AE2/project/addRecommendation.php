@@ -9,7 +9,7 @@ include("poiDAO.php");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <title>Points Of Interest - Reviews</title>
+    <title>POI - Recommend</title>
 </head>
 <body>
 <div id="main_content">
@@ -21,24 +21,23 @@ include("poiDAO.php");
         }
         backbutton();
         ?>
-        <h2>Region Search</h2>
+        <h2>Recommend</h2>
     </header>
     <?php
     try {
+        $conn = databaseConnection();
         $id = $_POST["id"];
         $region = $_POST["region"];
-
-        if (preg_match("/^[0-9]$/", $id) || preg_match("/^[a-zA-Z0-9]{2,30}$/", $region)) {
-            $conn = databaseConnection();
+        if (preg_match("/^[0-9]$/", $id) && preg_match("/^[a-zA-Z]{2,30}$/", $region)) {
             $poiDAO = new poiDAO($conn, "pointsofinterest");
-            $isComplete = $poiDAO->addRecommendation($id, $region);
+            $isComplete = $poiDAO->addRecommendation($id);
             if ($isComplete) {
-                header("Location: regionResults.php?region=" . $region . "");
+                header("Location: regionResults.php?region=" . $region);
             } else {
-                echo "Somthing went wrong please try again.";
+                echo "Something went wrong please go back and try again.";
             }
         } else {
-            echo "Somthing went wrong please try again.";
+            echo "No ID or region entered please go back and try again.";
         }
     } catch (PDOException $e) {
         echo "Error: $e";

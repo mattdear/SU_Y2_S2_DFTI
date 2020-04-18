@@ -10,7 +10,7 @@ include("reviewsDAO.php");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <title>Points Of Interest - Reviews</title>
+    <title>POI - Approve Review</title>
 </head>
 <body>
 <div id="main_content">
@@ -22,28 +22,25 @@ include("reviewsDAO.php");
         }
         backbutton();
         ?>
-        <h2>Region Search</h2>
+        <h2>Approve Review</h2>
     </header>
     <?php
     try {
-
-        if (!isset ($_SESSION["gatekeeper"])) {
+        if (!isset ($_SESSION["isadmin"]) && $_SESSION["isadmin"] != 1) {
             header("Location: loginForm.php");
         } else {
-
+            $conn = databaseConnection();
             $id = $_POST["id"];
-
-            if (preg_match("/^[0-9]{1,30}$/", $id)) {
-                $conn = databaseConnection();
+            if (preg_match("/^[0-9]$/", $id)) {
                 $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
                 $isComplete = $reviewsDAO->approveReview($id);
                 if ($isComplete) {
                     header("Location: reviewResultsAdmin.php");
                 } else {
-                    echo "Somthing went wrong please try again.";
+                    echo "Something went wrong please go back and try again.";
                 }
             } else {
-                echo "Somthing went wrong please try again.";
+                echo "No ID entered please go back and try again.";
             }
         }
     } catch (PDOException $e) {

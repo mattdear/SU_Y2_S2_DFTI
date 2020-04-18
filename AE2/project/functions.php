@@ -81,5 +81,4 @@ function footer()
     echo "Copywrite Points Of Interest &copy; " . date("Y");
     echo "</footer>";
 }
-
 ?>

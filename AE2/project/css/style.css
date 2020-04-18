@@ -101,7 +101,7 @@ form p {
     text-align: left;
 }
 
-form select, form textarea, form input {
+form select, form input {
     width: 50%;
     padding: 1%;
     border: solid black;

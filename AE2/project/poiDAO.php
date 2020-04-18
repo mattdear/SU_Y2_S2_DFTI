@@ -16,7 +16,8 @@ class poiDAO
     {
         $stmt = $this->conn->prepare("SELECT DISTINCT region FROM " . $this->table);
         $stmt->execute();
-        if ($count == 0) {
+        $count = $stmt->rowCount();
+        if ($count != 0) {
             $regions = [];
             while ($row = $stmt->fetch()) {
                 $region = $row["region"];

@@ -10,7 +10,7 @@ include("usersDAO.php");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <title>PointsOfInterest - Login</title>
+    <title>POI - Login</title>
 </head>
 <body>
 <div id="main_content">
@@ -25,29 +25,22 @@ include("usersDAO.php");
         <h2>Login</h2>
     </header>
     <?php
-    $un = $_POST["username"];
-    $pw = $_POST["password"];
-
     try {
         $conn = databaseConnection();
-
+        $un = $_POST["username"];
+        $pw = $_POST["password"];
         if (preg_match("/^[a-z]{2,30}$/", $un) && preg_match("/^[a-zA-Z0-9]{2,30}$/", $pw)) {
-
             $usersDAO = new usersDAO($conn, "poi_users");
             $usersDTO = $usersDAO->verifyLogin($un, $pw);
             if ($usersDTO != null) {
-                $_SESSION["token"] = $token = bin2hex(random_bytes(32));
                 $_SESSION["gatekeeper"] = $un;
                 $_SESSION["isadmin"] = (int)$usersDTO->getIsadmin();
                 header("location: index.php");
             } else {
-                echo "Somthing went wrong please try again.";
+                echo "Username or password not found please go back and try again.";
             }
-
         } else {
-
-            echo "No username or password was entered please go back and try again.";
-
+            echo "No username or password entered please go back and try again.";
         }
     } catch (PDOException $e) {
         echo "Error: $e";

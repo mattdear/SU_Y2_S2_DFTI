@@ -10,7 +10,7 @@ include("poiDAO.php");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <title>PointsOfInterest - Home</title>
+    <title>POI - Region Search</title>
 </head>
 <body>
 <div id="main_content">
@@ -28,8 +28,8 @@ include("poiDAO.php");
     <?php
     try {
         $conn = databaseConnection();
-        $DAO = new poiDAO($conn, "pointsofinterest");
-        $pois = $DAO->findRegions();
+        $poiDAO = new poiDAO($conn, "pointsofinterest");
+        $pois = $poiDAO->findRegions();
         if ($pois != null) {
             echo "<form method='get' action='regionResults.php' id='contact_form'>";
             echo "<select name='region'>";
@@ -37,11 +37,10 @@ include("poiDAO.php");
                 echo "<option value='$value'>$value</option>";
             }
             echo "</select><br>";
-            echo "<input type='submit' value='Search POI's'></form>";
+            echo "<input type='submit' value='Search for POIs'></form>";
         } else {
-            echo "Somthing went wrong please try again.";
+            echo "Something went wrong please go back and try again.";
         }
-
     } catch (PDOException $e) {
         echo "Error: $e";
     }

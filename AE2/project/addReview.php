@@ -2,7 +2,6 @@
 session_start();
 include("functions.php");
 include("reviewsDAO.php");
-
 if (!isset ($_SESSION["gatekeeper"])) {
     header("Location: loginForm.php");
 } else {
@@ -14,7 +13,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <title>Points Of Interest - Add Review</title>
+        <title>POI - Add Review</title>
     </head>
     <body>
     <div id="main_content">
@@ -30,33 +29,22 @@ if (!isset ($_SESSION["gatekeeper"])) {
         </header>
         <?php
         try {
-
             $conn = databaseConnection();
-
             $poiId = $_POST["poiId"];
             $review = $_POST["review"];
-
-            if (preg_match("/^[0-9]{1,30}$/", $poiId) && preg_match("/^[a-zA-Z0-9 _.!?'£%&()=:;\-\,\/]{5,1000}$/", $review)) {
-
-                $reviewsDTO = new reviewsDTO("", $poiId, $review, 0);
-
+            if (preg_match("/^[0-9]$/", $poiId) && preg_match("/^[a-zA-Z0-9 _.!?'£%&()=:;\-\,\/]{5,1000}$/", $review)) {
+                $reviewsDTO = new reviewsDTO(null, $poiId, $review, 0);
                 $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
-
-                $returnedReviewDTO = $reviewsDAO->addReview($reviewsDTO);
-
-                if ($returnedReviewDTO != null) {
-                    echo "Review added<br>";
-                    echo "<br>Review: " . $returnedReviewDTO->getReview();
+                $returnedDTO = $reviewsDAO->addReview($reviewsDTO);
+                if ($returnedDTO != null) {
+                    echo "Review added.<br>";
+                    echo "<br>Review: " . $returnedDTO->getReview();
                 } else {
-                    echo "Somthing went wrong please try again.";
+                    echo "Something went wrong please go back and try again.";
                 }
-
             } else {
-
-                echo "Somthing went wrong please try again.";
-
+                echo "No ID or review entered please go back and try again.";
             }
-
         } catch (PDOException $e) {
             echo "Error: $e";
         }

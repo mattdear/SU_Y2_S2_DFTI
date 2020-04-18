@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("functions.php");
-
 if (!isset ($_SESSION["gatekeeper"])) {
     header("Location: loginForm.php");
 } else {
@@ -13,7 +12,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <title>Points Of Interest - Add POI Form</title>
+        <title>POI - Add POI</title>
     </head>
     <body>
     <div id="main_content">
@@ -27,7 +26,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
             ?>
             <h2>Add POI</h2>
         </header>
-        <p>Fill in the form below to add a new point of interest.</p>
+        <p>Please fill in the form below and click create POI to add a new point of interest to our database.</p>
         <form method="post" action="addPOI.php">
             <label for="name">Name:</label>
             <input name="name" id="name" type="text"/>
@@ -284,7 +283,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
                 <option value='Zambia'>Zambia</option>
                 <option value='Zimbabwe'>Zimbabwe</option>
             </select><br>
-            <input type="submit" value="Submit POI"/>
+            <input type="submit" value="Create POI"/>
         </form>
     </div>
     <!--</div id="main_content"-->

@@ -9,7 +9,7 @@ include("functions.php");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <title>PointsOfInterest - Login</title>
+    <title>POI - Login</title>
 </head>
 <body>
 <div id="main_content">
@@ -23,7 +23,7 @@ include("functions.php");
         ?>
         <h2>Login</h2>
     </header>
-    <p>Login below using your username and password.</p>
+    <p>To login enter your username and password below and click login.</p>
     <form method="post" action="login.php">
         <label for="username">Username:</label>
         <input name="username" id="username" type="text"/>
