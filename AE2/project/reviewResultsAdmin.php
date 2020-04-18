@@ -48,7 +48,7 @@ if (!isset ($_SESSION["isadmin"]) && $_SESSION["isadmin"] != 1) {
                   echo "<tr>";
                   echo "<td>" . $returnedPOI->getId() . "</td>";
                   echo "<td>" . $value->getReview() . "</td>";
-                  echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Approve'></form><form method='post' action='deleteReview.php'><input type='hidden' name='id' value=" . $value->getId() . "><input type='submit' value='Delete'></form></td>";
+                  echo "<td><form method='post' action='approveReview.php'><input type='hidden' name='reviewId' value=" . $value->getId() . "><input type='submit' value='Approve'></form><form method='post' action='deleteReview.php'><input type='hidden' name='reviewId' value=" . $value->getId() . "><input type='submit' value='Delete'></form></td>";
                   echo "</tr>";
               }
               echo "</table>";

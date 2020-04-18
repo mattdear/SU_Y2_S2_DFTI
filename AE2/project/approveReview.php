@@ -30,10 +30,10 @@ include("reviewsDAO.php");
             header("Location: loginForm.php");
         } else {
             $conn = databaseConnection();
-            $id = $_POST["id"];
-            if (preg_match("/^[0-9]{1,}$/", $id)) {
+            $reviewId = $_POST["reviewId"];
+            if (preg_match("/^[0-9]{1,}$/", $reviewId)) {
                 $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
-                $isComplete = $reviewsDAO->approveReview($id);
+                $isComplete = $reviewsDAO->approveReview($reviewId);
                 if ($isComplete) {
                     header("Location: reviewResultsAdmin.php");
                 } else {

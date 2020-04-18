@@ -26,11 +26,11 @@ include("poiDAO.php");
     <?php
     try {
         $conn = databaseConnection();
-        $id = $_POST["id"];
+        $poiId = $_POST["poiId"];
         $region = $_POST["region"];
-        if (preg_match("/^[0-9]{1,}$/", $id) && preg_match("/^[a-zA-Z]{2,30}$/", $region)) {
+        if (preg_match("/^[0-9]{1,}$/", $poiId) && preg_match("/^[a-zA-Z]{2,30}$/", $region)) {
             $poiDAO = new poiDAO($conn, "pointsofinterest");
-            $isComplete = $poiDAO->addRecommendation($id);
+            $isComplete = $poiDAO->addRecommendation($poiId);
             if ($isComplete) {
                 header("Location: regionResults.php?region=" . $region);
             } else {
