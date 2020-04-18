@@ -31,7 +31,7 @@ include("reviewsDAO.php");
         } else {
             $conn = databaseConnection();
             $id = $_POST["id"];
-            if (preg_match("/^[0-9]$/", $id)) {
+            if (preg_match("/^[0-9]{1,}$/", $id)) {
                 $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
                 $isComplete = $reviewsDAO->approveReview($id);
                 if ($isComplete) {

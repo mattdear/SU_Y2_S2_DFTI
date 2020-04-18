@@ -29,7 +29,7 @@ include("poiDAO.php");
     try {
         $conn = databaseConnection();
         $poiId = $_GET["poiId"];
-        if (preg_match("/^[0-9]$/", $poiId)) {
+        if (preg_match("/^[0-9]{1,}$/", $poiId)) {
             $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
             $reviews = $reviewsDAO->findByPoiIdandApproved($poiId);
             $poiDAO = new poiDAO($conn, "pointsofinterest");

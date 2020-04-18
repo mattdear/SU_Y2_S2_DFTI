@@ -32,7 +32,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
             $conn = databaseConnection();
             $poiId = $_POST["poiId"];
             $review = $_POST["review"];
-            if (preg_match("/^[0-9]$/", $poiId) && preg_match("/^[a-zA-Z0-9 _.!?'£%&()=:;\-\,\/]{5,1000}$/", $review)) {
+            if (preg_match("/^[0-9]{1,}$/", $poiId) && preg_match("/^[a-zA-Z0-9 _.!?'£%&()=:;\-\,\/]{5,1000}$/", $review)) {
                 $reviewsDTO = new reviewsDTO(null, $poiId, $review, 0);
                 $reviewsDAO = new reviewsDAO($conn, "poi_reviews");
                 $returnedDTO = $reviewsDAO->addReview($reviewsDTO);

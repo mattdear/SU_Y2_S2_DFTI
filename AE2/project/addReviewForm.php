@@ -33,8 +33,7 @@ if (!isset ($_SESSION["gatekeeper"])) {
             $poiId = $_GET["poiId"];
             $poiDAO = new poiDAO($conn, "pointsofinterest");
             $poi = $poiDAO->findById($poiId);
-            if (preg_match("/^[0-9]$/", $poiId) && $poi != null) {
-
+            if (preg_match("/^[0-9]{1,}$/", $poiId) && $poi != null) {
                 echo "<p>To add a review for " . $poi->getName() . " please fill in the form below and click add review.</p>";
                 echo "<form method='post' action='addReview.php'>";
                 echo "<label for='review'>Review:</label>";
