@@ -52,7 +52,7 @@ if ($_SESSION["isadmin"] != 1) {
               }
               echo "</table>";
             } else {
-                echo "Something went wrong please go back and try again.";
+                echo "There are no reviews awaiting approval.";
             }
         } catch (PDOException $e) {
             echo "Error: $e";
