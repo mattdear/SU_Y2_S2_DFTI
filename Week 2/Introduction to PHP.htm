@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0077)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=lecture2.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./Introduction to PHP_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>Introduction to PHP</h1></div><hr><p>Page 1</p><h1>Intro to Server-side scripting</h1>
+<ul>
+<li>As seen above, dynamic websites are written using 
+<em>server-side languages</em> such as <em>PHP</em></li>
+<li>Typically, a user will fill in a form, and the form data will
+be sent to a server-side script which will typically search a
+database</li>
+<li>An HTTP request <em>containing the form data</em> is sent across to the
+server software (e.g. Apache) running on the server machine</li>
+<li>The server software then passes on the form data to the 
+specified server-side script, and runs the script
+    <ul>
+    <li>For example, Apache has a <em>PHP module</em> which allows Apache
+    to run PHP scripts directly</li>
+    </ul>
+</li>
+<li>The form's <em>action</em> specifies the server-side script to send the
+form data to e.g.
+<pre>&lt;form method="get" action="flights.php"&gt;</pre>
+</li>
+</ul>
+<hr><p>Page 2</p><h1>Server side scripts</h1>
+<img src="./Introduction to PHP_files/serverscripts1.png" alt="Server-side scripts">
+<hr><p>Page 3</p><h1>Server-side scripts generate HTML</h1>
+<ul>
+<li>Server side scripts <em>dynamically generate HTML</em></li>
+<li>Different HTML can be produced, depending on the conditions</li>
+<li>For example, if there were flights available on a given date,
+an HTML page listing the flights could be generated</li>
+<li>while if there were no flights available, an HTML page reading
+"No flights available!" could be generated</li>
+<li>The HTML is sent back to the client within the HTTP response</li>
+</ul>
+<hr><p>Page 4</p><h1>A First PHP Script</h1>
+<pre><span class="php">&lt;?php
+echo "&lt;p&gt;Hello from PHP! &lt;/p&gt;";
+?&gt;</span></pre>
+<ul>
+<li>A PHP script begins with <code>&lt;?php</code> and ends with
+<code>?&gt;</code></li>
+<li><em>echo</em> sends the HTML enclosed
+within the quotes back to the client PC</li>
+<li>PHP scripts are saved on the server with the extension
+<em>.php</em></li>
+<li>Typing a PHP script's URL e.g. 
+<pre>http://www.server.com/dfti/week11/hello.php</pre>
+will send an HTTP request to the server software to run the PHP script and send the
+results back to the browser</li>
+<li>The above PHP script will send the following HTML to the
+client browser:
+<pre>&lt;p&gt;Hello from PHP!&lt;/p&gt;
+</pre>
+</li>
+</ul>
+<hr><p>Page 5</p><h1>PHP variables</h1>
+<ul>
+<li>Specified using the dollar symbol ($) plus a name</li>
+<li>The name must begin with a letter or underscore, and contain only letters, underscores or numbers</li>
+<li>Can be used to store different <em>data types</em>: e.g.
+numbers (integers and floating point), strings, and boolean 
+(true/false) values</li>
+<li>Like in JavaScript variables do not have to be declared as a
+specific data type; one variable can store any data type</li>
+<li>Names are case sensitive</li>
+<li>Valid variables: $a, $b123, $_hello</li>
+<li>Invalid variables: $COOL!, $3bears</li>
+</ul>
+<hr><p>Page 6</p><h1>PHP variables example</h1>
+<pre><span class="php">&lt;?php
+$a = 1;
+$b = 2;
+$c = $a + $b;
+echo "&lt;p&gt;The sum of $a and $b is $c&lt;/p&gt;";
+?&gt;
+</span></pre>
+<ul>
+<li>This script stores the values 1 and 2 in the variables $a and $b, adds them together and stores the result in $c</li>
+<li>Note that this calculation is <em>all done on the server
+side</em></li>
+<li>All the client PC ever sees is the result of the calculation
+output as HTML:
+<pre>&lt;p&gt;The sum of 1 and 2 is 3&lt;/p&gt;
+</pre>
+</li>
+</ul>
+<hr><p>Page 7</p><h1>Mixing HTML and PHP</h1>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;PHP Test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="php">&lt;?php
+echo "&lt;p&gt;This is created from PHP embedded within HTML!&lt;/p&gt;";
+?&gt;</span>
+&lt;/body&gt; &lt;/html&gt;
+</pre>
+<ul>
+<li>We can mix PHP and straight HTML in a PHP script</li>
+<li>Everything between <em>&lt;?php</em> and
+<em>?&gt;</em> is processed by the PHP interpreter</li>
+<li>Everything outside the PHP tags is simply sent straight back to
+the client PC as regular HTML</li>
+<li>Thus the above script will generate the following HTML:
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;PHP Test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;This is created from PHP embedded within HTML!&lt;/p&gt;
+&lt;/body&gt; &lt;/html&gt;
+</pre>
+</li>
+</ul>
+<hr><p>Page 8</p><h1>Sending form data to a PHP script</h1>
+<pre>&lt;form method="get" action="hello.php"&gt;
+Enter your name:
+&lt;input name="name" /&gt;
+Enter your age:
+&lt;input name="age" /&gt;
+&lt;input type="submit" value="Go!"/&gt;
+&lt;/form&gt;</pre>
+<ul>
+<li>As seen above, we typically use PHP to process <em>form data</em></li>
+<li>Above is an example form; the next slide shows a PHP script to read
+that form data and display it back to the user</li>
+<li>The <em>action</em> specifies the PHP script to send the form
+data to</li>
+<li>Note that we give each field a <em>name</em>: this allows the
+PHP script to identify each input element</li>
+<li>The form has a <em>method</em> of <em>get</em> which is the default
+    <ul>
+    <li>There is another method (<em>post</em>) used when data from a form is used
+    to <em>modify a database</em>: we will come on to this later</li>
+    </ul>
+</li>
+<li>Forms with a method of <em>get</em> will result in an HTTP request (see last week)
+with a type of <em>GET</em>, which is an instruction to the server to
+<em>GET</em> information</li>
+<li>Note that data from a form with a method of <em>get</em> will appear in the URL and thus 
+<em>get</em> should not be used for sensitive data</li>
+</ul>
+<hr><p>Page 9</p><h1>Responding to form data in PHP</h1>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;PHP Test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+<span class="php">&lt;?php
+$n = $_GET["<em>name</em>"];
+$a = $_GET["<em>age</em>"];
+echo "&lt;h1&gt;Hello $n!&lt;/h1&gt;";
+echo "&lt;p&gt;Your age is : $a!&lt;/p&gt;";
+?&gt;
+</span>
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<ul>
+<li>We use the special variable <em>$_GET</em></li>
+<li>To obtain what the user entered in each form field, we place
+the <em>name</em> of each field within the brackets following
+<em>$_GET</em></li>
+<li>It's $_GET because the form had a method of "get"</li>
+<li>If the form's method is "post", 
+<em>we would use $_POST instead of $_GET</em>
+</li>
+<li>
+<em>See 
+<a href="https://edward2.solent.ac.uk/course/dfti/examples/basic/form.html">here</a>
+</em> (link is to the form, PHP script runs when you fill in the form
+and click Go!)</li>
+</ul>
+<hr><p>Page 10</p><h1>Loops and conditional statements in PHP</h1>
+<ul>
+<li>The following are available to us in PHP:
+    <ul>
+    <li>Arithmetic expressions</li>
+    <li>Loops: for, while, do</li>    
+    <li>Conditional statements: if/else, switch</li>
+    </ul>
+</li>
+<li>Syntax is basically the same as in JavaScript</li>
+</ul>
+<hr><p>Page 11</p><h1>Example of loops in PHP</h1>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;PHP Test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt; PHP Loops &lt;/h1&gt;
+<span class="php">&lt;?php
+
+// Calculate squares of 0 to 9. Remember $a++ increases $a by 1.
+
+// using while loop
+echo "&lt;h2&gt; Using while loop &lt;/h2&gt;";
+$a = 0;
+while ($a &lt; 10)
+{
+    $b=$a*$a;
+    echo "$a squared is $b&lt;br /&gt;";
+    $a++;
+}
+
+// using for loop
+echo "&lt;h2&gt; Using for loop &lt;/h2&gt;";
+for ($a=0; $a&lt;10; $a++) 
+{
+    $b=$a*$a;
+    echo "$a squared is $b&lt;br /&gt;";
+}
+?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p><em>See
+<a href="https://edward2.solent.ac.uk/course/dfti/examples/basic/loops.php">here</a> to 
+see script running</em>
+</p>
+<hr><p>Page 12</p><h1>Example of conditional statement (if) in PHP</h1>
+<p>A modified version of the basic form example above</p>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;PHP Test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="php">&lt;?php
+$n = $_GET["<em>name</em>"];
+$a = $_GET["<em>age</em>"];
+
+if ($n == "") // if $n equals a blank string, i.e. no name was entered
+{
+    echo "Please enter a name! &lt;br /&gt;";
+}
+else
+{
+    echo "&lt;h1&gt;Hello $n!&lt;/h1&gt;";
+    echo "&lt;p&gt;Your age is : $a!&lt;/p&gt;";
+}
+?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<hr><p>Page 13</p><h1>Using and/or</h1>
+<ul>
+<li>As in other languages, we can <em>combine conditions</em> by using
+the "and" (&amp;&amp;) and "or" (||) operators</li>
+<li>For example:
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;PHP Test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="php">&lt;?php
+$n = $_GET["<em>name</em>"];
+$a = $_GET["<em>age</em>"];
+
+// If name is blank OR age is blank
+if ($n == "" || $a == "") 
+{
+    echo "Either the name, the age, or both is missing. &lt;br /&gt;";
+}
+else
+{
+    echo "&lt;h1&gt;Hello $n!&lt;/h1&gt;";
+    echo "&lt;p&gt;Your age is : $a!&lt;/p&gt;";
+}
+?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</li>
+<li><em>See
+<a href="https://edward2.solent.ac.uk/course/dfti/examples/basic/form2.html">here</a>
+</em> (link is to form, script runs when you fill in the form and
+click Go!</li>
+</ul>
+<hr><p>Page 14</p><h1>elseif</h1>
+<ul>
+<li>Occasionally we might want to do a
+<em>multiple if/else</em>
+    <ul>
+    <li>There might be a situation where we
+    want to say "if this, do that, otherwise if
+    this,  do something else, otherwise, do something else again"</li>
+    </ul>
+</li>
+<li>We can use the <em>elseif</em> keyword (you can also write
+"else if" as separate words) to do this</li>
+<li>e.g, a nightclub bouncer script, <em>bouncer.php</em>:
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Nightclub Bouncer&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="php">&lt;?php
+$n = $_GET["<em>name</em>"];
+$a = $_GET["<em>age</em>"];
+
+if ($a &lt; 18)
+{
+    echo "Sorry, you are too young to enter the club!";
+}
+elseif ($a &gt; 130)
+{
+    echo "Don't be silly, no-one is that old!";
+}
+else
+{
+    echo "&lt;h1&gt;Welcome $n, you can enter the club&lt;/h1&gt;";
+}
+?&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</li>
+</ul>
+<hr><p>Page 15</p><h1>Arrays</h1>
+<ul>
+<li>Like other languages, PHP has the concept of <em>arrays</em></li>
+<li>An array is a variable which can hold <em>multiple values</em>
+</li>
+<li>We retrieve the individual members of the array using an <em>index</em> which starts
+at 0</li>
+<li>For example, in an array $julyTemps representing the temperature each
+day in July, <em>$julyTemps[0]</em> would be the temperature on July 1</li>
+<li>e.g.
+<pre>&lt;html&gt; 
+&lt;head&gt; &lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+
+$julyTemps = [ 22, 23, 25, 27, 28, 30, 31, 18, 20, 22,
+               24, 25, 25, 24, 22, 23, 17, 18, 19, 25,
+               30, 32, 33, 33, 21, 23, 24, 26, 28, 28,
+               27 ];
+
+// Note how we use the dot (.) as the string concatenation operator
+// to join together constant text and variables
+echo "Temp for July 1: ". $julyTemps[0] . "&lt;br/&gt;";
+echo "Temp for July 7: ". $julyTemps[6] . "&lt;br/&gt;";
+
+// Use the for loop to loop through each temperature
+for($i=1; $i&lt;=31; $i++)
+{
+    echo "On July $i, the temperature was " .$julyTemps[$i-1] ." Celsius.&lt;br/&gt;";
+}
+?&gt;
+</pre>
+</li>
+<li>Note in the example how we have to use <em>$i-1</em> as the index, as
+$i is counting from 1 to 31, but the array is indexed from 0</li>
+</ul>
+<hr><p>Page 16</p><h1>Adding to an array</h1>
+<ul>
+<li>PHP arrays are more flexible than those in (for example) Java or C++</li>
+<li>We can add to the end of an already defined array e.g.
+<pre> 
+$languages = [ "C", "C++", "Java", "Python", "PHP", "JavaScript" ];
+<em>
+$languages[6] = "Kotlin"; 
+$languages[] = "C#";
+</em>
+for ($a=0; $a &lt; count($languages); $a++)
+{
+    echo $languages[$a] . "&lt;br /&gt;";
+}
+</pre>
+</li>
+<li>Note brackets <em>without</em> an index automatically add to the 
+<em>end</em> of the array</li>
+<li>Also note how we are using the <em>count()</em> function here. 
+<em>count()</em> returns the <em>number of elements in an array.</em></li>
+</ul>
+<hr><p>Page 17</p><h1>Associative arrays</h1>
+<ul>
+<li>An <em>associative array</em> is a collection of data where we can
+reference each item of data with a <em>non-numerical index</em></li>
+<li>This allows fast look-up of data</li>
+<li>In associative arrays, this index is known as a <em>key</em></li>
+<li>The keys are used to <em>look up</em> values in the array</li>
+</ul>
+<hr><p>Page 18</p><h1>Associative arrays - example</h1>
+<pre>&lt;html&gt; 
+&lt;head&gt; &lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+<em>$person = ["name" =&gt;"Tim Berners-Lee", 
+                "dob" =&gt;1955, 
+                "info" =&gt;"Inventor of the World Wide Web"];</em>
+
+echo "Name: ".$person["name"]." &lt;br/&gt;"; 
+echo "Year of birth: ".$person["dob"]."&lt;br/&gt;"; 
+echo "Description: ".$person["info"]."&lt;br/&gt;"; 
+
+?&gt;
+&lt;/body&gt;&lt;/html&gt;
+</pre>
+<hr><p>Page 19</p><h1>
+Associative arrays - explanation of example</h1>
+<ul>
+<li>The first line sets up an <em>associative array</em> of details about a person</li>
+<li>The associative array consists of three indices, name, age and job</li>
+<li>The index is referred to as the <em>key</em></li>
+<li>Thus, we say that associative arrays consist of a series of <em>key/value
+pairs</em></li>
+<li>We <em>associate</em> the <strong>key</strong> <em>name</em>
+with the <strong>value</strong> "Tim Berners-Lee", the <strong>key</strong>
+<em>dob</em> with the <strong>value</strong> 1955, and the 
+<strong>key</strong> <em>info</em>  with the <strong>value</strong> 
+"Inventor of the World Wide Web"</li>
+</ul>
+<hr><p>Page 20</p><h1>
+Dates and times and associative arrays
+</h1>
+<ul>
+<li>Associative arrays are used extensively in the PHP standard library</li>
+<li>For example, <em>getdate()</em> is one way to get information about the 
+date</li>
+<li>It returns an <em>associative array</em> holding different pieces of 
+information about the date</li>
+<li>e.g. in the example below, the associative array is stored in the
+variable <em>$d</em>: 
+<pre>&lt;html&gt; 
+&lt;head&gt; 
+&lt;/head&gt; 
+&lt;body&gt;
+&lt;?php
+$d = getdate();
+echo " Day of the week " .$d["weekday"] . "&lt;br/&gt;"; 
+echo " Day of the month :". $d["mday"] . "&lt;br/&gt;"; 
+echo " Month : ".$d["month"] ."&lt;br/&gt;"; 
+echo " Year : ".$d["year"] ."&lt;br/&gt;"; 
+?&gt;
+&lt;/body&gt;&lt;/html&gt;</pre>
+</li>
+<li>See <em>getdate</em> in the PHP manual for full details</li>
+</ul>
+<hr><p>Page 21</p><h1>Looping through an associative array with the foreach loop</h1>
+<ul>
+<li>In addition to the <em>for</em> and <em>while</em> loops, PHP has another
+kind of loop: the <em>foreach</em> loop</li>
+<li>The foreach loop can be used to loop through all members of a
+regular array or an associative array</li>
+<li>e.g. two of the previous examples rewritten to use the foreach loop:
+
+<pre>&lt;html&gt; &lt;head&gt; &lt;/head&gt; &lt;body&gt;
+&lt;?php
+$languages = [ "C", "C++", "Java", "Python", "PHP", "JavaScript" ];
+$languages[6] = "Kotlin"; 
+$languages[] = "C#";
+
+<em>foreach($languages as $language) 
+{
+    echo "$language&lt;br /&gt;";
+}</em>
+
+$person = ["name" =&gt;"Tim Berners-Lee", 
+                "dob" =&gt;1955, 
+                "info" =&gt;"Inventor of the World Wide Web"];
+
+<em>foreach ($person as $key =&gt; $value)
+{
+    echo "In the associative array, the key $key has the value $value&lt;br/&gt; ";
+}</em>
+
+?&gt;
+&lt;/body&gt;&lt;/html&gt;</pre>
+</li>
+</ul>
+<hr><p>Page 22</p><h1>Arrays of associative arrays</h1>
+<ul>
+<li>We can also have <em>arrays of arrays</em> and <em>arrays of associative arrays</em></li>
+<li>e.g.:
+<pre>$employees = [
+
+       ["name" =&gt; "Tom Smith",
+                "age" =&gt; 51,
+            "job" =&gt; "Web Developer" ],
+    
+
+       ["name" =&gt; "Jane Jones",
+                "age" =&gt; 29,
+            "job" =&gt; "Java Developer" ]
+            
+                     ];
+
+echo "&lt;h1&gt;List of employees:&lt;/h1&gt;";
+
+foreach($employees as $employee) 
+{
+    echo "Name " . $employee["name"] . " Age " . $employee["age"] .  " Job " .$employee["job"]. "&lt;br /&gt;";
+}
+</pre>
+</li>
+<li>In this example we set up an array <em>$employees</em></li>
+<li>The array consists of <em>two associative arrays</em> describing
+two employees</li> 
+<li>We use a foreach loop to loop through this array</li>
+<li>Each time the foreach loop runs, <em>$employee</em> will hold the
+current employee</li>
+<li><em>$employee</em> will, therefore, be an associative array containing
+the current employee details, so we can index it to obtain the name, age 
+and job</li>
+</ul>
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./Introduction to PHP_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture2.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture2.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture2.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture2.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>

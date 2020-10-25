@@ -1,0 +1,457 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0077)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=lecture3.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./PHP and Databases_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>PHP and Databases</h1></div><hr><p>Page 1</p><h1>PHP and Databases</h1>
+<ul>
+<li>Databases and SQL - Essentials/Revision</li>
+<li>Three Tier Architecture</li>
+<li>PHP and Databases - Sending Queries</li>
+</ul>
+<hr><p>Page 2</p><h1> Principles of Databases</h1>
+<ul>
+<li>A standardised way to store and manipulate data
+    <ul>
+    <li>Data is stored in <em>tables</em> with <em>columns</em></li>
+    </ul>
+</li>
+<li>We get data out of the database using <em>queries</em> 
+    <ul>
+    <li>These are written in <em>Structured Query Language (SQL)</em></li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 3</p><h1> Architecture of a Database</h1>
+<ul>
+<li>Database systems consist of two components, the <em>server</em> and
+the <em>client</em>:
+<br>
+<img src="./PHP and Databases_files/db1.png" alt="Database as client/server system"></li>
+</ul>
+<hr><p>Page 4</p><h1> The database server</h1>
+<ul>
+<li>What we mean when we informally use the term "database"</li>
+<li>A continuously-running program which <em>listens</em> to SQL queries from 
+clients, processes them and sends back a <em>response</em></li>
+<li>Stores the actual database in memory</li>
+<li>Similar in concept to web server software (Apache)</li>
+<li>Typically runs on a web server or other machine connected to the
+Internet</li>
+<li>Examples:
+    <ul>
+    <li><strong>Free, open source</strong>: MySQL, PostgreSQL</li>
+    <li><strong>Commercial</strong>: Microsoft SQL Server, Oracle</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 5</p><h1> Database clients</h1>
+<ul>
+<li>Provide a user interface to database server</li>
+<li>Client <em>connects</em> to the database server, which may be on either 
+the same machine or a remote machine</li>
+<li>SQL queries sent from the client to the database server</li>
+<li>Database server processes the queries and returns output to client</li>
+<li>Run as and when the user wishes to process data</li>
+<li>Examples:
+    <ul>
+    <li>PHPMyAdmin (web-based interface to MySQL)</li>
+    <li>MySQL Monitor (command-prompt-based interface to MySQL)</li>
+    <li><strong>Your PHP script, acting as a database client, sending
+    SQL queries to a database server</strong></li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 6</p><h1> SQL commands</h1>
+<ul>
+<li>To refresh: SQL is the language used to query a database</li>
+<li>We will look at some of the simpler commands:
+    <ul>
+    <li>SELECT - queries the database</li>
+    <li>INSERT - inserts a new record into a database table</li>
+    <li>DELETE - deletes a record from a database table</li>
+    <li>UPDATE - changes a record in a database table</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 7</p><h1> Basic SQL - SELECT</h1>
+<ul>
+<li>Sends a query to the database </li>
+<li>Syntax:
+<pre>SELECT columns FROM table;
+</pre>
+</li>
+<li>Examples:
+<ul>
+<li><em class="query">SELECT * FROM people;</em> retrieve all columns of all 
+records of the table <em>people</em></li>
+<li><em class="query">SELECT name FROM people;</em> retrieve the <em>name</em> 
+column of all records from the table <em>people</em></li>
+</ul>
+</li>
+</ul>
+<hr><p>Page 8</p><h1> Basic SQL - WHERE</h1>
+<ul>
+<li>Adds <em>conditions</em> to our query</li>
+<li>Syntax:
+<pre>SELECT columns FROM table WHERE condition;
+</pre>
+</li>
+<li>Examples:
+<ul>
+<li><em class="query">SELECT * FROM people where name = 'Tim'</em> 
+retrieves all columns of people with the <em>name</em> Tim</li>
+<li><em class="query">SELECT name FROM people where age &lt; 65;</em> retrieve 
+the <em>name</em> column 
+of the table <em>people</em> where the age is less than 65</li>
+</ul>
+</li>
+</ul>
+<hr><p>Page 9</p><h1> Basic SQL - AND, OR</h1>
+<ul>
+<li>Allows us to <em>combine</em> conditions</li>
+<li>Syntax:
+<pre>SELECT columns FROM table WHERE condition1 AND condition2;
+SELECT columns FROM table WHERE condition1 OR condition2;
+</pre>
+</li>
+<li>Examples:
+<ul>
+<li><em class="query">SELECT * FROM people WHERE name = 'Tim' 
+OR name = 'Fred';</em> 
+retrieve all columns of people with the <em>name</em> Tim or 
+Fred</li>
+<li><em class="query">SELECT name FROM people WHERE age &lt; 65 
+AND age &gt;= 18;
+</em> retrieve the <em>name</em> column of the table <em>people</em> where the 
+age is between 18 and 64 
+</li>
+</ul>
+</li>
+</ul>
+<hr><p>Page 10</p><h1> Database manipulation - INSERT</h1>
+<ul>
+<li>Allows us to <em>add</em> new records to our database</li>
+<li>Syntax:
+<pre>INSERT INTO table (colname1, colname2) VALUES (value1,value2,...)
+</pre>
+</li>
+<li>Examples:
+<ul>
+<li><em class="query">INSERT INTO people (name,age) VALUES ('Rob Price',36) 
+</em> add a 
+new record to the <em>people</em> table, setting the name column to
+Rob Price, and the age column to 36</li>
+</ul>
+</li>
+</ul>
+<hr><p>Page 11</p><h1> Database manipulation - DELETE</h1>
+<ul>
+<li>Allows us to <em>remove</em> records from our database</li>
+<li>Syntax:
+<pre>DELETE FROM table WHERE condition;
+</pre>
+</li>
+<li>Examples:
+<ul>
+<li><em class="query">DELETE FROM people WHERE name='Steve Palmer' </em> delete
+Steve Palmer from the <em>people</em> table</li>
+<li><em class="query">DELETE FROM people WHERE age&lt; 18</em> delete anyone 
+with an age of less than 18 from the table</li>
+</ul>
+</li>
+</ul>
+<hr><p>Page 12</p><h1> Database manipulation - UPDATE</h1>
+<ul>
+<li>Allows us to <em>modify</em> records in our database</li>
+<li>Syntax:
+<pre>UPDATE table SET new value WHERE condition;
+</pre>
+</li>
+<li>Examples:
+<ul>
+<li><em class="query">UPDATE people SET name='Mark Gill' WHERE name='Msrk Gill';
+</em> 
+alter the name of <em>Msrk</em> Gill (typo) to <em>Mark</em> Gill</li>
+</ul>
+</li>
+</ul>
+<hr><p>Page 13</p><h1> Data Types</h1>
+<ul>
+<li>Each column needs a <em>data type</em></li>
+<li>This indicates the type of data stored in it</li>
+<li>Examples:
+<ul>
+<li><em>INT</em> - integer (number)</li>
+<li><em>VARCHAR</em> - variable length string of characters (up to 255), used 
+for words/sentences</li>
+<li><em>TEXT</em> - used for large amounts of text</li>
+<li><em>FLOAT</em> - floating point number</li>
+<li><em>DATE, TIME, DATETIME</em> - dates and times</li>
+</ul>
+</li>
+</ul>
+<hr><p>Page 14</p><h1>Your PHP Script as a Database Client</h1>
+<ul>
+<li>A PHP script can act as a database client</li> 
+<li>The script sends SQL queries to the database
+    <ul>
+    <li>These can be of any type, SELECT, INSERT, UPDATE, etc</li>
+    </ul>
+</li>
+<li>For a SELECT query, the database sends the results back to the script</li>
+</ul>
+<hr><p>Page 15</p><h1>Three-tier architecture</h1>
+<ul>
+<li>The PHP script acts as the <em>server</em> with respect to the 
+user's PC, but the <em>client</em> with respect to the database:
+<br>
+<img src="./PHP and Databases_files/db2.png" alt="Clients, servers, scripts and databases">
+<br>
+</li>
+<li>This is known as <em>three-tier</em> architecture</li>
+</ul>
+<hr><p>Page 16</p><h1>Using Databases From PHP - General Steps</h1>
+<ol>
+<li>Connect to the database</li>
+<li>Send a query to the database</li>
+<li>Receive the results from the database</li>
+<li>Send the results, formatted in HTML, back to the browser</li>
+</ol>
+<hr><p>Page 17</p><h1>PHP Database Objects: PDO</h1>
+<ul>
+<li>The old way of querying a database involved slightly different code for MySQL,
+Oracle, Microsoft SQL Server, etc</li>
+<li>However, these days it's recommended instead to use
+<em>PHP Database Objects - PDO</em>
+</li>
+<li>Use of PDO allows the same code to be used independently of what the database server is:
+the only thing that needs to be changed is a single string specifying the database server</li>
+<li>It also comes with a number of security measures built-in, such as the use of <em>prepared statements</em>, which we will cover in a later topic</li>
+</ul>
+<hr><p>Page 18</p><h1>Example - Using SQL from within PHP</h1>
+<ul>
+<li>Imagine we had the following database table called 
+<em>students</em> within a database called <em>student_records</em>
+with four columns <em>ID</em>, <em>name</em>, <em>phone</em> and 
+<em>course</em>:
+<pre> 
+ID              name            phone           course
+==              ====            =====           ======
+1               Mark Jones      07111 111111    Computer Network Management
+2               Rob Price       07222 222222    Software Engineering
+3               Lisa Burnside   07444 444444    Software Engineering
+4               Janet Williams  07333 333333    Internet Development</pre>
+</li>
+<li>The following PHP example will search this database table for all students on the course that the user entered and retrieve all matching records</li>
+</ul>
+<hr><p>Page 19</p><h1>Example - Using SQL from within PHP</h1>
+<pre>&lt;html&gt; &lt;body&gt;
+&lt;h1&gt;Database results!&lt;/h1&gt;
+<span class="php">&lt;?php
+
+// Read in a course from an HTML form
+$a = $_GET["course"];
+
+// Try to do the following code. It might generate an exception (error)
+try 
+{
+    // Connect to the database
+    $conn = new PDO("mysql:host=localhost;dbname=student_records;", "username","password");
+
+    // Set up exception-based error handling
+    $conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+    // Send an SQL query to the database server
+    $results = $conn-&gt;query("select * from students where course='$a'");
+
+    // Loop through the results
+    while($row=$results-&gt;fetch(PDO::FETCH_ASSOC))
+    {
+        echo "&lt;p&gt;";
+        echo " Student ID ". $row["ID"] ."&lt;br/&gt; ";
+        echo " Name " . $row["name"] . "&lt;br/&gt; " ; 
+        echo " Phone " .$row["phone"]. "&lt;br/&gt;" ; 
+        echo "&lt;/p&gt;";
+    }
+}
+// Catch any exceptions (errors) thrown from the 'try' block
+catch(PDOException $e) 
+{
+    echo "Error: $e";
+}
+
+
+?&gt;</span>
+&lt;/body&gt; &lt;/html&gt;
+</pre>
+<hr><p>Page 20</p><h1>Summary of example</h1>
+<ul>
+<li>First we <em>connect to the database server</em> using an appropriate
+username and password and select an appropriate database (<strong>student_records</strong> in our case)
+    <ul>
+    <li><em>localhost</em> means that the database server is on the same 
+    machine as the web server running the PHP script</li> 
+    </ul>
+</li>
+<li>Then we send a <em>query</em> to the database, to search for all
+students on a given course</li>
+<li>The database sends back the matching records, storing them in $result</li>
+<li>Finally we loop through the matching records, one row at a time, echoing 
+them back to the user's web browser</li>
+</ul>
+<hr><p>Page 21</p><h1>The script in more detail (1)-
+Connecting to a MySQL server</h1>
+<ul>
+<li>Syntax:
+<pre>$conn = new PDO("mysql:host=localhost;dbname=student_records", "username","password");
+</pre>
+</li>
+<li>We create a new PDO connection, specifying three pieces of information:
+    <ul>
+    <li>The <em>connection string</em>, mysql:host=localhost;dbname=student_records;</li>
+    <li>The <em>username</em> and the <em>password</em> for the database.</li>
+    </ul>
+</li>
+
+<li>The connection string is where we specify the database server we're using 
+(mysql as opposed to say Oracle or Microsoft SQL Server),
+the machine the database is running on (<em>localhost</em> means that the database 
+server is on the same machine as the web server running the script) and
+the actual database we're using <em>student_records</em>
+    <ul>
+  <li>Revision:
+   One <em>database server</em> (MySQL system) may contain several actual 
+   <em>databases</em>
+   </li>
+   </ul>
+</li>
+<li>This will log on to the database server with a username of 
+<em>username</em> and password of <em>password</em></li>
+<li>Technically, what we are doing with <em>new PDO</em> is creating a new PDO <em>object</em>
+    <ul>
+    <li>Those of you doing Java will know about the concept of objects; for everyone else, we will
+    return to it later in the unit</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 22</p><h1>The script in more detail (2) - Querying a database</h1>
+<ul>
+<li>We can send an SQL query to a database within PHP using PDO</li>
+<li>Syntax:
+<pre>$results = $conn-&gt;query("SQL QUERY");
+</pre>
+</li>
+<li>e.g.
+<pre>$results = $conn-&gt;query("select * from students where course='$a'");
+</pre>
+</li>
+<li>This selects the records from the table <em>students</em> where the
+value in the <em>name</em> column matches the name that the user entered in
+the form (i.e. $a)</li>
+<li>In other words, it selects the records where the name matches the name
+that the user entered on the form</li>
+<li><em>$results</em> represents the set of results returned from the
+database</li> 
+</ul>
+<hr><p>Page 23</p><h1>The script in more detail (3) - Interpreting the Result</h1>
+<ul>
+<li>Each matching row from the set of results is fetched in turn, using <em>fetch()</em>:
+<pre>while($row = $results-&gt;fetch(PDO::FETCH_ASSOC))</pre>
+</li>
+<li>e.g:
+<pre><span class="php">
+while($row=$results-&gt;fetch(PDO::FETCH_ASSOC))
+{
+    echo "&lt;p&gt;";
+    echo " Student ID ". $row["ID"] . "&lt;br/&gt; ";
+    echo " Name " . $row["name"] . "&lt;br/&gt; " ; 
+    echo " Phone " . $row["phone"] . "&lt;br/&gt;" ; 
+    echo "&lt;/p&gt;";
+}
+</span></pre>
+</li>
+<li>Each row is fetched into the variable $row, which is an 
+<em>associative array</em> (PDO::FETCH_ASSOC specifies this)</li>
+<li>The column names from the database go inside the square brackets [ ] </li>
+<li><strong>$row["phone"]</strong> means the value of the <em>phone</em>
+column from the current record</li>
+<li><strong>$row["email"]</strong> means the value of the <em>email</em>
+column from the current record</li>
+<li>When there are no more rows to fetch, <em>$results-&gt;fetch()</em> will return the boolean value <em>false</em>, which will stop the loop
+    <ul>
+    <li>
+    <pre>while($row = $results-&gt;fetch(PDO::FETCH_ASSOC))</pre>
+    is shorthand for
+    <pre>while(($row = $results-&gt;fetch(PDO::FETCH_ASSOC)) != false)</pre>
+    where "!=" means "is not equal to", in other words we are looping while
+    <em>fetch()</em> does not return false
+    </li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 24</p><h1>Exceptions (Try/catch) - checking for errors</h1>
+<ul>
+<li>We handle errors using <em>exceptions</em></li>
+<li>Notice how the code to connect to the database, and perform a query,
+ is placed inside a <em>try block</em></li>
+<li>We are <em>trying</em> to connect to our database and perform a query,
+but there might be errors
+    <ul>
+    <li>For example, the database login might be incorrect or the SQL might
+    refer to the wrong column or table</li>
+    </ul>
+</li>
+<li>If any error occurs, it is <em>thrown</em> as an <em>exception</em>
+and we <em>catch</em> it in the accompanying <em>catch block</em> and 
+display it</li>
+<li>To enable exception-based error handling, you must enable it:
+<pre>$conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</pre>
+</li>
+<li>If you do not turn on exception-based error handling, it will be
+difficult to track down SQL errors</li>
+</ul>
+<hr><p>Page 25</p><h1>Testing whether a query returned results</h1>
+<ul>
+<li>To test whether a query returned anything, we try to fetch the first 
+row</li>
+<li>If this is unsuccessful, the boolean value <em>false</em> will be returned,
+rather than a valid row (as we saw above)</li>
+<li>So we can test for the first row being false to test for there being no
+matching rows</li>
+<li>For example:
+<pre>$results = $conn-&gt;query("select * from students where course='$a'");
+$row = $results-&gt;fetch(PDO::FETCH_ASSOC);
+if ($row == false) 
+{
+    echo "No matching rows!";
+}
+else
+{
+    // .. continue with the loop
+}</pre>
+</li>
+</ul>
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./PHP and Databases_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture3.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture3.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture3.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture3.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>

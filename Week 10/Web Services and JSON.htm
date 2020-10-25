@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0078)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=lecture10.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./Web Services and JSON_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>Web services and JSON</h1></div><hr><p>Page 1</p><h1>Web services</h1>
+<ul>
+<li>What is a web service?</li>
+<li>Differences between web services and web applications</li>
+<li>Why use web services?</li>
+</ul>
+<hr><p>Page 2</p><h1>What is a web service?</h1>
+<ul>
+<li>A script or program running on a server which sends back 
+<em>pure data</em> (as opposed to HTML pages) to clients over HTTP, in
+response to HTTP requests</li>
+<li>Examples of pure data fornats:
+    <ul>
+    <li>JSON</li>
+    <li>XML</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 3</p><h1>Differences between web services and standard web
+applications</h1>
+<ul>
+<li>A web service is similar to a standard PHP-based website 
+(web application) in that it responds to HTTP requests from clients</li>
+<li>However, there is a fundamental difference ....</li>
+<li>A standard web application is intended for the end user
+    <ul>
+    <li>Server-side scripts generate <em>HTML</em> in response to user 
+    input</li>
+    <li>The output is therefore designed for a web browser</li>
+    </ul>
+</li>
+<li>A web service, on the other hand, provides pure data which
+is intended for use by 
+<em>other applications</em>, not end users</li>
+<li>These applications can include other websites, or even standalone
+programs</li>
+<li>Such applications are called <em>web service clients</em> as they
+make a request to the web service over the network</li>
+</ul>
+<hr><p>Page 4</p><h1>Example of web services</h1>
+<ul>
+<li>A web service could provide weather information for a particular
+city
+    <ul>
+    <li>The client could send the city to the web service, which could respond
+    with JSON containing the weather for that city back to the client</li>
+    </ul>
+</li>
+<li>A web service could provide train times
+    <ul>
+    <li>The client could send the starting station, the finishing station,
+    the date and the time, and the web service could respond with JSON 
+    containing all matching trains</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 5</p><h1>Example web service clients</h1>
+<ul>
+<li>Other websites
+    <ul>
+    <li>A tourist site for a given city could retrieve the weather
+    for that city from the web service and incorporate it into its own site</li>
+    <li>A Paris tourist 
+    website aimed at UK visitors could contact the train times
+    web service to show all trains from London to Paris within the site</li>
+    </ul>
+</li>
+<li>Standalone mobile phone applications or "apps"
+    <ul>
+    <li>A mobile phone application for iPhone, Android or Blackberry 
+    could contact the weather web service to 
+    look up the weather for the city the user is currently in,
+    and display it</li>
+    <li>Another mobile phone application could look up train times for the
+    user by contacting the train times web service</li>
+    </ul>
+</li>
+<li>Other standalone applications
+    <ul>
+    <li>A booking application in a ticket office written in Java or Visual 
+    Basic could contact the trains web service to look up train times for
+    the customer</li>
+    <li>A booking application in a travel agent could contact a flights
+    web service to look up flights for the customer</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 6</p><h1>Why web services and not just HTML?</h1>
+<ul>
+<li>HTML assumes that the end user is using a browser, and that
+the data is to be displayed as a complete web page</li>
+<li>By returning JSON instead, the web service is returning <em>pure data</em>
+    <ul>
+    <li>Does not force a certain web page structure on the user of the web
+    service; the user of the web service can process the data how they want</li>
+    <li>e.g. a client website can style the data using its own look and
+    feel, rather than that of the web service provider</li>
+    <li>Makes no assumptions about what software the end user is using;
+    a standalone mobile phone or
+    desktop application could use the JSON just as a web
+    browser could</li>
+    <li>The JSON data could be seamlessly integrated into the user interface
+    of the phone or desktop application, as it's just pure data</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 7</p><h1>JSON - JavaScript Object Notation</h1>
+<ul>
+<li>We've talked about JSON as a pure-data format, but what exactly does 
+it look like?</li>
+<li>JSON uses JavaScript syntax (hence the name) to represent data as it gets sent across the web.</li>
+<li>
+With JSON we represent a single entity (such as a person, a song or a film)
+using curly brackets {} and we represent a collection of entities (an array) using square brackets [].
+The former is called a JSON <em>object</em> while the latter is called a JSON <em>array</em>. As you will
+see later in the unit, this syntax is the same as the syntax for representing objects and arrays in 
+JavaScript code.</li>
+<li>Here is an example of a JSON object representing a single student.
+<pre>{ 
+    "name": "Tim Smith",
+    "username": "2smitt82",
+    "course": "Computer Studies"
+}
+</pre>
+</li>
+<li>
+Note how the JSON object representing the student is defined by curly brackets { and }, and inside the curly
+bracket, we specify each property of the student (name, username and course) and the
+corresponding value ("Tim Smith", "2smitt82", and "Computer Studies", respectively). A colon (:) 
+separates the property and the value, and a comma separates each property/value pair.</li>
+</ul>
+<hr><p>Page 8</p><h1>A collection of objects</h1>
+<ul>
+<li>The next example shows a <em>collection (array) of students</em>.
+</li>
+<li> Note how we use the JSON array syntax [ and ] to
+define the collection, how each individual student object is represented by curly brackets { and }, and
+how each student object within the array is separated by a comma.
+<pre>[
+    { 
+      "name": "Tim Smith",
+      "username": "2smitt82",
+      "course": "Computer Studies"
+    },
+
+    {
+      "name": "Jamie Bailey",
+      "username": "1bailj39",
+      "course": "Computer Studies"
+    },
+
+    {
+      "name": "Deep Patel",
+      "username": "0pated61",
+      "course": "Networks and Web Design"
+    }
+]
+</pre>
+</li>
+</ul>
+<hr><p>Page 9</p><h1>Generating JSON server-side</h1>
+<ul>
+<li>JSON can be generated server-side in PHP, 
+from a set of database results. </li>
+<li>PHP (v5.2.0 onwards) provides a function, <em>json_encode()</em>,
+to automatically generate JSON from PHP arrays or associative arrays 
+</li>
+<li><em>json_encode()</em> will convert:
+    <ul>
+    <li>a PHP array to a JSON array;</li>
+    <li>a PHP associative array to a JSON object;</li>
+    <li>and a PHP array of associative arrays to a JSON array of objects.</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 10</p><h1>Examples of json_encode()</h1>
+<ul>
+<li>
+Here is an example to generate JSON from a PHP array. Remember that in PHP we use the square brackets [ and ]
+to define both arrays and associative arrays - this is different from JSON and JavaScript.
+<pre>$monthLengths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+echo json_encode($monthLengths);
+</pre>
+This will produce the JSON:
+<pre>[ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+</pre>
+</li>
+<li>Here is an example showing an associative array:
+<pre>$obama = ["name" =&gt; "Barack Obama",
+                "age" =&gt; 56,
+                "nationality" =&gt; "US",
+            "job" =&gt; "US President 2008-16" ];
+
+echo json_encode($obama);
+</pre>
+This would give the JSON:
+<pre>{"name" : "Barack Obama", "age" : 56, "nationality" : "US", "job": "US President 2008-16"}
+</pre>
+</li>
+<li>and finally here is an example showing an array of associative arrays:
+<pre>$politicians = [
+
+       ["name" =&gt; "Barack Obama",
+                "age" =&gt; 56,
+                "nationality" =&gt; "US",
+            "job" =&gt; "US President 2008-16" ],
+
+       ["name" =&gt; "George Bush",
+                "age" =&gt; 73,
+                "nationality" =&gt; "US",
+            "job" =&gt; "US President 2000-08" ]
+            
+                     ];
+echo json_encode($politicians);
+</pre>
+This will produce this JSON:
+<pre>[
+    {"name" : "Barack Obama", "age" : 56, "nationality" : "US", "job": "US President 2008-16"},
+    {"name" : "George Bush", "age" : 73, "nationality" : "US",  
+     "job": "US President 2000-08" }
+]
+</pre>
+</li>
+</ul>
+<hr><p>Page 11</p><h1>Setting the correct content type</h1>
+<ul>
+<li>You should let clients know that JSON is coming back from the server, so that the client
+knows that they need to process the response as JSON, rather than something else.
+</li>
+<li>
+For example, web browsers will format the JSON nicely to make it easier to test and debug
+a web service. To do this, call <em>header()</em> with JSON's content type:
+<pre>header("Content-type: application/json");</pre>
+</li>
+</ul>
+<hr><p>Page 12</p><h1>Generating JSON using Slim</h1>
+<ul>
+<li>It's also quite easy to generate JSON using Slim</li>
+<li>You simply call the <strong>withJson()</strong> method on your Response object, pass in the data you want to encode
+as JSON, and return its result from your route handler.</li>
+<li>This will generate the response as JSON.</li>
+<li>For example:
+<pre>$app-&gt;get('/students/{course}', function($req, $res, array $args) use($db) {
+    $stmt = $db-&gt;prepare("SELECT * FROM students WHERE course=?")
+    $stmt-&gt;execute([$args["course"]]);
+    $results = $stmt-&gt;fetchAll(PDO::FETCH_ASSOC); // or fetch() to fetch one row
+    return $res-&gt;withJson($results);
+});
+</pre>
+</li>
+<li>In Slim 4, you must ensure the slim/http module is installed:
+<pre>{
+    "require": {
+        "slim/slim": "^4.3",
+        "slim/psr7" : "^0.6.0",
+        <strong>"slim/http" :" ^1.0",</strong>
+        "slim/php-view": "^2.2"
+    }
+}
+</pre>
+</li>
+</ul>
+<hr><p>Page 13</p><h1>AJAX and JSON - parsing JSON from JavaScript</h1>
+<ul>
+<li>When building AJAX applications, it's common to connect to a JSON web service and 
+<em>parse</em> (interpret) the data sent back from it</li>
+<li>How do we parse JSON from JavaScript?</li>
+<li>We need to use <em>JSON.parse()</em> which converts JSON data into the equivalent JavaScript data structures</li>
+<li>So JSON arrays will become JavaScript arrays, and JSON objects will become JavaScript objects</li>
+</ul>
+<hr><p>Page 14</p><h1>Example JSON sent back from a web service</h1>
+<p>This data will be used in the JavaScript example on the next page</p>
+<pre>[
+    {
+        "flightnumber" : "AB901",
+        "depart"  : "0900",
+        "arrive" : "1200",
+        price: 100,
+    } ,
+
+    { 
+        "flightnumber" : "AB903",
+        "depart"  : "1100",
+        "arrive" : "1400",
+         price: 120,
+    },
+
+    { 
+        "flightnumber" : "AB905", 
+        "depart"  : "1400",
+        "arrive" : "1700",
+         price: 110,
+    }
+]
+</pre>
+<hr><p>Page 15</p><h1>Flight booking example from last time, converted to use JSON</h1>
+<p>This example will parse the JSON shown on the last slide</p>
+<pre>// JavaScript: ajax.js
+
+// Link the button to the ajaxrequest function when the page loads
+window.onload = function() {
+    document.getElementById('ajaxbtn').addEventListener('click', ajaxrequest);
+}
+
+function ajaxrequest()
+{
+    // Create the XMLHttpRequest variable.
+    // This variable represents the AJAX communication between client and
+    // server.
+    var xhr2 = new XMLHttpRequest();
+
+    // Read the data from the form fields.
+    var a = document.getElementById("destination").value;
+    var b = document.getElementById("date").value;
+
+    // Specify the CALLBACK function. 
+    // When we get a response from the server, the callback function will run
+    xhr2.addEventListener ("load", responseReceived);
+
+    // Open the connection to the server
+    // We are sending a request to "flights.php" in the same folder
+    // and passing in the 
+    // destination and date as a query string. 
+    xhr2.open('GET',
+        'flights.php?destination=' + a + '&amp;date=' + b);
+
+    // Send the request.
+    xhr2.send();
+}
+
+// The callback function
+// It simply places the response from the server in the div with the ID
+// of 'response'.
+
+// The parameter "e" contains the original XMLHttpRequest variable as
+// "e.target".
+// We get the actual response from the server as "e.target.responseText"
+function responseReceived(e)
+{
+    // Parse the JSON into an array of JavaScript objects
+    var flightData = JSON.parse(e.target.responseText);
+
+    // Create a string array to store the results in
+    var results = "";
+
+    // Use a 'for' loop to loop through each result
+    // flightData will be an array of all the records inside the JSON, so
+    // flightData[i] will be the current result.
+    // We can then extract the individual fields with flightData[i].depart,
+    // flightData[i].arrive, etc.
+
+    for(var i=0; i&lt;flightData.length; i++)
+    {
+        results = results + "Flight number: " + flightData[i].flightnumber + 
+            " Departure time: " + flightData[i].depart + 
+            " Arrival time: " + flightData[i].arrive +
+            " Price: " + flightData[i].price + "&lt;br /&gt;";
+    }
+
+    // Place the results in a div
+    document.getElementById('response').innerHTML = results;
+}
+</pre>
+<hr><p>Page 16</p><h1>JavaScript JSON parsing - explanation of example</h1>
+<ul>
+<li>We parse the response, <em>e.target.responseText</em>, into an array of JavaScript objects (<em>flightData</em>) using JSON.parse().</li>
+<li>We then loop through the array, and access the current object with <em>flightData[i]</em> by 
+indexing the array with the current value of the loop counter variable.</li>
+<li>We extract the individual fields from the current flight object (e.g. 
+<em>flightData[i].depart</em> and <em>flightData[i].arrive</em>)</li>
+<li>The extracted data is added to the string variable <em>results</em></li>
+<li>Finally, we place <em>results</em> into the &lt;div&gt; with an ID of <em>response</em>.</li>
+</ul>
+<hr><p>Page 17</p><h1>Example of web service: The Freemap API</h1>
+<ul>
+<li>The Freemap API is my own web service which provides data from
+<em><a href="https://openstreetmap.org/">OpenStreetMap (OSM)</a></em> 
+for various apps to use</li>
+<li>See for example:
+<a href="https://hikar.org/fm/ws/tsvr.php?x=4079&amp;y=2740&amp;z=13&amp;way=highway&amp;poi=all&amp;format=json">here</a> - this shows you the raw JSON</li>
+<li>This web service is then used by different clients, including:
+	<ul>
+	<li><a href="http://www.mapthepaths.org.uk/">MapThePaths</a> - England
+	and Wales footpath mapping site</li>
+	<li><a href="https://hikar.org/">Hikar</a> - augmented reality app for
+	walkers</li>
+	<li><a href="https://opentrailview.org/">OpenTrailView</a> - panoramic
+	photo site, similar to StreetView: the web service is used to connect
+	panoramas together</li>
+	</ul>
+</li>
+<li>Notice how the same web service is being used in <em>different</em>
+ways by <em>different</em> client apps</li>
+</ul>
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./Web Services and JSON_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture10.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture10.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture10.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture10.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>

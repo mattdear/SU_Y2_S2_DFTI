@@ -1,0 +1,94 @@
+html, body
+{
+	width: 100%;
+	height: 100%
+}
+
+body
+{
+	background-color: #e0e0e0; 
+	color : #000080; 
+	font-family: lucida,verdana,helvetica; 
+}
+
+#sidebar
+{
+	background-color: #000080;
+	color: #e0e0e0;
+	top: 0%;
+	left: 0%;
+	width: 20%;
+	height: 100%;
+	position: fixed; 
+	text-align: center
+}
+
+#main 
+{ 
+	background-color: #e0e0e0; 
+	color: #000080; 
+	top: 0%; 
+	left: 20%; 
+	width: 80%; 
+	height: 100%;
+	position: absolute 
+}
+	
+#imgdiv 
+{ 
+	text-align: center 
+} 
+
+.sbar
+{
+	text-decoration: none;
+	color: #e0e0e0; 
+	font-family: impact,helvetica,arial,sans-serif; 
+	font-size: 200%
+}
+
+.popup 
+{ 
+	background-color: #e0e0e0; 
+	color: #000080; 
+	position:absolute; 
+	top:100px; 
+	left: 100px; 
+	z-index: 2
+}
+.sbar .popup 
+{ 
+	visibility: hidden 
+}
+.sbar:hover .popup 
+{ 
+	visibility: visible 
+}
+
+.popup > a 
+{ 
+	color: blue; 
+	text-decoration: none 
+}
+
+.sbar > a 
+{ 
+	text-decoration:none; 
+	color: #e0e0e0; 
+}
+
+.sbar > a:hover 
+{ 
+	text-decoration-none: 
+	color: red; 
+}
+
+label
+{
+	font-weight: bold;
+}
+
+.compulsory
+{
+	background-color: #ffffc0; 
+}

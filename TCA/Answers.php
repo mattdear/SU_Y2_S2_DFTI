@@ -1,0 +1,166 @@
+DFTI TCA 20/05/2020
+By Matthew Dear
+
+<?php
+//Question 1
+$result = $conn->query ("SELECT * FROM uh_options");
+
+
+//Question 2
+echo "Title: " . $row["name"] . "<br>";
+echo "Description: " . $row["description"] . "<br>";
+echo "Staff Member: " . $row["staff"] . "<br>";
+echo "Number of enrolled Students: " . $row["nstudents"] . "<br>";
+echo "Limit: " . $row["limit"] . "<br>";
+
+
+//Question 3
+echo "<a href='enrol.php?oId=" . $row["ID"] . "'><button>Select" . $row["name"] . "</button></a>";
+
+
+//Question 4
+$id = $_GET["oId"];
+
+
+//Question 5
+$conn->query ("UPDATE uh_options SET nstudents = nstudent +1 WHERE ID = $id");
+
+
+//Question 6
+if(isset($_SESSION["uh_user"])){
+
+} else {
+    echo "You're not logged in";
+}
+
+
+//Question 7a
+$u = $_SESSION["uh_user"];
+
+
+//Question 7b
+$conn->query ("INSERT INTO uh_enrolments (username, option_ID) VALUES ($u , $id)");
+
+
+//Question 8
+$ti = $_POST["option_name"];
+$des = $_POST["option_desc"];
+$staff = $_POST["option_staff"];
+$lim = 40;
+
+
+//Question 9
+$conn->query ("INSERT INTO uh_options (name, description, staff, nstudents, limit) VALUES ($ti, $des, $staff, 0, $lim)");
+
+
+//Question 10
+echo "<a href='question1.php?oId=" . $row["ID"] . "'><button>Ask a question</button></a>";
+
+
+//Question 11
+$id = $_GET["oId"];
+
+
+//Question 12
+echo "<form method='post' action='question2.php'>";
+echo "Question: ";
+echo "<input type='text' name='question'/>";
+echo "<input type='hidden' name='oId' value='" . $id . "'/>";
+echo "<input type='submit' value='Go!' />";
+echo "</form>";
+
+
+//Question 13
+$id = $_POST["oId"];
+$question = $_POST["question"];
+$username = $_SESSION["uh_user"];
+
+$conn->query ("INSERT INTO uh_questions (username, option_ID, question) VALUES ($username, $id, $question)");
+
+
+//Question 14
+$id = $row["ID"];
+
+$result2 = $conn->query ("SELECT * FROM uh_questions WHERE option_ID = $id");
+
+while ($row2 = $result2->fetch()) {
+  echo "ID: " . $row2["ID"] . "<br>";
+  echo "Username: " . $row2["username"] . "<br>";
+  echo "Question: " . $row2["question"] . "<br>";
+}
+
+
+//Question 15
+if ($row["nstudents"] < $row["limit"]) {
+  $conn->query ("UPDATE uh_options SET nstudents = nstudent +1 WHERE ID = $id");
+  $conn->query ("INSERT INTO uh_enrolments (username, option_ID) VALUES ($u , $id)");
+} else {
+  echo "Sorry this course is full.";
+}
+
+
+//Question 16
+//index.php
+echo "<a href='edit1.php?oId=" . $row["ID"] . "'><button>Update unit description</button></a>";
+
+
+//edit1.php
+$id = $_GET["oId"];
+if (isset($_SESSION["uh_utype"]) && $_SESSION["uh_utype"] == 0) {
+  $result = $conn->query ("SELECT * FROM uh_options WHERE ID = $id");
+  $row = $result->fetch();
+  echo "<form method='post' action='edit2.php'>";
+  echo "<label for='description'>Unit description</label>";
+  echo "<textarea name='description'>" . $row["description"] . "</textarea>";
+  echo "<input type='hidden' name='oId' value='" . $id . "'/>";
+  echo "<input type='submit' value='Go!'/>";
+  echo "</form>";
+} else {
+  echo "Sorry you need to be a staff member to do this.";
+}
+
+
+//Question 17
+$id = $_POST["oId"];
+$description = $_POST["description"];
+if (isset($_SESSION["uh_utype"]) && $_SESSION["uh_utype"] == 0) {
+  $conn->query ("UPDATE uh_options SET description = $description WHERE ID = $id");
+} else {
+  echo "Sorry you need to be a staff member to do this.";
+}
+
+
+//Question 18
+//Updated Question 16 answer
+$id = $_POST["oId"];
+$result = $conn->query ("SELECT * FROM uh_options WHERE ID = $id");
+$row = $result->fetch();
+$staffUsername = $row["staff"];
+if (isset($_SESSION["uh_user"]) && $_SESSION["uh_user"] == $staffUsername && isset($_SESSION["uh_utype"]) && $_SESSION["uh_utype"] == 0) {
+  $result2 = $conn->query ("SELECT * FROM uh_options WHERE ID = $id");
+  $row2 = $result->fetch();
+  echo "<form method='post' action='edit2.php'>";
+  echo "<label for='description'>Unit description</label>";
+  echo "<textarea name='description'>" . $row2["description"] . "</textarea>";
+  echo "<input type='hidden' name='oId' value='" . $row2["ID"] . "'/>";
+  echo "<input type='submit' value='Go!'/>";
+  echo "</form>";
+} else {
+  echo "Sorry you need to be the unit owner to do this.";
+}
+
+
+//Updated Question 17 answer
+$id = $_POST["oId"];
+$description = $_POST["description"];
+$result = $conn->query ("SELECT * FROM uh_options WHERE ID = $id");
+$row = $result->fetch();
+$staffUsername = $row["staff"];
+if (isset($_SESSION["uh_user"]) && $_SESSION["uh_user"] == $staffUsername && isset($_SESSION["uh_utype"]) && $_SESSION["uh_utype"] == 0) {
+  $conn->query ("UPDATE uh_options SET description = $description WHERE ID = $id");
+} else {
+  echo "Sorry you need to be the unit owner to do this.";
+}
+
+
+?>

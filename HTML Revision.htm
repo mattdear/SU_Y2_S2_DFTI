@@ -1,0 +1,577 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0076)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=htmlrev.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./HTML Revision_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>Intro to the Unit, HTML, and CSS Revision</h1></div><hr><p>Page 1</p><h1>Structure of an HTML Web Page</h1>
+<ul>
+<li>We start with a DOCTYPE declaring the version of HTML you are using, e.g:
+<pre>&lt;!DOCTYPE html&gt;
+</pre>
+This declares that we are using the latest version of HTML (currently HTML5)</li>
+<li>Other DOCTYPEs exist, e.g. for XHTML</li>
+<li>The actual page always begins with the tag &lt;html&gt;</li>
+<li>Consists of head and body sections, defined by the
+&lt;head&gt; and &lt;body&gt; tags</li>
+<li>The head section contains the page title and other supplementary 
+information</li>
+<li>The body section contains the actual content</li>
+<li>We always need to <em>close</em> sections, e.g. &lt;/head&gt;,
+&lt;/body&gt; and &lt;/html&gt;
+</li>
+</ul>
+<hr><p>Page 2</p><h1>A very simple HTML page</h1>
+<ul>
+<li>e.g:
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;My Home Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+Welcome to my  home page!!!
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</li>
+<li>This gives us the result:
+<pre>Welcome to my  home page!!!</pre>
+</li>
+</ul>
+<hr><p>Page 3</p><h1>Page elements</h1>
+<ul>
+<li>A <em>page element</em> is any item on the page, such as a paragraph,
+heading or image</li>
+<li>Consists of <em>opening</em> and <em>closing</em> tags to start and
+finish a page element</li>
+<li>For example, for a paragraph, we use &lt;p&lt; and &lt;/p&gt;</li>
+<li>e.g.
+<pre>&lt;p&gt;
+Search for your favourite top 40 singles and albums with HitTastic! 
+Whether it's pop, rock or rap you're into, no-one has a wider selection 
+of hits than HitTastic!
+&lt;/p&gt;
+</pre>
+</li>
+</ul>
+<hr><p>Page 4</p><h1>Common tags</h1>
+<ul>
+<li> &lt;p&gt; : paragraph of text</li>
+<li> &lt;h1 -h6&gt; : headings (h1  largest, h6 smallest)</li>
+<li> &lt;header&gt; : A page area for a page's header (containing the title, etc)</li>
+<li> &lt;nav&gt; : A navigation bar</li>
+<li> &lt;section&gt; : A generic page section. Formerly &lt;div&gt; was used for this purpose</li>
+<li> &lt;footer&gt; : A page footer</li>
+</ul>
+<hr><p>Page 5</p><h1>Well-written HTML pages</h1>
+<p>Well-written, modern HTML pages should follow these recommendations</p>
+<ul>
+<li>Write all tags in <em>lower case</em>: &lt;body&gt; not &lt;BODY&gt;</li>
+<li><em>Close all tags</em>: no &lt;p&gt; without &lt;/p&gt; !
+    <ul>
+    <li>If it does not make sense to have a closing tag, e.g. &lt;br&gt;,
+    open and close the tag in one go e.g. &lt;br <em>/</em>&gt;</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 6</p><h1>Lists</h1>
+<ul>
+<li><em>Unordered (&lt;ul&gt;)</em> lists for bullet-points</li>
+<li><em>Ordered(&lt;ol&gt;)</em> lists for numbered points</li>
+<li>&lt;li&gt; (list item) for each individual item in the list</li>
+<li>For example:
+<pre>&lt;h3&gt;Web browsers&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Firefox &lt;/li&gt;
+&lt;li&gt;Chrome &lt;/li&gt;
+&lt;li&gt;Safari &lt;/li&gt;
+&lt;li&gt;IE &lt;/li&gt;
+&lt;li&gt;Opera&lt;/li&gt;
+&lt;li&gt;Konqueror&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</li>
+<li>gives us:
+<h3>Web browsers</h3>
+<ul>
+<li>Firefox</li>
+<li>Chrome</li>
+<li>Safari</li>
+<li>IE</li>
+<li>Opera</li>
+<li>Konqueror</li>
+</ul>
+</li>
+</ul>
+<hr><p>Page 7</p><h1>Images</h1>
+<ul>
+<li>Use the &lt;img&gt; tag</li>
+<li>e.g.
+<pre class="codebox">&lt;img src="myphoto.jpg" alt="My picture!" /&gt;
+</pre>
+</li><li>This loads the image <em>myphoto.jpg</em></li>
+<li>alt specifies alternative text to display if images are turned off
+</li>
+</ul>
+<hr><p>Page 8</p><h1>Links</h1>
+<ul>
+<li>Used to <em>link</em> to other pages - the key feature of the
+World Wide Web</li>
+<li>Use the &lt;a&gt; (anchor) tag</li>
+<li>e.g.
+<pre class="codebox">&lt;a href="http://www.google.com"&gt; Go to Google&lt;/a&gt;
+</pre>
+</li><li>This provides a link to Google when the user clicks on
+<em>Go to Google</em></li>
+</ul>
+<hr><p>Page 9</p><h1>Forms</h1>
+<ul>
+<li><em>Forms</em> are used to gather information from the user</li>
+<li>Declared using the &lt;form&gt; tag</li>
+<li>e.g.
+<pre>&lt;form method="get" action=""&gt;
+</pre>
+</li>
+<li>Everything between &lt;form&gt; and &lt;/form&gt; treated as part of
+the form</li>
+<li>The <em>action</em> is the page on the website which processes the form
+data</li>
+<li>If it's not written, use the blank string ""</li>
+</ul>
+<hr><p>Page 10</p><h1>Types of form input elements</h1>
+<p>These are all used to gather data from the user in different ways:</p>
+<ul>
+<li>Text fields</li>
+<li>Radio buttons</li>
+<li>Drop down lists</li>
+<li>Checkboxes</li>
+<li>Text areas</li>
+</ul>
+<hr><p>Page 11</p><h1>Input elements</h1>
+<ul>
+<li>Specified with the &lt;input&gt; tag </li>
+<li>Each input element has a <em>name</em> attribute, which
+uniquely identifies it</li>
+</ul>
+<hr><p>Page 12</p><h1>Text field</h1>
+<ul>
+<li>Allows the user to enter text</li>
+<li>Example of text field:
+<pre>&lt;input name="email" /&gt;
+</pre>
+</li>
+<li>Here, the text field has a <em>name</em> of <em>email</em>; this
+name uniquely identifies it from all other text fields</li>
+</ul>
+<hr><p>Page 13</p><h1>Drop down lists (select boxes)</h1>
+<ul>
+<li>These are used to make one of many choices</li>
+<li>Preferred to text boxes (more user-friendly) when a user can only make one 
+of a limited number of choices</li>
+<li>Example:
+<pre>&lt;select name="card" &gt;
+&lt;option value="switch"&gt; Switch &lt;/option&gt;
+&lt;option value="mastercard"&gt; Mastercard &lt;/option&gt; 
+&lt;option value="visa"&gt; Visa &lt;/option&gt;
+&lt;/select&gt;
+</pre>
+</li>
+<li>Here, the select box has a <em>name</em> of <em>card</em>; this
+name uniquely identifies it from all other input elements</li>
+</ul>
+<select name="card">
+<option value="switch" selected="selected"> Switch </option>
+<option value="mastercard"> Mastercard </option>
+<option value="visa"> Visa </option>
+</select>
+<br>
+<hr><p>Page 14</p><h1>Submitting the form</h1>
+<ul>
+<li>When a user fills in a form, their data
+is <em>submitted</em> to the website</li>
+<li>Give the user a <em>submit button</em>: an &lt;input&gt; with a type of 
+<em>submit</em></li>
+<li>Common practice to provide a reset button to clear the form
+<pre>&lt;input type="submit" value="Go!"/&gt;
+&lt;input type="reset" value="Clear"/&gt;
+</pre>
+</li>
+<li>e.g.
+<input type="submit" value="Go!">
+<input type="reset" value="Reset">
+</li>
+</ul>
+<hr><p>Page 15</p><h1>Full form example</h1>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;My Home Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;form method="get" action="processform.php"&gt;
+Enter your first name:
+&lt;input name="firstname" /&gt; &lt;br/&gt;
+Enter your last name:
+&lt;input name="lastname" /&gt; &lt;br/&gt;
+Payment Method?  &lt;br/&gt;
+&lt;select name="card" &gt;
+&lt;option value="switch"&gt; Switch &lt;/option&gt;
+&lt;option value="mastercard"&gt; Mastercard &lt;/option&gt; 
+&lt;option value="visa"&gt; Visa &lt;/option&gt;
+&lt;/select&gt;
+&lt;input type="submit" value="Go!"/&gt;
+
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<form action="https://edward2.solent.ac.uk/course/dfti/examples/basic/processform.php" method="get">
+<fieldset>
+<label for="name">Enter your first name:</label> 
+<input name="firstname" id="firstname"> <br>
+<label for="name">Enter your last name:</label> 
+<input name="lastname" id="lastname"> <br>
+Payment Method?
+<select name="card">
+<option value="switch" selected="selected"> Switch </option>
+<option value="mastercard"> Mastercard </option>
+<option value="visa"> Visa </option>
+</select>
+<input type="submit" value="Go!">
+</fieldset>
+</form>
+<hr><p>Page 16</p><h1>Structured Form with Fieldset and Labels</h1>
+<ul>
+<li>It's generally recommended to <em>structure</em> your form by
+placing the form elements
+inside a <em>fieldset</em> with a <em>legend</em> explaining what
+the form's purpose is</li>
+<li>Also it is good to explicitly link the labels to the corresponding
+form fields using the <em>label</em> tag</li>
+<li>e.g. the previous example:
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;My Home Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;form method="get" action="processform.php"&gt;
+&lt;fieldset&gt;
+&lt;legend&gt;Sign up&lt;/legend&gt;
+
+&lt;label for="firstname"&gt;Enter your first name:&lt;/label&gt;
+&lt;input name="firstname" id="firstname"/&gt; &lt;br/&gt;
+&lt;label for="lastname"&gt;Enter your last name:&lt;/label&gt;
+&lt;input name="lastname" id="lastname" /&gt; &lt;br/&gt;
+&lt;label for="card"&gt;Payment Method?  &lt;/label&gt;
+&lt;select name="card" id="card" &gt;
+&lt;option value="switch"&gt; Switch &lt;/option&gt;
+&lt;option value="mastercard"&gt; Mastercard &lt;/option&gt; 
+&lt;option value="visa"&gt; Visa &lt;/option&gt;
+&lt;/select&gt;
+&lt;input type="submit" value="Go!"/&gt;
+
+&lt;/fieldset&gt;
+&lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</li>
+<li>Note how the <em>"for"</em> attribute of a <em>label</em>
+references the <em>id</em> of the corresponding page element, not the
+<em>name</em></li>
+<li>When a user clicks on the label, the corresponding element will be
+focused</li>
+</ul>
+<hr><p>Page 17</p><h1>Cascading Style Sheets (CSS)</h1>
+<ul>
+<li>A <em>separate</em> language to HTML</li>
+<li>Controls <em>look and feel</em> of a web page or website - e.g.
+colours, fonts</li>
+<li>(HTML controls the <em>content and structure</em> of a page)</li>
+<li>Typically resides in a separate file to HTML pages</li>
+<li>We can then <em>import</em> a stylesheet into a web page</li>
+<li>The web page's look and feel will then be determined by the stylesheet</li>
+</ul>
+<hr><p>Page 18</p><h1>A simple Cascading Style Sheet</h1>
+<pre>h1 { color : blue  }
+</pre>
+<ul>
+<li>This Cascading Style Sheet sets all &lt;h1&gt; headings to blue</li>
+<li>Each line of CSS defines the style of a particular tag</li>
+<li>The form of each line is 
+<pre>tag { attribute : value }
+</pre>
+</li> 
+<li>So this CSS is setting the <em>color</em> attribute of <em>&lt;h1&gt;</em>
+headings to blue</li>
+<li>The attributes (font-size, color etc) have <em>different</em> names to
+the HTML equivalents</li>
+</ul>
+<hr><p>Page 19</p><h1>Setting multiple style attributes </h1>
+<ul>
+<li>We can set <em>multiple</em> attributes of one element</li>
+<li>Each attribute:value pair is separated by a semicolon</li>
+<li>e.g.
+<pre>h1 { color : blue; font-size: 200% } 
+</pre>
+</li>
+<li>This will make all &lt;h1&gt; headings blue, and double normal font size
+(200%)</li>
+</ul>
+<hr><p>Page 20</p><h1>Styling multiple page elements</h1>
+<ul>
+<li>We can style <em>multiple page elements</em> in one stylesheet</li>
+<li>e.g
+<pre>h1 { color : blue; font-size: 200% } 
+h2 { background-color: green; font-size : 150% }
+</pre>
+</li>
+<li>This will make all &lt;h1&gt; headings blue, and double normal font size
+(200%)</li>
+<li>... and give all &lt;h2&gt; headings a green background, and 150% normal
+font size</li>
+</ul>
+<hr><p>Page 21</p><h1>Some common attributes</h1>
+<table>
+<tbody><tr> <td>font-size</td><td>Font size</td> </tr> 
+<tr><td>font-family</td><td>Font family (helvetica, arial etc)</td> </tr>
+<tr> <td>font-weight</td><td>Font weight (degree of boldness)</td> </tr>
+<tr> <td>color</td><td>Text colour</td> </tr>
+<tr> <td>background-color</td><td>Background colour</td> </tr>
+<tr> <td>text-align</td><td>Text alignment 
+(use <em>text-align:center</em> to replace CENTER tag)</td> </tr>
+</tbody></table>
+<p>Full specification available via the
+<a href="http://www.w3.org/TR/CSS2">W3C CSS page</a></p>
+<hr><p>Page 22</p><h1>How do we create a CSS file?</h1>
+<ul>
+<li>Save the CSS stylesheet in a file with extension <em>.css</em> e.g.
+<em>simple.css</em></li>
+<li>Add a link to the stylesheet in the web page's &lt;head&gt; section, e.g.
+<pre>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+<em>&lt;link rel="stylesheet" type="text/css" href="simple.css"/&gt;</em>
+&lt;/head&gt;
+&lt;body&gt;
+...
+</pre>
+</li>
+<li>This will set the style of the current web page to the style defined in
+the stylesheet <em>simple.css</em></li>
+<li>Thus any number of pages can easily have the same stylesheet applied to
+them</li>
+<li>... and all will have the same look and feel</li>
+</ul>
+<hr><p>Page 23</p><h1>Multiple elements, same style</h1>
+<ul>
+<li>We can give multiple elements the same style by using a comma e.g.
+<pre>h1,h2,h3 { color : blue }
+</pre>
+</li>
+<li>This will set the colour of all &lt;h1&gt;, &lt;h2&gt; and &lt;h3&gt;
+headings to blue</li>
+</ul>
+<hr><p>Page 24</p><h1>Labelling individual page elements
+</h1>
+<ul>
+<li>We may wish to give <em>individual</em> page elements a particular 
+style</li>
+<li>We can do this by giving a unique element an <em>ID</em>:
+<pre>&lt;p <em>id="para1"</em>&gt;First paragraph, blah blah blah...&lt;/p&gt;
+</pre>
+</li>
+</ul>
+<hr><p>Page 25</p><h1>ID example</h1>
+<ul>
+<li>HTML:
+<pre>&lt;p <em>id="para1"</em>&gt;First paragraph, blah blah blah...&lt;/p&gt;
+</pre>
+</li>
+<li>CSS:
+<pre><em>#para1</em> { background-color: yellow }
+</pre>
+</li>
+<li>We give our paragraph a unique label, "para1"</li>
+<li>... and in the CSS we give our paragraph, identified by the label 
+"para1", a yellow background</li>
+<li>Remember, in the CSS, dot for class, hash for ID!</li>
+</ul>
+<hr><p>Page 26</p><h1>CSS classes</h1>
+<ul>
+<li>Used for styles <em>independent</em> of any particular tag</li>
+<li>Used when we want to give <em>a group of page elements </em>
+a common style</li>
+<li><em>id</em> differs from <em>class</em>:
+	<ul>
+	<li><em>id</em> defines a <em>single page element</em></li>
+	<li><em>class</em> defines a whole <em>group of page elements</em> which
+	share a common style</li>
+	</ul>
+</li>
+</ul>
+<hr><p>Page 27</p><h1>CSS classes example</h1>
+<ul>
+<li>Create an <em>important</em> class which can be applied to <em>any</em>
+tag</li>
+<li>In this case, we leave out the tag in the CSS and just write the class</li>
+<li>CSS:
+<pre><em>.important</em> { color : red }
+</pre>
+</li>
+<li>HTML:
+<pre>&lt;h3 <em>class="important"</em>&gt;SPECIAL NOTICE!&lt;/h3&gt;
+&lt;p <em>class="important"</em> &gt;
+Don't forget to hand in your assignment this week!&lt;/p&gt;
+</pre>
+</li>
+<li>In this example, both paragraph and heading will appear red</li>
+</ul>
+<hr><p>Page 28</p><h1>CSS Positioning</h1>
+<ul>
+<li>With CSS, we can <em>position</em> our page elements 
+at exact places on the page</li>
+<li>Used for page <em>layout</em></li>
+</ul>
+<hr><p>Page 29</p><h1>Floating elements</h1>
+<ul>
+<li>A <em>floating</em> page element is one which will "float" to the left or to the right of its containing element. Any
+content in the containing element "flows" round it.
+<br>
+<img src="./HTML Revision_files/float1.png" alt="Left floating element"> 
+<br>
+</li>
+<li>
+Note how the coloured element is to the left of its containing element and the text "flows" round it. This is achieved by adding
+a <em>float</em> property with a value of <em>left</em> to the CSS:
+<pre>#elem1 
+{
+    width: 10%;
+    background-color: red;
+    color: white;
+    float: left;
+}
+</pre>
+Similarly, floating an element to the right can be achieved with <em>float:right</em>:
+<pre>#elem1 
+{
+    width: 10%;
+    background-color: red;
+    color: white;
+    float: right;
+}
+</pre>
+<img src="./HTML Revision_files/float2.png" alt="Right floating element"> 
+</li>
+</ul>
+<hr><p>Page 30</p><h1>Adjacent floated elements</h1>
+<ul>
+<li>A common scenario we might wish to achieve is to have several block elements, next to each
+other (by default, one block element would appear below the previous one). This can be achieved by applying a 
+<em>float: left</em> (or float: right if we want them to be right-justified) to each 
+element which will give this 
+result:<br>
+
+<img src="./HTML Revision_files/float3.png" alt="Multiple left floating elements"> 
+<br>
+</li>
+<li>
+We give the first element a <em>float: left</em> so it will float to the left of any subsequent content.
+So the second element wraps round the first element, in other words, appears to the right of it. </li>
+<li>Next, this second element itself has
+a <em>float: left</em> property so a third element will wrap round it and appear to the right of it.
+</li>
+<li> Assuming the three
+<em>element</em>s have IDs of <em>elem1</em>, <em>elem2</em> and <em>elem3</em> and they are to occupy 10% of the width of their
+containing element, this CSS would achieve the above effect:
+<pre>#elem1, #elem2, #elem3
+{
+    float: left;
+    width: 10%;
+    background-color: red;
+    color: white;
+}
+</pre>
+</li>
+</ul>
+<hr><p>Page 31</p><h1>Typical sidebar / main content area layout using floats</h1>
+	<ul>
+    <li>Make the sidebar float to the left, giving it a given percentage width of the page. If the sidebar contains images
+    (e.g. a logo) it will be better to give it a pixel width instead (and perhaps use CSS media queries to have an entirely
+    different layout for mobile devices)</li>
+    <li>If that was all that was done, the main content area would wrap round the sidebar in an undesirable manner, e.g: as
+	on this diagram:
+	<br>
+    <img src="./HTML Revision_files/float4.png" alt="Sidebar floating to left without margin on main content"> 
+	<br>
+	</li>
+	<li>
+    What we want is for <em>the whole of the main content area to appear to the right of the sidebar</em>. This can be 
+    achieved by giving the main content area a <em>margin-left</em> (left margin) equal to at least the specified width
+    of the sidebar. This margin, will shift the content of the main element over to the right, and it will appear correctly.
+    When specifying margins, floating elements are ignored when calculating where to place the content, so the content of
+    the main element will appear immediately adjacent to the floating element rather than the specified margin width to the
+    right of it. Thus we get the correct result as seen below.
+	<br>
+	<img src="./HTML Revision_files/float5.png" alt="Sidebar floating to left with margin on main content"> 
+	<br>
+	</li>
+	</ul>
+<hr><p>Page 32</p><h1>Clearing elements</h1>
+<ul>
+<li>There may be situations where we want to float an element to the left or to the right, but to have the adjacent content
+<em>below</em> the element, rather than wrapping round, as shown below:
+<img src="./HTML Revision_files/float6.png" alt="Cleared element">
+</li>
+<li> 
+In this case we place the adjacent content in its own <em>section</em>
+(<em>elem2</em> here) and give this <em>section</em> a <em>clear</em> property.
+There are three values for <em>clear</em>:
+    <ul>
+    <li><em>clear:left</em> The element will appear below any adjacent <em>left</em> floated element.</li>
+    <li><em>clear:right</em> The element will appear below any adjacent <em>right</em> floated element.</li>
+    <li><em>clear:both</em> The element will appear below both <em>left</em> and <em>right</em> floated elements.</li>
+    </ul>
+For example the layout above could be achieved with this CSS, where <em>elem2</em> contains the content we wish to appear
+below <em>elem1</em>:
+<pre>#elem1 
+{
+    float: left;
+    width: 10%;
+    background-color: red;
+    color: white;
+}
+
+#elem2 
+{
+    clear: left;
+}
+</pre>
+</li>
+</ul>
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./HTML Revision_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=htmlrev.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=htmlrev.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=htmlrev.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=htmlrev.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>

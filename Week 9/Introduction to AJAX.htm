@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0077)https://edward2.solent.ac.uk/course/resources.php?unit=dfti&file=lecture9.xml -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="./Introduction to AJAX_files/dfti0910.css">
+<style type="text/css">
+body { font-size: 80%}
+</style>
+</head><body>
+<div id="sidebar">
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/index.php?unit=dfti">DFTI</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/wad/">WAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/mad/">MAD</a>
+<a class="sidebarentry" href="https://edward2.solent.ac.uk/course/ema/">EMA</a>
+</div>
+<div id="main">
+
+<div class="subtitle"><h1>AJAX - Introduction</h1></div><hr><p>Page 1</p><h1>AJAX - Introduction</h1>
+<ul>
+<li>What is AJAX and how do AJAX applications 
+differ from traditional web applications?</li>
+<li>JavaScript Revision</li>
+<li>How does AJAX work and how do you write AJAX code?</li>
+<li>Problems with AJAX</li>
+</ul>
+<hr><p>Page 2</p><h1>Architecture of a "classic" web application</h1>
+<p><img src="./Introduction to AJAX_files/ajax1.png" alt="Client-Server architecture of a web application"></p>
+<hr><p>Page 3</p><h1>The problem with "classic" web applications</h1>
+<ul>
+<li>No <em>instant</em> feedback to the user</li>
+<li>When the web application's state changes (e.g. it responds to user input 
+in a form), the page is <em>reloaded</em> in the browser</li>
+<li>This is because when a form is submitted, the server sends back a 
+<em>whole new HTML page</em> as a response</li>
+<li>So web applications feel less responsive than desktop applications</li>
+</ul>
+<hr><p>Page 4</p><h1>An alternative approach - AJAX</h1>
+<ul>
+<li><em>A</em>synchronous <em>J</em>avaScript <em>a</em>nd <em>X</em>ML</li>
+<li>Allows browsers 
+to communicate with a web server <em>without having to reload the page</em></li>
+<li>Requests to the server are sent, and responses received, in the background 
+without any interruption to the user's interaction with the website 
+    <ul>
+    <li>...so the web application appears much more responsive from the
+    user's perspective!</li>
+    </ul>
+</li>
+<li>Uses a combination of technologies, including JavaScript, server side
+scripting and XML (of which more later)</li> 
+</ul>
+<hr><p>Page 5</p><h1>AJAX</h1>
+<p><img src="./Introduction to AJAX_files/ajax2.png" alt="AJAX - mechanism of operation"></p>
+<hr><p>Page 6</p><h1>Revision: Traditional Use of JavaScript</h1>
+<ul>
+<li>JavaScript has typically been used for client-side <em>interactivity</em> 
+in web pages</li>
+<li>JavaScript on a page typically does two things:
+    <ul>
+    <li>Responds to <em>events</em> - interaction between the user and the 
+    page, e.g. the user clicking a button</li>
+    <li><em>Manipulates</em>
+    the page in some way e.g. changes background colour of a 
+    link, changes text in a paragraph</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 7</p><h1>General JavaScript I - Events</h1>
+<ul>
+<li>As discussed above, AJAX sends requests to the server in response to
+<em>events</em></li>
+<li>An event is an occurrence of user interaction with the page e.g. clicking
+a button or moving the mouse over an image</li>
+<li>Example:
+<pre>&lt;input type="button" onclick="hello()" /&gt;
+</pre>
+This will call the JavaScript function <em>hello()</em> when the user
+clicks on the button</li>
+<li>Example <a href="https://edward2.solent.ac.uk/course/dfti/examples/js/javascript1.html">here</a> </li>
+</ul>
+<hr><p>Page 8</p><h1>General JavaScript II - Functions</h1>
+<ul>
+<li>A JavaScript <em>function</em> is a piece of code which typically runs
+in response to an event</li>
+<li>e.g. to continue the previous example:
+<pre>function hello()
+{
+    alert('hello!');
+}
+</pre>
+</li>
+<li>This function brings up an alert box reading <em>hello!</em></li>
+<li>Because we linked it to the button on the previous page, the result will
+be that the alert box will come up when the user clicks the button</li>
+<li>Example <a href="https://edward2.solent.ac.uk/course/dfti/examples/js/javascript1.html">here</a> 
+(same example as previous slide) </li>
+</ul>
+<hr><p>Page 9</p><h1>Changing the content of a web page</h1>
+<ul>
+<li>JavaScript is also used to <em>change the content of a web page</em></li>
+<li>In HTML, we can give individual page elements an <em>ID</em> e.g. a paragraph:
+<pre>&lt;p <em>id="para1"&gt;</em>This is a paragraph with an ID of para1&lt;/p&gt;
+</pre>
+</li>
+<li>or a &lt;div&gt; (page division):
+<pre>&lt;div <em>id="div1"&gt;</em>This is a div with an ID of div1&lt;/p&gt;
+</pre>
+</li>
+<li>Then in JavaScript, we can reset the contents of a page element with a 
+particular ID using <em>document.getElementById()</em>, e.g:
+<pre>document.getElementById('para1').innerHTML = 'Here is the NEW text for para1 !!!';
+</pre>
+</li>
+<li>Or, we can change colours, fonts etc by manipulating the element's 
+<em>stylesheet</em> e.g.
+<pre>document.getElementById('div1').style.backgroundColor = 'red';
+document.getElementById('div1').style.color = 'white';
+</pre>
+</li>
+</ul>
+<hr><p>Page 10</p><h1>Example of using JavaScript to change the contents and style
+of a web page</h1>
+<ul>
+<li>Example <a href="https://edward2.solent.ac.uk/course/dfti/examples/js/javascript2.html">here</a> </li>
+<li>The colour of the div changes when we click the first button</li>
+<li>The content of the div changes when we click the second button</li> 
+<li><em>AJAX works in much the same way, with the additional step of 
+requesting data from a server</em></li>
+</ul>
+<hr><p>Page 11</p><h1>How AJAX Works - Part 1 - Sending the Request</h1>
+<ul>
+<li>AJAX is really just an extension of the ideas on the previous few slides, with
+the added step of communicating with a server</li>
+<li>User interacts with the page in some way e.g. clicks a button</li>
+<li>JavaScript runs, and sends a request to a server in the 
+background</li>
+<li>Server-side script processes the request, and sends back data
+    <ul>
+    <li>This may be HTML, plain text or JSON (more later)</li>
+    </ul>
+</li>
+</ul>
+<hr><p>Page 12</p><h1>How AJAX Works - Part 2 - Receiving the Response</h1>
+<ul>
+<li>JavaScript on the client receives the response</li>
+<li>The response
+is used to change the state of the page in some way</li>
+<li>For example, the server could send back a fragment of HTML and 
+JavaScript on the client could replace the text in a paragraph with the
+HTML returned </li>
+<li><em>In this way, pages dynamically update with data from a server without 
+having to reload</em> </li>
+</ul>
+<hr><p>Page 13</p><h1>Typical structure of AJAX code</h1>
+<ul>
+<li>An AJAX application typically contains two JavaScript functions</li>
+<li>The first gathers the information from the user and sends off a request to a
+server-side script (e.g. a PHP script)</li>
+<li>The second - the <em>callback</em> - runs when the <em>response is received</em> from
+the server, and updates the page with the response</li>
+<li>The server-side script involved is no different to an ordinary 
+server-side script: if it's PHP,
+it uses $_GET or $_POST (depending on whether we're sending a GET request or a 
+POST
+request) to read the data, then queries a database and sends back the results</li>
+</ul>
+<hr><p>Page 14</p><h1>Example AJAX code - Flight boooking</h1>
+<ul>
+<li>See <a href="https://edward2.solent.ac.uk/course/dfti/examples/js/ajaxexample.html">here</a></li>
+<li>This is the first screen of a flight booking application, allowing a user to search
+for flights by destination and date</li>
+<li>Here, <em>ajaxrequest()</em> 
+gathers the information from the user and sends the request...
+</li>
+<li>...whilst <em>responseReceived()</em> is the callback, 
+receiving the response from the server and using it
+to update the page</li>
+<li><em>ajaxrequest()</em> 
+will run on response to the user clicking an HTML button</li>
+<li>We can query the <em>xmlHTTP</em> variable in the callback to retrieve the
+response from the server</li>
+<li>The code is commented; select View Source for more explanation on how
+the code works</li>
+</ul>
+<hr><p>Page 15</p><h1>Example - flight booking</h1>
+<ul>
+<li>Note there are two files, a JavaScript file (ajax.js) and an HTML file
+(ajaxexample.html).</li>
+<li>We use a &lt;script&gt; tag within the HTML file to
+link in the JavaScript.</li>
+<li>Note how we link the AJAX search button to the <em>ajaxrequest</em> 
+function in the <em>window.onload</em> function. The <em>window.onload</em> function runs when the page first loads (we are writing a function to respond to the 'load' event of the browser, which occurs when the page loads)
+</li>
+<li>This approach means cleaner and less cluttered code compared to adding
+the 'onclick' event within the HTML as in the previous example</li>
+<li>Code: JavaScript (ajax.js):
+<pre>// JavaScript: ajax.js
+
+// Link the button to the ajaxrequest function when the page loads
+window.onload = function() {
+	document.getElementById('ajaxbtn').addEventListener('click', ajaxrequest);
+}
+
+function ajaxrequest()
+{
+    // Create the XMLHttpRequest variable.
+    // This variable represents the AJAX communication between client and
+    // server.
+    var xhr2 = new XMLHttpRequest();
+
+    // Read the data from the form fields.
+    var a = document.getElementById("destination").value;
+    var b = document.getElementById("date").value;
+
+    // Specify the CALLBACK function. 
+    // When we get a response from the server, the callback function will run
+    xhr2.addEventListener ("load", responseReceived);
+
+    // Open the connection to the server
+    // We are sending a request to "flights.php" in the same folder
+    // and passing in the 
+    // destination and date as a query string. 
+    xhr2.open('GET',
+        'flights.php?destination=' + a + '&amp;date=' + b);
+
+    // Send the request.
+    xhr2.send();
+}
+
+// The callback function
+// It simply places the response from the server in the div with the ID
+// of 'response'.
+
+// The parameter "e" contains the original XMLHttpRequest variable as
+// "e.target".
+// We get the actual response from the server as "e.target.responseText"
+function responseReceived(e)
+{
+    document.getElementById('response').innerHTML = e.target.responseText;
+}
+</pre>
+</li>
+<li>HTML (ajaxexample.html):
+<pre>&lt;html&gt;&lt;head&gt;
+&lt;title&gt;Solent Airways! - AJAX Demo&lt;/title&gt;
+
+&lt;style type='text/css'&gt;
+body { font-family: Calibri, DejaVu Sans, sans-serif; }
+#response { background-color: #ffffc0; width:400px; height:400px; }
+&lt;/style&gt;
+
+&lt;!-- Link in the ajax.js JavaScript file --&gt;
+&lt;script type='text/javascript' src='ajax.js'&gt;
+
+
+&lt;/script&gt;
+
+&lt;/head&gt;
+
+
+&lt;body&gt;
+
+&lt;h1&gt;Solent Airways!&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;Select View Source for a commented explanation of how the code works.
+&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Try the following:
+    &lt;ul&gt;
+    &lt;li&gt;Destination Denver, date 06/09/2011&lt;/li&gt;
+    &lt;li&gt;Destination Barcelona, date 07/07/2010&lt;/li&gt;
+    &lt;li&gt;Destination Alicante, date 04/09/2008&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/p&gt;
+&lt;p&gt;
+Destination:&lt;br/&gt;
+&lt;input id="destination" /&gt; &lt;br/&gt;
+Date:&lt;br/&gt;
+&lt;input id="date" /&gt; &lt;br/&gt;
+&lt;input type="button" value="Go!" id='ajaxbtn' /&gt;
+&lt;/p&gt;
+
+&lt;div id="response"&gt;&lt;/div&gt;
+
+&lt;/body&gt;&lt;/html&gt;
+</pre>
+</li>
+</ul>
+<hr><p>Page 16</p><h1>Live example - flight booking</h1>
+<ul>
+<li><a href="https://edward2.solent.ac.uk/course/dfti/examples/js/ajaxexample.html">Flight booking</a></li>
+</ul>
+<hr><p>Page 17</p><h1>POST requests from AJAX</h1>
+<ul>
+<li>To send POST requests from AJAX, you need to create a
+<em>FormData</em> object and then <em>append</em> each item of POST data
+to it.</li>
+<li> The example below will create three items of POST data,
+<em>flightnumber</em>, <em>origin</em> and <em>destination</em>, and send them
+to <em>newflight.php</em>.</li>
+<li> Note how the FormData object is supplied as a
+parameter to the <em>ajaxConnection.send()</em> function. In the PHP script, we'd then
+read the data using <em>$_POST["flightnumber"]</em>, 
+<em>$_POST["origin"]</em> and <em>$_POST["destination"]</em>.
+<pre>var ajaxConnection = new XMLHttpRequest();
+<em>var data = new FormData();</em>
+<em>data.append("flightnumber", "SA177");</em>
+<em>data.append("origin", "London");</em>
+<em>data.append("destination", "Denver");</em>
+ajaxConnection.addEventListener("load", { ... callback function ... } );
+ajaxConnection.open("POST", "newflight.php");
+ajaxConnection.send(<em>data</em>);</pre>
+</li>
+</ul>
+<hr><p>Page 18</p><h1>New Development - Fetch API</h1>
+<ul>
+<li>There is a new-style way of doing AJAX called the <em>Fetch API</em>,
+which is available on newer browsers</li>
+<li>Will not be presented in detail here, but see
+<a href="https://developers.google.com/web/updates/2015/03/introduction-to-fetch">
+here</a> for more information</li>
+<li>It's more difficult to understand conceptually, but very concise if
+you know the underlying principles (promises)</li>
+</ul>
+<hr><div id="nav">
+		<a href="https://edward2.solent.ac.uk/course/index.php">
+		<img src="./Introduction to AJAX_files/home.png" alt="Home">
+		</a>
+		</div>
+		<em>Font size:</em> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture9.xml&amp;unit=dfti&amp;fs=60">Small</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture9.xml&amp;unit=dfti&amp;fs=80">Normal</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture9.xml&amp;unit=dfti&amp;fs=100">Large</a> <a href="https://edward2.solent.ac.uk/course/resources.php?file=lecture9.xml&amp;unit=dfti&amp;fs=120">V.large</a> <p></p>
+
+
+</div></body></html>
